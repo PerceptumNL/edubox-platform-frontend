@@ -1,5 +1,7 @@
 # eduraam (frontend)
 
+![code build status](https://travis-ci.org/PerceptumNL/edubox-platform-frontend.svg)
+
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
 version 0.14.0.
 
