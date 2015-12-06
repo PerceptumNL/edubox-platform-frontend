@@ -14,13 +14,18 @@ angular
     'ngAria',
     'ngCookies',
     'ngMessages',
-	'ngMaterial',
+    'ngMaterial',
     'ngResource',
     'ngRoute',
     'ngSanitize',
     'ngTouch'
   ])
-  .config(function ($routeProvider) {
+  .config(function ($routeProvider, $sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      /https:\/\/[[a-z.-_]+.app.eduraam.nl\//,
+      /http:\/\/[[a-z.-_]+.app.eduraam.nl\//
+    ]);
     $routeProvider
       .when('/', {
         templateUrl: 'views/apps.html',

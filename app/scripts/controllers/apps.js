@@ -20,7 +20,7 @@ var eduraam_apps_mock = [
 		'name':'leestmeer',
 		'description': "Lekker lezen met behulp van deze leuke app.",
 		'logo': "http://www.leestmeer.nl/LeestmeerLogo.png",
-		'url': "http://www.leestmeer.nl.app.eduraam.nl"
+		'url': "http://platform.leestmeer.nl.app.eduraam.nl"
 	}
 ];
 
@@ -28,8 +28,8 @@ angular.module('eduraamApp')
   .controller('AppsCtrl', ['$scope', '$location', '$routeParams', '$sce',
 		function ($scope, $location, $routeParams, $sce) {
 			if( 'id' in $routeParams && $routeParams['id'] !== ""){
-				$scope.app_routed_url = $sce.trustAsResourceUrl(
-						eduraam_apps_mock[parseInt($routeParams['id'])].url);
+				$scope.app_routed_url =
+					eduraam_apps_mock[parseInt($routeParams['id'])].url;
 
 			}else{
 				$scope.loadApp = function(app_id){
