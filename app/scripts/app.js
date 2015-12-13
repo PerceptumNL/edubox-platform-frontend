@@ -23,8 +23,8 @@ angular
   .config(function ($routeProvider, $sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-      /https:\/\/[[a-z.-_]+.app.eduraam.nl\//,
-      /http:\/\/[[a-z.-_]+.app.eduraam.nl\//
+      /https?:\/\/accounts.eduraam.nl\//,
+      /https?:\/\/[[a-z.-_]+.app.eduraam.nl\//,
     ]);
     $routeProvider
       .when('/', {
@@ -34,6 +34,11 @@ angular
       .when('/app/:id/', {
         templateUrl: 'views/app.html',
         controller: 'AppsCtrl',
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
       })
       .otherwise({
         redirectTo: '/'
