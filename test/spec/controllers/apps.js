@@ -17,7 +17,7 @@ describe('Controller: AppsCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(AppsCtrl.awesomeThings.length).toBe(3);
+  it('should attach a list of apps to the scope', function () {
+    expect(scope.apps.length).toBe(2);
   });
 });
