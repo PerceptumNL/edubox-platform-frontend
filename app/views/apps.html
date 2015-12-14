@@ -1,8 +1,7 @@
-<div ng-controller="AppsCtrl" layout="row" layout-wrap>
+<div ng-controller="AppsCtrl" layout="row" layout-wrap class='app-list'>
 	<md-card ng-repeat="app in apps" flex-sm="grow" flex-md="45" flex-gt-md="30"
-		ng-click="loadApp(app.id)" style='height: 200px;'>
-		<img ng-src="{{app.logo}}" class="md-card-image" alt="{{app.name}}"
-				style='width: 90%; margin: 5%'>
+		ng-click="loadApp(app.id)">
+		<img ng-src="{{app.logo}}" class="md-card-image" alt="{{app.name}}" />
 		<md-card-footer style="border-top: thin solid #333;">
 			{{app.description}}
 		</md-card-footer>
