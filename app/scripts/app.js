@@ -18,7 +18,6 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
   ])
   .config(function ($routeProvider, $sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
