@@ -12,14 +12,14 @@ var eduraamAppsMock = [
 		'id': 0,
 		'name':'duolingo',
 		'description': 'Leer nieuwe talen met behulp van deze leuke app.',
-		'logo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Duolingo_logo.svg/2000px-Duolingo_logo.svg.png',
+		'logo': '/images/quiz.svg',
 		'url': 'https://www.duolingo.com.app.eduraam.nl'
 	},
 	{
 		'id': 1,
 		'name':'leestmeer',
 		'description': 'Lekker lezen met behulp van deze leuke app.',
-		'logo': 'http://www.leestmeer.nl/LeestmeerLogo.png',
+		'logo': '/images/ebook.svg',
 		'url': 'http://platform.leestmeer.nl.app.eduraam.nl'
 	}
 ];
