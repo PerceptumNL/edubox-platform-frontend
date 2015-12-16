@@ -25,8 +25,9 @@ var eduraamAppsMock = [
 ];
 
 angular.module('eduraamApp')
-  .controller('AppsCtrl', ['$scope', '$location', '$routeParams',
-		function ($scope, $location, $routeParams) {
+  .controller('AppsCtrl', ['$scope', '$location', '$routeParams', 'Apps',
+		function ($scope, $location, $routeParams, Apps) {
+			var apps = Apps.all(function(){});
 			if( 'id' in $routeParams && $routeParams.id !== ''){
 				$scope.appRoutedUrl =
 					eduraamAppsMock[parseInt($routeParams.id)].url;
