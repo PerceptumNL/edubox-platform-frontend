@@ -1,15 +1,21 @@
-<div ng-controller="AppsCtrl" layout="row" layout-wrap class='app-list'>
-	<md-card ng-repeat="app in apps" flex-xs="grow" flex-sm="45" flex-md="40"
-	flex-gt-lg="35"
-		ng-click="loadApp(app.id)">
-		<md-card-title>
-		  <md-card-title-text>
-			<span class="md-headline">{{app.name}}</span>
-			<span class="md-subhead">{{app.description}}</span>
-		  </md-card-title-text>
-		  <md-card-title-media>
-			<div class="md-media-sm card-media" ng-include="app.logo"></div>
-		  </md-card-title-media>
-		</md-card-title>
-	</md-card>
+<div ng-controller="AppsCtrl" layout-fill class='app-list'>
+	<md-content flex="grow">
+		<section ng-repeat="(group, apps) in groups">
+			<md-subheader class="md-primary">{{group}}</md-subheader>
+			<div layout-wrap layout="row">
+			<md-card ng-repeat="app in apps" flex-xs="grow" flex-sm="45"
+				flex-md="40" flex-gt-lg="25" ng-click="loadApp(app.id)">
+				<md-card-title>
+				  <md-card-title-text>
+					<span class="md-headline">{{app.name}}</span>
+					<span class="md-subhead">{{app.description}}</span>
+				  </md-card-title-text>
+				  <md-card-title-media>
+					<div class="md-media-sm card-media" ng-include="app.icon"></div>
+				  </md-card-title-media>
+				</md-card-title>
+			</md-card>
+		</div>
+		</section>
+	</md-content>
 </div>
