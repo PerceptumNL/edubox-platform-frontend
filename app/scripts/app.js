@@ -18,6 +18,7 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
+    'environment',
   ])
   .config(function ($routeProvider, $sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
@@ -42,4 +43,22 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .config(function (envServiceProvider) {
+	  envServiceProvider.config({
+		  domains: {
+			  development: ['localhost'],
+			  production: ['platform.eduraam.nl']
+		  },
+		  vars: {
+			  development: {
+				  apiUrl: '//localhost:8000/api'
+			  },
+			  production: {
+				  apiUrl: '//api.eduraam.nl'
+			  }
+		  }
+	  });
+
+	  envServiceProvider.check();
   });
