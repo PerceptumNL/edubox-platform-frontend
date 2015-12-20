@@ -19,6 +19,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'environment',
+	'http-auth-interceptor',
   ])
   .config(function ($routeProvider, $sceDelegateProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
@@ -61,4 +62,10 @@ angular
 	  });
 
 	  envServiceProvider.check();
+  })
+  .constant('USER_ROLES', {
+	  all: '*',
+	  admin: 'admin',
+	  teacher: 'teacher',
+	  student: 'student'
   });
