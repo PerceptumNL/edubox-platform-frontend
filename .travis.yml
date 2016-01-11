@@ -8,3 +8,10 @@ before_script:
   - 'npm install -g bower grunt-cli'
   - 'bower install'
   - 'gem install compass'
+deploy:
+  provider: heroku
+  app: frontend-eduraam-staging
+  buildpack: ruby
+  skip_cleanup: true
+  api_key:
+    secure: BSd1TSsN0+gBgfGbGysX8TEkeMWYQ+bJh2EGO8XgErZSdWSrUxR7osgRKbBMyi24DjRGWqXb0/gY0vKZtZa0IjsaYnW132d0z6vN/eF4rroq2pWEy4sz4hM/MeFVd7wz/vV43r9VPweN0i5xYkhVo6uWc0kena9PE46y3A1OcRHN9OREE7e+Prm75wvuERPKpw8hdjk4OVMl67eDOKslSpW2ImrVXL+STNtyPvTLu6SsBzhnKP5YNA13pHFMPTqHymIOt2OMwg2ihHlx3y5r7MFnBwva9YBU6r0jeM1jpoDA+ZAXe9qMvozwYbwKIzpSzHygVT2z3LxvmCfOdMB5DTRViEMq8P1xCXqjXQ8Z0oEklaqIlq1npld5tYpOVQVaexLsA4tpB32APzlOrLHuSJm4Hs5JPSU5c8wErjuTdXDtKf9WrRBl7KQHXtkEqlQxUAAAg2CxA/aSw4tbfWv7CvuUv4wfdXW2EqnFlFWYQmqtfT0Wn3OxQGYPAJg/f7o+5Ky0AYHU02AAI8CWfaT4fYydRu3FoMdgEPnwSu23op7IzhEjhMKao+1jxoxv89N0/jFg/tamxkhI1D3JtIuyUK64L54odW5Ij6QdUaRKHYCHOpBxd19Ac67UKEbbZPC8WKsVybdxRz4RooytawjXuoRTmO1gWcZhza8r63DkZUc=
