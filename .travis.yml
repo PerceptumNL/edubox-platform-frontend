@@ -1,17 +1,17 @@
 sudo: false
 language: node_js
 node_js:
-  - 'iojs'
-  - '0.12'
-  - '0.10'
+- iojs
+- '0.12'
+- '0.10'
 before_script:
-  - 'npm install -g bower grunt-cli'
-  - 'bower install'
-  - 'gem install compass'
+- npm install -g bower grunt-cli
+- bower install
+- gem install compass
 deploy:
   provider: heroku
   app: frontend-eduraam-staging
   buildpack: ruby
   skip_cleanup: true
   api_key:
-    secure: BSd1TSsN0+gBgfGbGysX8TEkeMWYQ+bJh2EGO8XgErZSdWSrUxR7osgRKbBMyi24DjRGWqXb0/gY0vKZtZa0IjsaYnW132d0z6vN/eF4rroq2pWEy4sz4hM/MeFVd7wz/vV43r9VPweN0i5xYkhVo6uWc0kena9PE46y3A1OcRHN9OREE7e+Prm75wvuERPKpw8hdjk4OVMl67eDOKslSpW2ImrVXL+STNtyPvTLu6SsBzhnKP5YNA13pHFMPTqHymIOt2OMwg2ihHlx3y5r7MFnBwva9YBU6r0jeM1jpoDA+ZAXe9qMvozwYbwKIzpSzHygVT2z3LxvmCfOdMB5DTRViEMq8P1xCXqjXQ8Z0oEklaqIlq1npld5tYpOVQVaexLsA4tpB32APzlOrLHuSJm4Hs5JPSU5c8wErjuTdXDtKf9WrRBl7KQHXtkEqlQxUAAAg2CxA/aSw4tbfWv7CvuUv4wfdXW2EqnFlFWYQmqtfT0Wn3OxQGYPAJg/f7o+5Ky0AYHU02AAI8CWfaT4fYydRu3FoMdgEPnwSu23op7IzhEjhMKao+1jxoxv89N0/jFg/tamxkhI1D3JtIuyUK64L54odW5Ij6QdUaRKHYCHOpBxd19Ac67UKEbbZPC8WKsVybdxRz4RooytawjXuoRTmO1gWcZhza8r63DkZUc=
+    secure: TYGLNO0vokgU3tQos7XcRRx8oEWE2lyG5O2akY8gxO3sEShqmGh4M2su/0AJ9ap5k2VcVZeNcdmpGe09/ENkQAvMVhFkMUxG4pdiNRjh1NLuLCnLKfJ0Mfg2UruOi+85tn3k5E06ymDCqD16AVAiKkdwNZ+fG/blm8kjOoOzkbZwctHE9Xeh2Ry+BRweawr3lYOLF9azcKqC8Cf1mersAiiCucFzYgCWC93PokZuCoTLl2SYT4EZRJ7P1u16S7jCfcVq6gs/6zvrlpgW3K/M1n1F10hGwuXm1OyctIiF4c5+QkWAx3pAbqYvjB6xPJAsbwm6FZy/M2J4mln8bpKWu/6DMgc/HEsxry37gkf/IzH2TvKHHKnjPNvxKtKw0aoTydlUS7uToGLdLX4W5SeQLDAcwwP/OIoyeokBbM8dUxy4QBBfv/RX8gs8E0KUay0EyWbn5Rkc3rxGGvKsUlFD+GLVwvxL/QdAAVexgEUB0DMQ8npPRlSe1uQwjR4tbhXs2zY51dlD7E2WKGue27aVbwmUd0I67Uc50Xk4LyTuzVzR97V9m0DrDFyHNKY+C0OxAoXokyid/rsjC9nGExagr8BcdgoqcMVJPnDPUo4WWxgoSTmx/25s7I35QtFiIwWMtomgJ6iQYYihunNm9uC6oZRsro42bp/r+ARkL84X5cY=
