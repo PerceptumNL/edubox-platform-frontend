@@ -28,12 +28,12 @@ angular
     ]);
     $routeProvider
       .when('/', {
-        templateUrl: 'views/apps.html',
-        controller: 'AppsCtrl',
+        templateUrl: 'views/app_list.html',
+        controller: 'AppListCtrl',
       })
-      .when('/app/:id/', {
+      .when('/apps/:group/:app/', {
         templateUrl: 'views/app.html',
-        controller: 'AppsCtrl',
+        controller: 'AppCtrl',
       })
       .when('/login', {
         templateUrl: 'views/login.html',
@@ -52,10 +52,12 @@ angular
 		  },
 		  vars: {
 			  development: {
-				  apiUrl: '//localhost:8000/api'
+				  apiUrl: '//localhost:8000/api',
+				  launchUrl: '//localhost:8000/launch'
 			  },
 			  production: {
-				  apiUrl: '//api.eduraam.nl'
+				  apiUrl: '//api.eduraam.nl',
+				  launchUrl: '//launch.eduraam.nl'
 			  }
 		  }
 	  });
