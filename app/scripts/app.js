@@ -20,9 +20,32 @@ angular
     'ngSanitize',
     'environment',
   ])
-  .config(function ($routeProvider, $sceDelegateProvider) {
+  .config(function (envServiceProvider) {
+	  envServiceProvider.config({
+		  domains: {
+			  development: ['localhost'],
+			  production: ['platform.eduraam.nl']
+		  },
+		  vars: {
+			  development: {
+				  apiUrl: '//localhost:8000/api',
+				  launchUrl: '//localhost:8000/launch',
+				  launchUrlRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/[0-9]+\//
+			  },
+			  production: {
+				  apiUrl: '//api.eduraam.nl',
+				  launchUrl: '//launch.eduraam.nl',
+				  launchUrlRegex: /https?:\/\/launch.eduraam.nl\/[0-9]+\/[0-9]+\//
+			  }
+		  }
+	  });
+
+	  envServiceProvider.check();
+  })
+  .config(function ($routeProvider, $sceDelegateProvider, envServiceProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
+	  envServiceProvider.read('launchUrlRegex'),
       /https?:\/\/accounts.eduraam.nl\//,
       /https?:\/\/[[a-z.-_]+.app.eduraam.nl\//,
     ]);
@@ -43,24 +66,4 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  })
-  .config(function (envServiceProvider) {
-	  envServiceProvider.config({
-		  domains: {
-			  development: ['localhost'],
-			  production: ['platform.eduraam.nl']
-		  },
-		  vars: {
-			  development: {
-				  apiUrl: '//localhost:8000/api',
-				  launchUrl: '//localhost:8000/launch'
-			  },
-			  production: {
-				  apiUrl: '//api.eduraam.nl',
-				  launchUrl: '//launch.eduraam.nl'
-			  }
-		  }
-	  });
-
-	  envServiceProvider.check();
   });
