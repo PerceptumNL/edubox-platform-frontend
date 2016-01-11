@@ -8,6 +8,8 @@ before_script:
 - npm install -g bower grunt-cli
 - bower install
 - gem install compass
+before_deploy:
+- grunt build
 deploy:
   provider: heroku
   buildpack: ruby
