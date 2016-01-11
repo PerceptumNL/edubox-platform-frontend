@@ -19,34 +19,36 @@ angular
     'ngRoute',
     'ngSanitize',
     'environment',
-	'http-auth-interceptor',
+    'http-auth-interceptor',
   ])
   .config(function (envServiceProvider) {
-	  envServiceProvider.config({
-		  domains: {
-			  development: ['localhost'],
-			  production: ['platform.eduraam.nl', 'staging.eduraam.nl']
-		  },
-		  vars: {
-			  development: {
-				  apiUrl: '//localhost:8000/api',
-				  launchUrl: '//localhost:8000/launch',
-				  launchUrlRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/[0-9]+\//
-			  },
-			  production: {
-				  apiUrl: '//api.eduraam.nl',
-				  launchUrl: '//launch.eduraam.nl',
-				  launchUrlRegex: /https?:\/\/launch.eduraam.nl\/[0-9]+\/[0-9]+\//
-			  }
-		  }
-	  });
+    envServiceProvider.config({
+      domains: {
+        development: ['localhost'],
+        production: ['platform.eduraam.nl', 'staging.eduraam.nl']
+      },
+      vars: {
+        development: {
+          apiUrl: '//localhost:8000/api',
+          accountsUrl: '//localhost:8000/accounts',
+          launchUrl: '//localhost:8000/launch',
+          launchUrlRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/[0-9]+\//
+        },
+        production: {
+          apiUrl: '//api.eduraam.nl',
+          accountsUrl: '//accounts.eduraam.nl',
+          launchUrl: '//launch.eduraam.nl',
+          launchUrlRegex: /https?:\/\/launch.eduraam.nl\/[0-9]+\/[0-9]+\//
+        }
+      }
+    });
 
-	  envServiceProvider.check();
+    envServiceProvider.check();
   })
   .config(function ($routeProvider, $sceDelegateProvider, envServiceProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-	  envServiceProvider.read('launchUrlRegex'),
+      envServiceProvider.read('launchUrlRegex'),
       /https?:\/\/accounts.eduraam.nl\//,
       /https?:\/\/[[a-z.-_]+.app.eduraam.nl\//,
     ]);
@@ -68,9 +70,9 @@ angular
         redirectTo: '/'
       });
   })
-  .constant('USER_ROLES', {
-	  all: '*',
-	  admin: 'admin',
-	  teacher: 'teacher',
-	  student: 'student'
-  });
+  .run(['$rootScope', 'envService', function($rootScope, envService){
+    $rootScope.$on('event:auth-loginRequired', function(){
+      var current_url = encodeURIComponent(window.location.href);
+      window.location.href = envService.read('accountsUrl')+'/login?next='+current_url;
+    });
+  }]);
