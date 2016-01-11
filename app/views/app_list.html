@@ -1,0 +1,21 @@
+<div ng-controller="AppListCtrl" layout-fill class='app-list'>
+  <md-content flex="grow">
+    <section ng-repeat="group in groups">
+      <md-subheader class="md-primary">{{group.title}}</md-subheader>
+      <div layout-wrap layout="row">
+        <md-card ng-repeat="app in group.apps" flex-xs="grow" flex-sm="45"
+          flex-md="40" flex-gt-lg="25" ng-click="loadApp(group.id, app.id)">
+          <md-card-title>
+            <md-card-title-text>
+            <span class="md-headline">{{app.name}}</span>
+            <span class="md-subhead">{{app.description}}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+            <div class="md-media-sm card-media" ng-include="app.icon"></div>
+            </md-card-title-media>
+          </md-card-title>
+        </md-card>
+      </div>
+    </section>
+  </md-content>
+</div>

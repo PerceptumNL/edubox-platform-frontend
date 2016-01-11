@@ -502,6 +502,10 @@ module.exports = function (grunt) {
     'htmlmin'
   ]);
 
+  grunt.registerTask('heroku', 'ALIAS. Running "build" task', function(target){
+	  grunt.task.run(['build:'+target])
+  });
+
   grunt.registerTask('default', [
     'newer:jshint',
     'newer:jscs',
