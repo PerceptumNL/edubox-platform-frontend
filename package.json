@@ -43,5 +43,9 @@
     "test": "grunt test",
     "postinstall": "grunt build",
     "start": "node server.js"
+  },
+  "dependencies": {
+    "grunt": "0.4.5",
+    "grunt-cli": "0.1.13"
   }
 }
