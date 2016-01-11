@@ -24,7 +24,7 @@ angular
 	  envServiceProvider.config({
 		  domains: {
 			  development: ['localhost'],
-			  production: ['platform.eduraam.nl']
+			  production: ['platform.eduraam.nl', 'staging.eduraam.nl']
 		  },
 		  vars: {
 			  development: {
