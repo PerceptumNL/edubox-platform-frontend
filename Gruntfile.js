@@ -503,7 +503,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('heroku', 'ALIAS. Running "build" task', function(target){
-	  grunt.task.run(['build:'+target])
+	  grunt.task.run(['build:'+target]);
   });
 
   grunt.registerTask('default', [
