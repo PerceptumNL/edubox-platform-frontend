@@ -73,6 +73,6 @@ angular
   .run(['$rootScope', 'envService', function($rootScope, envService){
     $rootScope.$on('event:auth-loginRequired', function(){
       var currentUrl = encodeURIComponent(window.location.href);
-      window.location.href = envService.read('accountsUrl')+'/login?next='+currentUrl;
+      window.location.href = envService.read('accountsUrl')+'/login/?next='+currentUrl;
     });
   }]);
