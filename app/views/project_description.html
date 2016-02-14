@@ -1,0 +1,39 @@
+<md-dialog aria-label="{{ title }}"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Projectbeschrijving</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">X
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h2>{{title}}</h2>
+        <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel
+        maximus metus. Ut ac tincidunt orci. Ut nec hendrerit nisl, at feugiat
+        nunc. Pellentesque felis velit, ornare non orci eget, vestibulum
+        efficitur ex. Curabitur consectetur dui eros, a consectetur turpis
+        faucibus in. Proin a imperdiet turpis. Pellentesque eu nibh molestie,
+        placerat enim sed, dictum justo. Fusce dignissim orci eleifend placerat
+        vestibulum. Curabitur pretium erat orci. Proin rhoncus efficitur
+        fermentum. Nulla at quam dui. Fusce luctus in ligula nec elementum.
+        Suspendisse nec mi a diam feugiat sodales. Praesent eu sem urna.
+        Pellentesque sed placerat nulla, vitae aliquam mi. In hac habitasse
+        platea dictumst.
+        </p>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="hide()">
+       Cancel
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="answer('start')" style="margin-right:20px;">
+        Start project
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

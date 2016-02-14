@@ -9,7 +9,6 @@
 	<!-- build:css(.) styles/vendor.css -->
 	<!-- bower:css -->
 	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-	<link rel="stylesheet" href="bower_components/angular-material-icons/angular-material-icons.css" />
 	<!-- endbower -->
 	<link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
@@ -25,16 +24,59 @@
 	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
 
-  <md-toolbar>
-    <div class="md-toolbar-tools">
+  <md-toolbar class='topbar' ng-controller="ToolbarCtrl">
+    <div class="md-toolbar-tools" layout='row'>
 		<a href="#/">
-			<img class='logo' src="/images/logo_eduraam_transparant_white.png" />
+			<img class='logo' src="/images/logo_codecult_transparant.png" />
 		</a>
 		<span flex></span>
+        <md-button class="md-raised md-primary" ng-click="launchHelp()">Help!</md-button>
+        <md-button class="md-raised" aria-label="Account"
+			style='margin-right: 20px;'>
+            <md-icon md-svg-src="images/profile.svg"></md-icon>
+			Martin Sander Latour
+        </md-button>
     </div>
   </md-toolbar>
-  <md-content ng-view="" flex style="display: flex">
+  <md-content ng-view="" flex class="main-content">
   </md-content>
+  <div layout="row" ng-controller="HelpCtrl">
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2"
+      md-component-id="help-sidenav">
+      <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">
+          Help
+          <span flex></span>
+          <md-button class="md-icon-button" ng-click="hide()">
+            <md-icon md-svg-icon="images/close_white.svg"></md-icon>
+          </md-button>
+        </h1>
+      </md-toolbar>
+      <md-content layout-padding class='help-question-block'>
+        <form>
+          <md-input-container md-no-float>
+            <label for="question">Stel hier je vraag</label>
+            <textarea id='question' md-sidenav-focus></textarea>
+          </md-input-container>
+		  <md-button>Verstuur</md-button>
+        </form>
+	  </md-content>
+      <md-content layout-padding>
+        <md-subheader>Suggesties</md-subheader>
+        <md-list>
+        <md-list-item ng-repeat="resource in resources"
+          ng-click="loadResource(resource)">
+          <md-icon class="md-avatar-icon" md-svg-src="{{ getResourceIcon(resource) }}"></md-icon>
+          <span flex></span>
+          <div class="md-list-item-text" layout="column">
+            {{ resource.title }}
+          </div>
+        <md-divider ng-if="!$last"></md-divider>
+        </md-list-item>
+        </md-list>
+      </md-content>
+    </md-sidenav>
+  </div>
 
 	<!-- build:js(.) scripts/vendor.js -->
 	<!-- bower:js -->
@@ -47,7 +89,6 @@
 	<script src="bower_components/angular-route/angular-route.js"></script>
 	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
 	<script src="bower_components/angular-material/angular-material.js"></script>
-	<script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
 	<script src="bower_components/angular-environment/dist/angular-environment.js"></script>
 	<script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
 	<!-- endbower -->
@@ -55,6 +96,8 @@
 
 	<!-- build:js({.tmp,app}) scripts/scripts.js -->
 	<script src="scripts/app.js"></script>
+    <script src="scripts/controllers/toolbar.js"></script>
+	<script src="scripts/controllers/student_home.js"></script>
 	<script src="scripts/controllers/app_list.js"></script>
 	<script src="scripts/controllers/app.js"></script>
 	<script src="scripts/controllers/login.js"></script>

@@ -1,5 +1,14 @@
 // bower:scss
 // endbower
+$homescreen-bgcolor: black;
+$homescreen-bg-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3b/Good_Morning_From_the_International_Space_Station.jpg');
+
+$message-item-bgcolor: white;
+$message-item-color: black;
+$lesson-item-bgcolor: #03A9F4;
+$lesson-item-color: white;
+$challenge-item-bgcolor: #FF9800;
+$challenge-item-color: white;
 
 .browsehappy {
   margin: 0.2em 0;
@@ -14,11 +23,22 @@ body {
 }
 
 md-content {
-	background-color: #efefef;
+    background: none;
+}
+
+md-content.main-content {
+    display: flex;
+	background-color: $homescreen-bgcolor;
+    background-image: $homescreen-bg-image;
+    background-size: cover;
+    background-position: top left;
+}
+
+md-toolbar.topbar {
+  background-color: white;
 }
 
 .md-toolbar-tools a {
-	width: 100%;
 	height: 100%;
 }
 
@@ -26,9 +46,56 @@ md-content {
 	height: 90%;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
+.help-question-block {
+	background-color: lightblue;
+}
+
+.help-question-block md-input-container{
+	width: 100%;
+}
+
+.help-question-block textarea {
+	width: 100%;
+}
+
+.student-home {
+    padding: 50px 0 0 20px;
+}
+
+.student-home .md-subhead {
+  color: inherit!important;
+}
+
+.student-home .message-item {
+    background: $message-item-bgcolor;
+    color: $message-item-color;
+}
+
+.student-home .message-item .icon {
+    fill: $message-item-color;
+}
+
+.student-home .lesson-item {
+    background: $lesson-item-bgcolor;
+    color: $lesson-item-color;
+}
+
+.student-home .lesson-item .icon{
+    fill: $lesson-item-color;
+    stroke: $lesson-item-color;
+}
+
+.student-home .challenge-item {
+    background: $challenge-item-bgcolor;
+    color: $challenge-item-color;
+}
+
+.student-home .challenge-item .icon {
+    fill: $challenge-item-color;
+    stroke: $challenge-item-color;
+}
+
 .header,
-.marketing,
 .footer {
   padding-left: 15px;
   padding-right: 15px;
@@ -59,26 +126,6 @@ md-content {
   margin: 30px 0;
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-
-  p + h4 {
-    margin-top: 28px;
-  }
-}
-
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
@@ -87,7 +134,6 @@ md-content {
 
   /* Remove the padding we set earlier */
   .header,
-  .marketing,
   .footer {
     padding-left: 0;
     padding-right: 0;
@@ -95,9 +141,5 @@ md-content {
   /* Space out the masthead */
   .header {
     margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
   }
 }
