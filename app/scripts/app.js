@@ -25,7 +25,7 @@ angular
     envServiceProvider.config({
       domains: {
         development: ['localhost'],
-        production: ['platform.eduraam.nl', 'staging.eduraam.nl']
+        production: ['platform.codecult.nl', 'staging.codecult.nl']
       },
       vars: {
         development: {
@@ -35,10 +35,10 @@ angular
           launchUrlRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/[0-9]+\//
         },
         production: {
-          apiUrl: '//api.eduraam.nl',
-          accountsUrl: '//accounts.eduraam.nl',
-          launchUrl: '//launch.eduraam.nl',
-          launchUrlRegex: /https?:\/\/launch.eduraam.nl\/[0-9]+\/[0-9]+\//
+          apiUrl: '//api.codecult.nl',
+          accountsUrl: '//accounts.codecult.nl',
+          launchUrl: '//launch.codecult.nl',
+          launchUrlRegex: /https?:\/\/launch.codecult.nl\/[0-9]+\/[0-9]+\//
         }
       }
     });
@@ -49,8 +49,8 @@ angular
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
       envServiceProvider.read('launchUrlRegex'),
-      /https?:\/\/accounts.eduraam.nl\//,
-      /https?:\/\/[[a-z.-_]+.app.eduraam.nl\//,
+      /https?:\/\/accounts.codecult.nl\//,
+      /https?:\/\/[[a-z.-_]+.app.codecult.nl\//,
     ]);
     $routeProvider
       .when('/', {
