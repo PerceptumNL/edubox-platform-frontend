@@ -32,13 +32,15 @@ angular
           apiUrl: '//localhost:8000/api',
           accountsUrl: '//localhost:8000/accounts',
           launchUrl: '//localhost:8000/launch',
-          launchUrlRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/[0-9]+\//
+          launchUrlAppRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/apps\/[0-9]+\//,
+          launchUrlUnitRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/units\/[0-9]+\//
         },
         production: {
           apiUrl: '//api.codecult.nl',
           accountsUrl: '//accounts.codecult.nl',
           launchUrl: '//launch.codecult.nl',
-          launchUrlRegex: /https?:\/\/launch.codecult.nl\/[0-9]+\/[0-9]+\//
+          launchUrlAppRegex: /https?:\/\/launch.codecult.nl\/[0-9]+\/apps\/[0-9]+\//,
+          launchUrlUnitRegex: /https?:\/\/launch.codecult.nl\/[0-9]+\/units\/[0-9]+\//
         }
       }
     });
@@ -48,7 +50,8 @@ angular
   .config(function ($routeProvider, $sceDelegateProvider, envServiceProvider) {
     $sceDelegateProvider.resourceUrlWhitelist([
       'self',
-      envServiceProvider.read('launchUrlRegex'),
+      envServiceProvider.read('launchUrlAppRegex'),
+      envServiceProvider.read('launchUrlUnitRegex'),
       /https?:\/\/accounts.codecult.nl\//,
       /https?:\/\/[[a-z.-_]+.app.codecult.nl\//,
     ]);
@@ -64,6 +67,10 @@ angular
       .when('/apps/:group/:app/', {
         templateUrl: 'views/app.html',
         controller: 'AppCtrl',
+      })
+      .when('/units/:group/:unit/', {
+        templateUrl: 'views/app.html',
+        controller: 'UnitCtrl',
       })
       .when('/login', {
         templateUrl: 'views/login.html',

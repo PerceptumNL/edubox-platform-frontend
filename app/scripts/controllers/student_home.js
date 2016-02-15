@@ -9,9 +9,10 @@
  */
 
 angular.module('eduraamApp')
-  .controller('StudentHomeCtrl', ['$scope', '$mdDialog', '$mdMedia',
-		function ($scope, $mdDialog, $mdMedia) {
-            $scope.items = [
+  .controller('StudentHomeCtrl', ['$scope', '$mdDialog', '$mdMedia', 'Units', '$location',
+		function ($scope, $mdDialog, $mdMedia, Units, $location) {
+			$scope.items = [];
+            /*$scope.items = [
                 { 'title': 'Welkom!',
                   'description': 'Hallo Sander, wat leuk dat je er bent.',
                   'type': 'message',
@@ -32,7 +33,17 @@ angular.module('eduraamApp')
                   'description': 'Verander de achtergrond in een Scratch project',
                   'type': 'challenge',
                 }
-            ];
+            ];*/
+			var units = Units.all(function(){
+				for(var i = 0; i < units.length; i++){
+					$scope.items.push({
+						'id': units[i].id,
+						'title': units[i].label,
+						'description':'',
+						'type': 'lesson'
+					});
+				}
+			});
             $scope.getTypeLabel = function(item){
               return {
                 'lesson': 'Les',
@@ -46,37 +57,41 @@ angular.module('eduraamApp')
             $scope.getItemIcon = function(item){
               return 'images/'+item.type+'.svg';
             };
-            $scope.showProject = function(item, ev) {
-              var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-              $mdDialog.show({
-                controller: function ($scope, $mdDialog) {
-                  $scope.title = item.title;
-                  $scope.hide = function() {
-                    $mdDialog.hide();
-                  };
-                  $scope.cancel = function() {
-                    $mdDialog.cancel();
-                  };
-                  $scope.answer = function(answer) {
-                    $mdDialog.hide(answer);
-                  };
-                },
-                templateUrl: 'views/project_description.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose:true,
-                fullscreen: useFullScreen
-              })
-              .then(function(answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
-              }, function() {
-                $scope.status = 'You cancelled the dialog.';
-              });
-              $scope.$watch(function() {
-                return $mdMedia('xs') || $mdMedia('sm');
-              }, function(wantsFullScreen) {
-                $scope.customFullscreen = (wantsFullScreen === true);
-              });
+			$scope.onItemClick = function(item, ev) {
+			  if(item.type === 'challenge'){
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+                $mdDialog.show({
+                  controller: function ($scope, $mdDialog) {
+                    $scope.title = item.title;
+                    $scope.hide = function() {
+                      $mdDialog.hide();
+                    };
+                    $scope.cancel = function() {
+                      $mdDialog.cancel();
+                    };
+                    $scope.answer = function(answer) {
+                      $mdDialog.hide(answer);
+                    };
+                  },
+                  templateUrl: 'views/project_description.html',
+                  parent: angular.element(document.body),
+                  targetEvent: ev,
+                  clickOutsideToClose:true,
+                  fullscreen: useFullScreen
+                })
+                .then(function(answer) {
+                  $scope.status = 'You said the information was "' + answer + '".';
+                }, function() {
+                  $scope.status = 'You cancelled the dialog.';
+                });
+                $scope.$watch(function() {
+                  return $mdMedia('xs') || $mdMedia('sm');
+                }, function(wantsFullScreen) {
+                  $scope.customFullscreen = (wantsFullScreen === true);
+                });
+              }else if(item.type === 'lesson'){
+				$location.path('/units/1/'+item.id+'/');
+              }
             };
 		}
   ]);
