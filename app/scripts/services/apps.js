@@ -13,7 +13,7 @@ angular.module('eduraamApp')
     var res = $resource(envService.read('apiUrl')+'/apps/', null,
         {'all': { method:'GET', withCredentials: true }});
     res.getLaunchUrl = function(group, app){
-      return envService.read('launchUrl')+'/'+group+'/'+app+'/';
+      return envService.read('launchUrl')+'/'+group+'/apps/'+app+'/';
     };
     return res;
   }]);
