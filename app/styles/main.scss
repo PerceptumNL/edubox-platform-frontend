@@ -28,7 +28,7 @@ md-content {
 
 md-content.main-content {
     display: flex;
-	background-color: $homescreen-bgcolor;
+    background-color: $homescreen-bgcolor;
     background-image: $homescreen-bg-image;
     background-size: cover;
     background-position: top left;
@@ -39,23 +39,23 @@ md-toolbar.topbar {
 }
 
 .md-toolbar-tools a {
-	height: 100%;
+    height: 100%;
 }
 
 .md-toolbar-tools img.logo {
-	height: 90%;
+    height: 90%;
 }
 
 .help-question-block {
-	background-color: lightblue;
+    background-color: lightblue;
 }
 
 .help-question-block md-input-container{
-	width: 100%;
+    width: 100%;
 }
 
 .help-question-block textarea {
-	width: 100%;
+    width: 100%;
 }
 
 .student-home {
@@ -67,6 +67,7 @@ md-toolbar.topbar {
 }
 
 .student-home .message-item {
+    cursor: pointer;
     background: $message-item-bgcolor;
     color: $message-item-color;
 }
@@ -75,9 +76,18 @@ md-toolbar.topbar {
     fill: $message-item-color;
 }
 
+.student-home .message-item:hover {
+    background: lighten($message-item-bgcolor, 20%);
+}
+
 .student-home .lesson-item {
+    cursor: pointer;
     background: $lesson-item-bgcolor;
     color: $lesson-item-color;
+}
+
+.student-home .lesson-item:hover {
+    background: lighten($lesson-item-bgcolor, 20%);
 }
 
 .student-home .lesson-item .icon{
@@ -86,8 +96,13 @@ md-toolbar.topbar {
 }
 
 .student-home .challenge-item {
+    cursor: pointer;
     background: $challenge-item-bgcolor;
     color: $challenge-item-color;
+}
+
+.student-home .challenge-item:hover {
+    background: lighten($challenge-item-bgcolor, 20%);
 }
 
 .student-home .challenge-item .icon {
