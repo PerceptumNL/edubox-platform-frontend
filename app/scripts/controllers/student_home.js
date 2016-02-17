@@ -34,11 +34,11 @@ angular.module('eduraamApp')
                   'type': 'challenge',
                 }
             ];*/
-			var units = Units.all(function(){
-				for(var i = 0; i < units.length; i++){
+			var res = Units.all(function(){
+				for(var i = 0; i < res.units.length; i++){
 					$scope.items.push({
-						'id': units[i].id,
-						'title': units[i].label,
+						'id': res.units[i].id,
+						'title': res.units[i].label,
 						'description':'',
 						'type': 'lesson'
 					});
