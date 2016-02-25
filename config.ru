@@ -2,6 +2,8 @@ use Rack::Static,
   :urls => ["/images", "/scripts", "/styles"],
   :root => "dist"
 
+use Rack::Deflater, :if => lambda { |env, status, headers, body| body.length > 512 }
+
 run lambda { |env|
   [
     200,
