@@ -1,6 +1,11 @@
 use Rack::Static,
   :urls => ["/images", "/scripts", "/styles"],
-  :root => "dist"
+  :root => "dist",
+  :header_rules => [
+    # Cache all static files in public caches (e.g. Rack::Cache)
+    #  as well as in the browser
+    [:all, {'Cache-Control' => 'public, max-age=31536000'}]
+  ]
 
 run lambda { |env|
   [
