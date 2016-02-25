@@ -12,7 +12,6 @@ angular
   .module('eduraamApp', [
     'ngAnimate',
     'ngAria',
-    'ngCookies',
     'ngMessages',
     'ngMaterial',
     'ngResource',
