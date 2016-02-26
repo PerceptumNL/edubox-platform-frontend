@@ -1,6 +1,6 @@
 <iframe ng-src="{{appLaunchUrl}}" width="100%" frameborder="0" id="app-frame"></iframe>
 <script>
-angular.element(document.getElementById("app-frame")).onload = function(){
+angular.element(document.getElementById("app-frame")).on('load', function(){
   var routing = {
     'code.org': true,
     'scratch.mit.edu': true,
@@ -55,5 +55,5 @@ angular.element(document.getElementById("app-frame")).onload = function(){
   for(var i=0; i < form_tags.length; i++){
     form_tags[i].action = update_url(a_tags[i].action);
   });
-};
+});
 </script>
