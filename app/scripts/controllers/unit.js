@@ -65,13 +65,13 @@ angular.module('eduraamApp')
               var a_tags = this.contentDocument.getElementsByTagName("a");
               for(var i=0; i < a_tags.length; i++){
                 a_tags[i].href = update_url(a_tags[i].href);
-              });
+              };
               // Update actions in <form> tags
               var form_tags = this.contentDocument.getElementsByTagName("form");
               for(var i=0; i < form_tags.length; i++){
                 form_tags[i].action = update_url(a_tags[i].action);
-              });
+              };
             });
-        }
+        });
       }
   ]);
