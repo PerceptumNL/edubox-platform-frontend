@@ -9,8 +9,9 @@
  */
 
 angular.module('eduraamApp')
-  .controller('UnitCtrl', ['$scope', '$routeParams', 'Units', 'URI',
-      function ($scope, $routeParams, Units, URI) {
+  .controller('UnitCtrl', ['$scope', '$routeParams', 'Units',
+      function ($scope, $routeParams, Units) {
+		var URI = window.URI;
         $scope.appLaunchUrl = Units.getLaunchUrl(
           $routeParams.group, $routeParams.unit);
         $scope.$on('$viewContentLoaded', function(){
