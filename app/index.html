@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="styles/main.css">
 	<link rel="stylesheet" href="styles/apps.css">
 	<!-- endbuild -->
+	<script>document.domain = "codecult.nl"</script>
   </head>
   <body ng-app="eduraamApp" flex layout="column">
 	<!--[if lte IE 8]>
@@ -40,8 +41,8 @@
   </md-toolbar>
   <md-content ng-view="" flex class="main-content">
   </md-content>
-  <div layout="row" ng-controller="HelpCtrl" class='ngCloak'>
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2"
+  <div layout="row" ng-controller="HelpCtrl" class='ng-cloak'>
+    <md-sidenav class="md-sidenav-right md-whiteframe-z2 md-closed"
       md-component-id="help-sidenav">
       <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">
@@ -83,7 +84,6 @@
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-animate/angular-animate.js"></script>
 	<script src="bower_components/angular-aria/angular-aria.js"></script>
-	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
 	<script src="bower_components/angular-messages/angular-messages.js"></script>
 	<script src="bower_components/angular-resource/angular-resource.js"></script>
 	<script src="bower_components/angular-route/angular-route.js"></script>
