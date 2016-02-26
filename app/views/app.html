@@ -1,1 +1,44 @@
-<iframe ng-src="{{appLaunchUrl}}" width="100%" frameborder="0"></iframe>
+<iframe ng-src="{{appLaunchUrl}}" width="100%" frameborder="0" id="app-frame"></iframe>
+<script>
+document.getElementById("app-frame").onload = function(){
+  var routing = {
+    'code.org': true,
+    'scratch.mit.edu': true,
+    'google.com': true,
+    'google-analytics': true
+  };
+  var routed_url = new URI(this.src);
+  var router_domain = routed_url.domain();
+  try {
+    var token = routed_url.search(true).token;
+  } catch {
+    var token = null;
+  }
+  var update_url_ = function(url){
+    var new_url = new URI(url);
+    if( routing[url.host()] || routing[url.domain()] ){
+      var host = new_url.host(), new_host = "";
+      for (var i=0; i < host.length; i++) {
+        new_host += host.charCodeAt(i).toString(16);
+      }
+      new_host += "."+router_domain;
+      if(token){
+        return new_url.host(new_host).addQuery("token", token).toString();
+      }else{
+        return new_url.host(new_host).toString();
+      }
+    }else{
+      return url;
+    }
+  }
+  jQuery.ajaxPrefilter(function(options){
+    options.url = update_url(options.url);
+  });
+  jQuery("a").each(function(){
+    this.href = update_url(this.href);
+  });
+  jQuery("form").each(function(){
+    this.action = update_url(this.action);
+  });
+};
+</script>
