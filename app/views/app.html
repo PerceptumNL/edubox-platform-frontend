@@ -1,6 +1,7 @@
 <iframe ng-src="{{appLaunchUrl}}" width="100%" frameborder="0" id="app-frame"></iframe>
 <script>
 angular.element(document.getElementById("app-frame")).on('load', function(){
+  console.log("Updating app frame links");
   var routing = {
     'code.org': true,
     'scratch.mit.edu': true,
