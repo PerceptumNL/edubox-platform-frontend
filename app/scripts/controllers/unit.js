@@ -27,12 +27,17 @@ angular.module('eduraamApp')
               var routedUrl = new URI(this.contentDocument.location.href);
               var routerDomain = routedUrl.domain();
               var token = routedUrl.search(true).token;
+              console.log("Token found: "+token);
               var updateUrl = function(url, ignoreToken){
+                console.log('Updating URL: '+url);
                 if( url[0] === '/'){
+                  console.log('Relative url found');
                   if(!ignoreToken && token){
+                    console.log("Add token: "+token);
                     return new URI(url).addQuery('token', token).toString();
                   }
                 }else{
+                  console.log('Absolute url found');
                   // convert url into a more manageable form.
                   var urlObj = new URI(url);
                   var host = urlObj.host();
@@ -49,6 +54,7 @@ angular.module('eduraamApp')
                     // Add the token if applicable.
                     if(!ignoreToken && token){
                       urlObj = urlObj.addQuery('token', token);
+                      console.log("Add token: "+token);
                     }
                     return urlObj.toString();
                   }
