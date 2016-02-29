@@ -54,7 +54,7 @@ window.GenericAppAdaptor = function(routerDomain){
       });
     }
     // Process body on load (unfortunately DOMready is too soon)
-    window.addEventListener('load',
+    appWindow.addEventListener('load',
       function(){ _this.processBody(appWindow); });
   };
 
