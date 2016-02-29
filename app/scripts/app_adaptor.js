@@ -34,6 +34,12 @@ window.GenericAppAdaptor = function(routerDomain){
           urlObj = urlObj.addQuery('token', token);
         }
         return urlObj.toString();
+      // If host is the same as the current routed host
+      }else if( host === _this.routedHost ){
+        // Only add the token if applicable.
+        if(token){
+          return urlObj.addQuery('token', token).toString();
+        }
       }
     }
     // If no adaption rule applied, return the original url
@@ -43,6 +49,7 @@ window.GenericAppAdaptor = function(routerDomain){
   this.activate = function(appWindow){
     console.log('Updating app frame');
     var routedUrl = new window.URI(appWindow.document.location.href);
+    _this.routedHost = routedUrl.host();
     if(_this.routerDomain === ''){ _this.routerDomain = routedUrl.domain(); }
     _this.token = routedUrl.search(true).token;
     // Update any jQuery ajax call, if applicable.
