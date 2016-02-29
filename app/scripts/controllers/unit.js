@@ -68,7 +68,7 @@ angular.module('eduraamApp')
                   options.url = updateUrl(options.url);
                   console.log('New url:', options.url);
                 });
-                this.contentWindow.jQuery.holdReady(false);
+                //TODO: uncomment: this.contentWindow.jQuery.holdReady(false);
               }
               // Update links in <a> tags
               var aTags = this.contentDocument.getElementsByTagName('a');
