@@ -27,7 +27,6 @@ angular.module('eduraamApp')
               var routedUrl = new URI(this.contentDocument.location.href);
               var routerDomain = routedUrl.domain();
               var token = routedUrl.search(true).token;
-              console.log('Token found: '+token);
               var updateUrl = function(url, ignoreToken){
                 console.log('Updating URL: '+url);
                 if( url[0] === '/'){
@@ -67,6 +66,7 @@ angular.module('eduraamApp')
                 this.contentWindow.jQuery.ajaxPrefilter(function(options){
                   options.url = updateUrl(options.url);
                 });
+                this.contentWindow.jQuery.holdReady(false);
               }
               // Update links in <a> tags
               var aTags = this.contentDocument.getElementsByTagName('a');
