@@ -11,7 +11,6 @@
 angular.module('eduraamApp')
   .controller('UnitCtrl', ['$scope', '$routeParams', 'Units',
       function ($scope, $routeParams, Units) {
-		var URI = window.URI;
         $scope.appLaunchUrl = Units.getLaunchUrl(
           $routeParams.group, $routeParams.unit);
       }
