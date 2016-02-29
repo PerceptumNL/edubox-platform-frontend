@@ -52,11 +52,10 @@ window.GenericAppAdaptor = function(routerDomain){
         options.url = _this.updateUrl(options.url, _this.token);
         console.log('New url:', options.url);
       });
-      appWindow.jQuery(document).ready(function(){ _this.processBody(appWindow); });
-    }else{
-      window.addEventListener('DOMContentLoaded',
-        function(){ _this.processBody(appWindow); });
     }
+    // Process body on load (unfortunately DOMready is too soon)
+    window.addEventListener('load',
+      function(){ _this.processBody(appWindow); });
   };
 
   this.processBody = function(appWindow){
