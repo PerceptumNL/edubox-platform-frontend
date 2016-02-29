@@ -64,7 +64,9 @@ angular.module('eduraamApp')
               // Update any jQuery ajax call, if applicable.
               if('jQuery' in this.contentWindow){
                 this.contentWindow.jQuery.ajaxPrefilter(function(options){
+                  console.log("Updating ajax call");
                   options.url = updateUrl(options.url);
+                  console.log("New url:", options.url);
                 });
                 this.contentWindow.jQuery.holdReady(false);
               }
