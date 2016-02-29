@@ -11,7 +11,9 @@ window.GenericAppAdaptor = function(routerDomain){
       'google.com': true,
       'google-analytics': true
     };
-    if( url[0] === '/'){
+    if( url[0] === '#'){
+      return url;
+    } else if( url[0] === '/'){
       if(token){
         return new window.URI(url).addQuery('token', token).toString();
       }
