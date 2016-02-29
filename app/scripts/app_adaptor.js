@@ -45,6 +45,7 @@ window.GenericAppAdaptor = function(routerDomain){
     var routedUrl = new window.URI(appWindow.document.location.href);
     if(_this.routerDomain === ''){ _this.routerDomain = routedUrl.domain(); }
     _this.token = routedUrl.search(true).token;
+    console.log('Setting _this.token to', _this.token);
     // Update any jQuery ajax call, if applicable.
     if('jQuery' in appWindow){
       appWindow.jQuery.ajaxPrefilter(function(options){
@@ -60,6 +61,8 @@ window.GenericAppAdaptor = function(routerDomain){
 
   this.processBody = function(appWindow){
     console.log('Updating app frame body');
+    console.log('With _this.token as', _this.token);
+    console.log(_this);
     console.log(appWindow);
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
