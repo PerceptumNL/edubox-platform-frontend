@@ -14,8 +14,8 @@ angular.module('eduraamApp')
         $scope.appLaunchUrl = Units.getLaunchUrl(
           $routeParams.group, $routeParams.unit);
         window.activateAppAdaptor = function(appWindow){
-          var adaptor = new GenericAppAdaptor();
+          var adaptor = new window.GenericAppAdaptor();
           adaptor.activate(appWindow);
-        }
+        };
       }
   ]);
