@@ -41,6 +41,7 @@ GenericAppAdaptor.prototype.updateUrl = function(url, token){
 };
 
 GenericAppAdaptor.prototype.activate = function(appWindow){
+  var _this = this;
   console.log('Updating app frame');
   var routedUrl = new window.URI(appWindow.document.location.href);
   this.routerDomain = routedUrl.domain();
@@ -49,7 +50,7 @@ GenericAppAdaptor.prototype.activate = function(appWindow){
   if('jQuery' in appWindow){
     appWindow.jQuery.ajaxPrefilter(function(options){
       console.log('Updating ajax call');
-      options.url = this.updateUrl(options.url, token);
+      options.url = _this.updateUrl(options.url, token);
       console.log('New url:', options.url);
     });
     //TODO: uncomment: this.contentWindow.jQuery.holdReady(false);
