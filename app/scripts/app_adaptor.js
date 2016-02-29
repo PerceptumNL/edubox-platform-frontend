@@ -60,14 +60,17 @@ window.GenericAppAdaptor = function(routerDomain){
 
   this.processBody = function(appWindow){
     console.log('Updating app frame body');
+    console.log(appWindow);
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
+      console.log(aTags[a]);
       aTags[a].href = _this.updateUrl(aTags[a].href, _this.token);
     }
     // Update actions in <form> tags
     var formTags = appWindow.document.getElementsByTagName('form');
     for(var f=0; f < formTags.length; f++){
+      console.log(formTags[a]);
       formTags[f].action = _this.updateUrl(formTags[f].action, _this.token);
     }
   };
