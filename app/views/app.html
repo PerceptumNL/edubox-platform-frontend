@@ -1,1 +1,7 @@
 <iframe ng-src="{{appLaunchUrl}}" width="100%" frameborder="0" id="app-frame"></iframe>
+<script>
+window.activateAppAdaptor = function(appWindow){
+  var adaptor = new GenericAppAdaptor();
+  adaptor.activate(appWindow);
+}
+</script>
