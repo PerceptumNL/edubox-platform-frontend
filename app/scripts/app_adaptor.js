@@ -49,7 +49,7 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 
   this.activate = function(appWindow){
-    console.log('Updating app frame');
+    //console.log('Updating app frame');
     var routedUrl = new window.URI(appWindow.document.location.href);
     _this.routedHost = routedUrl.host();
     if(_this.routerDomain === ''){ _this.routerDomain = routedUrl.domain(); }
@@ -57,7 +57,7 @@ window.GenericAppAdaptor = function(routerDomain){
     // Update any jQuery ajax call, if applicable.
     if('jQuery' in appWindow){
       appWindow.jQuery.ajaxPrefilter(function(options){
-        console.log('Updating ajax call');
+        //console.log('Updating ajax call');
         options.url = _this.updateUrl(options.url, _this.token);
       });
     }
@@ -67,20 +67,15 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 
   this.processBody = function(appWindow){
-    console.log('Updating app frame body');
-    console.log('With _this.token as', _this.token);
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
-      console.log(aTags[a]);
       var newUrl = _this.updateUrl(aTags[a].href, _this.token);
-      console.log(aTags[a].href, '=>', newUrl);
       aTags[a].href = newUrl;
     }
     // Update actions in <form> tags
     var formTags = appWindow.document.getElementsByTagName('form');
     for(var f=0; f < formTags.length; f++){
-      console.log(formTags[a]);
       formTags[f].action = _this.updateUrl(formTags[f].action, _this.token);
     }
   };
