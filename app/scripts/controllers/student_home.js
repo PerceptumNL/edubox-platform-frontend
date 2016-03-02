@@ -10,40 +10,29 @@
 
 angular.module('eduraamApp')
   .controller('StudentHomeCtrl', ['$scope', '$mdDialog', '$mdMedia', 'Units', '$location',
-		function ($scope, $mdDialog, $mdMedia, Units, $location) {
-			$scope.items = [];
-            /*$scope.items = [
-                { 'title': 'Welkom!',
-                  'description': 'Hallo Sander, wat leuk dat je er bent.',
-                  'type': 'message',
-                },
-                { 'title': 'Minecraft',
-                  'description': 'Niveau 1',
-                  'type': 'lesson',
-                },
-                { 'title': 'Frozen',
-                  'description': 'Niveau 1',
-                  'type': 'lesson',
-                },
-                { 'title': 'Star wars',
-                  'description': 'Niveau 1',
-                  'type': 'lesson',
-                },
-                { 'title': 'Achtergrond veranderen',
-                  'description': 'Verander de achtergrond in een Scratch project',
-                  'type': 'challenge',
-                }
-            ];*/
-			var res = Units.all(function(){
-				for(var i = 0; i < res.units.length; i++){
-					$scope.items.push({
-						'id': res.units[i].id,
-						'title': res.units[i].label,
-						'description':'',
-						'type': 'lesson'
-					});
-				}
-			});
+        function ($scope, $mdDialog, $mdMedia, Units, $location) {
+            $scope.items = [];
+            var group;
+            var loginUrls = {};
+            var res = Units.all(function(){
+              for(var g = 0; g < res.units.length; g++){
+                  group = res.units[g];
+                  for(var i = 0; i < group.units.length; i++){
+                      $scope.items.push({
+                          'id': group.units[i].id,
+                          'group': group.id,
+                          'title': group.units[i].label,
+                          'description':'',
+                          'type': 'lesson'
+                      });
+                      loginUrls[group.units[i].login] = null;
+                  }
+              }
+              // Automatically login user into received units
+              for(var loginUrl in loginUrls){
+                setTimeout(Units.login(loginUrl));
+              }
+            });
             $scope.getTypeLabel = function(item){
               return {
                 'lesson': 'Les',
@@ -57,8 +46,8 @@ angular.module('eduraamApp')
             $scope.getItemIcon = function(item){
               return 'images/'+item.type+'.svg';
             };
-			$scope.onItemClick = function(item, ev) {
-			  if(item.type === 'challenge'){
+            $scope.onItemClick = function(item, ev) {
+              if(item.type === 'challenge'){
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
                 $mdDialog.show({
                   controller: function ($scope, $mdDialog) {
@@ -90,8 +79,8 @@ angular.module('eduraamApp')
                   $scope.customFullscreen = (wantsFullScreen === true);
                 });
               }else if(item.type === 'lesson'){
-				$location.path('/units/1/'+item.id+'/');
+                $location.path('/units/'+item.group+'/'+item.id+'/');
               }
             };
-		}
+        }
   ]);

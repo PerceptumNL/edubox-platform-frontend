@@ -56,8 +56,7 @@ angular
     ]);
     $routeProvider
       .when('/', {
-        templateUrl: 'views/student_home.html',
-        controller: 'StudentHomeCtrl',
+        templateUrl: 'views/student_home.html'
       })
       .when('/apps/', {
         templateUrl: 'views/app_list.html',
