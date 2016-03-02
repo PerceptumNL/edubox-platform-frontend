@@ -8,8 +8,12 @@
  * Controller of the eduraamApp
  */
 angular.module('eduraamApp')
-  .controller('ToolbarCtrl', ['$scope', '$mdSidenav',
-    function ($scope, $mdSidenav) {
+  .controller('ToolbarCtrl', ['$scope', '$mdSidenav', 'User',
+    function ($scope, $mdSidenav, User) {
+		$scope.userInfoName = null;
+		User.info(function(info){
+			$scope.userInfoName = info.name;
+		});
         $scope.launchHelp = function(){
             $mdSidenav('help-sidenav').open();
         };

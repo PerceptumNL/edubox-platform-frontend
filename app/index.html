@@ -31,10 +31,11 @@
 		</a>
 		<span flex></span>
         <md-button class="md-raised md-primary" ng-click="launchHelp()">Help!</md-button>
+		<md-progress-circular md-mode="indeterminate" ng-hide="userInfoName"></md-progress-circular>
         <md-button class="md-raised" aria-label="Account"
-			style='margin-right: 20px;'>
+			style='margin-right: 20px;'ng-show="userInfoName">
             <md-icon md-svg-src="images/profile.svg"></md-icon>
-			Account
+			{{ userInfoName }}
         </md-button>
     </div>
   </md-toolbar>
@@ -105,6 +106,7 @@
 	<script src="scripts/controllers/login.js"></script>
 	<script src="scripts/services/apps.js"></script>
 	<script src="scripts/services/units.js"></script>
+	<script src="scripts/services/user.js"></script>
 	<!-- endbuild -->
   </body>
 </html>
