@@ -58,6 +58,9 @@ angular
       .when('/', {
         templateUrl: 'views/student_home.html'
       })
+      .when('/teacher-dashboard/', {
+        templateUrl: 'views/teacher-dashboard.html'
+      })
       .when('/apps/', {
         templateUrl: 'views/app_list.html',
         controller: 'AppListCtrl',

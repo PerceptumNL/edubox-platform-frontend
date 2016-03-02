@@ -1,0 +1,42 @@
+<div class='teacher-dashboard' ng-controller='TeacherDashboardCtrl' layout-fill>
+  <md-content flex="grow" layout-align="center start">
+    <md-card flex-xs="grow">
+      <table class='table table-striped'>
+        <thead>
+          <tr>
+            <th>Leerling</th>
+            <th ng-repeat="concept in concepts">{{concept.name}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="student in students">
+            <td>{{student.name}}</td>
+            <td ng-repeat="concept in concepts"
+              ng-switch="student.mastery[concept.id]">
+              <span ng-switch-when="1">
+                <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                <md-icon md-svg-src="images/star_border.svg"></md-icon>
+              </span>
+              <span ng-switch-when="2">
+                <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                <md-icon md-svg-src="images/star_border.svg"></md-icon>
+              </span>
+              <span ng-switch-when="3">
+                <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                <md-icon md-svg-src="images/star_black.svg"></md-icon>
+              </span>
+              <span ng-switch-default>
+                <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                <md-icon md-svg-src="images/star_border.svg"></md-icon>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </md-card>
+  </md-content>
+</div>
