@@ -20,8 +20,6 @@ angular.module('eduraamApp')
 			method: 'GET',
 			withCredentials: true,
 			url: envService.read('accountsUrl')+loginUrl
-		}).then(function(){
-			console.log('Logged in:', loginUrl);
 		});
 	};
     return res;
