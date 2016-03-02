@@ -24,16 +24,16 @@
 	<![endif]-->
 
   <md-toolbar class='topbar' ng-controller="ToolbarCtrl">
-    <div class="md-toolbar-tools" layout='row'>
+    <div class="md-toolbar-tools ng-cloak" layout='row'>
 		<a href="#/">
 			<img class='logo' src="/images/logo_codecult_transparant.png" />
 			<div id='version_badge'>Private Beta</div>
 		</a>
 		<span flex></span>
-        <md-button class="md-raised md-primary" ng-click="launchHelp()">Help!</md-button>
+        <md-button class="md-raised md-primary ng-cloak" ng-click="launchHelp()">Help!</md-button>
 		<md-progress-circular md-mode="indeterminate" ng-hide="userInfoName"></md-progress-circular>
-        <md-button class="md-raised" aria-label="Account"
-			style='margin-right: 20px;'ng-show="userInfoName">
+        <md-button class="md-raised ng-cloak" aria-label="Account"
+			style='margin-right: 20px;' ng-show="userInfoName">
             <md-icon md-svg-src="images/profile.svg"></md-icon>
 			{{ userInfoName }}
         </md-button>
