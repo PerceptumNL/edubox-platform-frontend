@@ -19,7 +19,7 @@ angular.module('eduraamApp')
 		$http({
 			method: 'GET',
 			withCredentials: true,
-			url: 'http://localhost:8000'+loginUrl
+			url: envService.read('accountsUrl')+loginUrl
 		}).then(function(){
 			console.log('Logged in:', loginUrl);
 		});
