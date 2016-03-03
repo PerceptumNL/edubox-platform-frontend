@@ -104,7 +104,7 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 
   this.onWindow = function(appWindow){
-    console.log(this.name, '::onWindow');
+    console.log('Generic::onWindow');
     var routedUrl = new window.URI(appWindow.document.location.href);
     _this.routedHost = routedUrl.host();
     if(_this.routerDomain === ''){ _this.routerDomain = routedUrl.domain(); }
@@ -122,7 +122,7 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 
   this.onDOM = function(appWindow){
-    console.log(this.name, '::onDOM');
+    console.log('Generic::onDOM');
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
@@ -142,7 +142,7 @@ window.CodeOrgAdaptor = function(routerDomain){
     var _parent = _this._parent;
 
     this.onWindow = function(appWindow){
-      console.log(this.name, '::onWindow');
+      console.log('CodeOrg::onWindow');
       _parent.onWindow(appWindow);
       if('jQuery' in appWindow){
         console.log('intercept on code.org ajax init.');
