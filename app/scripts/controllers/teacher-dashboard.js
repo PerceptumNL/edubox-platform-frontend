@@ -27,11 +27,11 @@ angular.module('eduraamApp')
           { 'id': 2, 'name': 'Als' },
           { 'id': 3, 'name': 'Als-anders' },
           { 'id': 4, 'name': 'Herhaal aantal keer' },
-          { 'id': 5, 'name': 'Herhaal totdat' }
-          { 'id': 6, 'name': 'Zolang' }
-          { 'id': 7, 'name': 'Teller' }
-          { 'id': 8, 'name': 'Functies' }
-          { 'id': 9, 'name': 'Functies met parameters' }
+          { 'id': 5, 'name': 'Herhaal totdat' },
+          { 'id': 6, 'name': 'Zolang' },
+          { 'id': 7, 'name': 'Teller' },
+          { 'id': 8, 'name': 'Functies' },
+          { 'id': 9, 'name': 'Functies met parameters' },
         ];
       }
   ]);
