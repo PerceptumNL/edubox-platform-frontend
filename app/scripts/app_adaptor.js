@@ -88,7 +88,7 @@ window.GenericAppAdaptor = function(routerDomain){
     // Match an adaptor object based on the src location, or use default.
     var AdaptorObj = null;
     for( var match in adaptors ){
-      if( src.substr(0, match.length-1) === match ){
+      if( src.substr(0, match.length) === match ){
         AdaptorObj = adaptors[match];
         break;
       }
