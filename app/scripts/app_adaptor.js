@@ -149,7 +149,8 @@ window.CodeOrgAdaptor = function(routerDomain){
         appWindow.jQuery(appWindow.document).ajaxSend(
           function( event, jqxhr, settings ) {
             console.log('intercepting ajax call');
-            if( settings.url.substr(0,34) === 'https://studio.code.org/milestone/' ){
+            if( _this.unrouteUrl(settings.url).substr(0,34) === 
+				'https://studio.code.org/milestone/' ){
               console.log('Completed ', appWindow.document.location.path);
             }
           }
