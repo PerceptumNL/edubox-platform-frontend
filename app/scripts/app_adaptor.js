@@ -93,7 +93,7 @@ window.GenericAppAdaptor = function(routerDomain){
         break;
       }
     }
-    if( AdaptorObj === null ){
+    if( AdaptorObj !== null ){
       // Initialize adaptor and trigger onWindow.
       (new AdaptorObj(routerDomain)).onWindow(appWindow);
     }else{
