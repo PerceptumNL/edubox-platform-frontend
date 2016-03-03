@@ -88,7 +88,7 @@ window.GenericAppAdaptor = function(routerDomain){
     // Match an adaptor object based on the src location, or use default.
     var AdaptorObj = null;
     for( var match in adaptors ){
-      if( src.substring(0, match.length-1) === match ){
+      if( src.substr(0, match.length-1) === match ){
         AdaptorObj = adaptors[match];
         break;
       }
@@ -142,7 +142,7 @@ window.CodeOrgAdaptor = function(routerDomain){
       _parent.onWindow(appWindow);
       if('jQuery' in appWindow){
         appWindow.jQuery(document).ajaxSend(function( event, jqxhr, settings ) {
-          if( settings.url.substring(0,34) === 'https://studio.code.org/milestone/' ){
+          if( settings.url.substr(0,34) === 'https://studio.code.org/milestone/' ){
             console.log('Completed ', appWindow.document.location.path);
           }
         });
