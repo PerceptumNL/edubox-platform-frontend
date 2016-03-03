@@ -71,7 +71,8 @@ window.GenericAppAdaptor = function(routerDomain){
 
   /**
    * Initialize adaptor depending on the src location of the app window.
-   * @static
+   * If the location matches one of the app-specific adaptors, the call is
+   * delegated, else this generic adaptor will be used. 
    * @param appWindow - reference to app frame's window.
    * @param routerDomain - the domain of the router (optional)
    **/
@@ -83,15 +84,20 @@ window.GenericAppAdaptor = function(routerDomain){
       'https://studio.code.org/s/': window.CodeOrgAdaptor
     };
     // Match an adaptor object based on the src location, or use default.
-    var AdaptorObj = window.GenericAppAdaptor;
+    var AdaptorObj = null;
     for( var match in adaptors ){
       if( src.substring(0, match.length-1) === match ){
         AdaptorObj = adaptors[match];
         break;
       }
     }
-    // Initialize adaptor and trigger onWindow.
-    (new AdaptorObj(routerDomain)).onWindow(appWindow);
+    if( AdaptorObj === null ){
+      // Initialize adaptor and trigger onWindow.
+      (new AdaptorObj(routerDomain)).onWindow(appWindow);
+    }else{
+      // Initialize generic adaptor and trigger onWindow.
+      _this.onWindow(appWindow);
+    }
   };
 
   this.onWindow = function(appWindow){
