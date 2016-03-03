@@ -48,8 +48,31 @@ window.GenericAppAdaptor = function(routerDomain){
     return url;
   };
 
-  this.activate = function(appWindow){
-    //console.log('Updating app frame');
+  /**
+   * Initialize adaptor depending on the src location of the app window.
+   * @static
+   * @param appWindow - reference to app frame's window.
+   * @param routerDomain - the domain of the router (optional)
+   **/
+  this.init = function(appWindow, routerDomain){
+    var src = appWindow.document.location.href;
+    // Mapping of url prefix matches and adaptor objects
+    var adaptors = {
+      'https://studio.code.org/s/': window.CodeOrgAdaptor
+    };
+    // Match an adaptor object based on the src location, or use default.
+    var AdaptorObj = window.GenericAppAdaptor;
+    for( var match in adaptors ){
+      if( src.substring(0, match.length-1) === match ){
+        AdaptorObj = adaptors[match];
+        break;
+      }
+    }
+    // Initialize adaptor and trigger onWindow.
+    (new AdaptorObj(routerDomain)).onWindow(appWindow);
+  };
+
+  this.onWindow = function(appWindow){
     var routedUrl = new window.URI(appWindow.document.location.href);
     _this.routedHost = routedUrl.host();
     if(_this.routerDomain === ''){ _this.routerDomain = routedUrl.domain(); }
@@ -63,10 +86,10 @@ window.GenericAppAdaptor = function(routerDomain){
     }
     // Process body on load (unfortunately DOMready is too soon)
     appWindow.addEventListener('load',
-      function(){ _this.processBody(appWindow); });
+      function(){ _this.onDOM(appWindow); });
   };
 
-  this.processBody = function(appWindow){
+  this.onDOM = function(appWindow){
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
@@ -79,4 +102,20 @@ window.GenericAppAdaptor = function(routerDomain){
       formTags[f].action = _this.updateUrl(formTags[f].action, _this.token);
     }
   };
+};
+
+window.CodeOrgAdaptor = function(routerDomain){
+    var _this = window.inherit(this, new window.GenericAppAdaptor(routerDomain));
+    var _parent = _this._parent;
+
+    this.onWindow = function(appWindow){
+      _parent.onWindow(appWindow);
+      if('jQuery' in appWindow){
+        appWindow.jQuery(document).ajaxSend(function( event, jqxhr, settings ) {
+          if( settings.url.substring(0,34) === 'https://studio.code.org/milestone/' ){
+            console.log('Completed ', appWindow.document.location.path);
+          }
+        });
+      }
+    };
 };
