@@ -21,6 +21,8 @@ window.GenericAppAdaptor = function(routerDomain){
             parseInt(subdomain.substr(i, 2), 16));
         }
         return urlObj.host(unhashedDomain).toString();
+      }else{
+        return url;
       }
     }
   };
