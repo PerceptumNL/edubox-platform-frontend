@@ -4,7 +4,28 @@ window.GenericAppAdaptor = function(routerDomain){
   var _this = this;
   this.routerDomain = routerDomain || '';
 
-  this.updateUrl = function(url, token){
+  this.unrouteUrl = function(url){
+    if( url[0] === '#'){
+      return url;
+    } else if( url[0] === '/'){
+      return url;
+    } else {
+      // convert url into a more manageable form.
+      var urlObj = new window.URI(url);
+      if( urlObj.domain() === _this.routerDomain ){
+        // Unhash subdomain
+        var subdomain = urlObj.subdomain();
+        var unhashedDomain = '';
+        for( var i = 0; i < subdomain.length; i += 2){
+          unhashedDomain += String.fromCharCode(
+            parseInt(subdomain.substr(i, 2), 16));
+        }
+        return urlObj.host(unhashedDomain).toString();
+      }
+    }
+  };
+
+  this.routeUrl = function(url, token){
     var routing = {
       'code.org': true,
       'scratch.mit.edu': true,
@@ -55,7 +76,8 @@ window.GenericAppAdaptor = function(routerDomain){
    * @param routerDomain - the domain of the router (optional)
    **/
   this.init = function(appWindow, routerDomain){
-    var src = appWindow.document.location.href;
+    var src = _this.unrouteUrl(appWindow.document.location.href);
+    console.log('Initialize adaptor for', src);
     // Mapping of url prefix matches and adaptor objects
     var adaptors = {
       'https://studio.code.org/s/': window.CodeOrgAdaptor
@@ -81,7 +103,7 @@ window.GenericAppAdaptor = function(routerDomain){
     if('jQuery' in appWindow){
       appWindow.jQuery.ajaxPrefilter(function(options){
         //console.log('Updating ajax call');
-        options.url = _this.updateUrl(options.url, _this.token);
+        options.url = _this.routeUrl(options.url, _this.token);
       });
     }
     // Process body on load (unfortunately DOMready is too soon)
@@ -93,13 +115,13 @@ window.GenericAppAdaptor = function(routerDomain){
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
-      var newUrl = _this.updateUrl(aTags[a].href, _this.token);
+      var newUrl = _this.routeUrl(aTags[a].href, _this.token);
       aTags[a].href = newUrl;
     }
     // Update actions in <form> tags
     var formTags = appWindow.document.getElementsByTagName('form');
     for(var f=0; f < formTags.length; f++){
-      formTags[f].action = _this.updateUrl(formTags[f].action, _this.token);
+      formTags[f].action = _this.routeUrl(formTags[f].action, _this.token);
     }
   };
 };
