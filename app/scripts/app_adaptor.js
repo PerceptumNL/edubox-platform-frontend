@@ -95,6 +95,7 @@ window.GenericAppAdaptor = function(routerDomain){
     }
     if( AdaptorObj !== null ){
       // Initialize adaptor and trigger onWindow.
+      console.log('Adaptor:', AdaptorObj.name);
       (new AdaptorObj(routerDomain)).onWindow(appWindow);
     }else{
       // Initialize generic adaptor and trigger onWindow.
@@ -103,6 +104,7 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 
   this.onWindow = function(appWindow){
+    console.log(this.name, '::onWindow');
     var routedUrl = new window.URI(appWindow.document.location.href);
     _this.routedHost = routedUrl.host();
     if(_this.routerDomain === ''){ _this.routerDomain = routedUrl.domain(); }
@@ -120,6 +122,7 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 
   this.onDOM = function(appWindow){
+    console.log(this.name, '::onDOM');
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
@@ -139,13 +142,18 @@ window.CodeOrgAdaptor = function(routerDomain){
     var _parent = _this._parent;
 
     this.onWindow = function(appWindow){
+      console.log(this.name, '::onWindow');
       _parent.onWindow(appWindow);
       if('jQuery' in appWindow){
-        appWindow.jQuery(document).ajaxSend(function( event, jqxhr, settings ) {
-          if( settings.url.substr(0,34) === 'https://studio.code.org/milestone/' ){
-            console.log('Completed ', appWindow.document.location.path);
+        console.log('intercept on code.org ajax init.');
+        appWindow.jQuery(appWindow.document).ajaxSend(
+          function( event, jqxhr, settings ) {
+            console.log('intercepting ajax call');
+            if( settings.url.substr(0,34) === 'https://studio.code.org/milestone/' ){
+              console.log('Completed ', appWindow.document.location.path);
+            }
           }
-        });
+        );
       }
     };
 };
