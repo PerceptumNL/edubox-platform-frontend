@@ -174,12 +174,12 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
 				'https://studio.code.org/milestone/' ){
               console.log('Completed ', appWindow.document.location.pathname);
               console.log(settings);
-              if(token && settings.data.testResult === 100){
+              if(token){
                 _this.storeEvent(
                   token,
                   'http://adlnet.gov/expapi/verbs/completed',
                   appWindow.document.location.pathname,
-                  settings.data.program
+                  settings.data
                 );
               }
             }
