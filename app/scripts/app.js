@@ -19,7 +19,6 @@ angular
     'ngSanitize',
     'environment',
     'http-auth-interceptor',
-	'ngStorage',
   ])
   .config(function (envServiceProvider) {
     envServiceProvider.config({

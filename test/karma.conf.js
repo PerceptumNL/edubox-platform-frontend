@@ -33,7 +33,6 @@ module.exports = function(config) {
       'bower_components/angular-environment/dist/angular-environment.js',
       'bower_components/angular-http-auth/src/http-auth-interceptor.js',
       'bower_components/urijs/src/URI.js',
-      'bower_components/ngstorage/ngStorage.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

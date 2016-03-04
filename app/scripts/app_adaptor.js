@@ -27,18 +27,19 @@ window.GenericAppAdaptor = function(routerDomain){
     }
   };
 
-  this.routeUrl = function(url, token){
+  this.routeUrl = function(url){
     var routing = {
       'code.org': true,
       'scratch.mit.edu': true,
       'google.com': true,
       'google-analytics': true
     };
+    var token = _this.getToken();
     if( url[0] === '#'){
       return url;
     } else if( url[0] === '/'){
       if(token){
-        return new window.URI(url).addQuery('token', token).toString();
+        return new window.URI(url).setQuery('token', token).toString();
       }
     }else{
       // convert url into a more manageable form.
@@ -56,14 +57,14 @@ window.GenericAppAdaptor = function(routerDomain){
 
         // Add the token if applicable.
         if(token){
-          urlObj = urlObj.addQuery('token', token);
+          urlObj = urlObj.setQuery('token', token);
         }
         return urlObj.toString();
       // If host is the same as the current routed host
       }else if( host === _this.routedHost ){
         // Only add the token if applicable.
         if(token){
-          return urlObj.addQuery('token', token).toString();
+          return urlObj.setQuery('token', token).toString();
         }
       }
     }
@@ -71,14 +72,17 @@ window.GenericAppAdaptor = function(routerDomain){
     return url;
   };
 
+  var _token = null;
+  this.getToken = function(){ return _token; };
+  this.setToken = function(token){ _token = token; };
+
   /**
    * Initialize adaptor depending on the src location of the app window.
    * If the location matches one of the app-specific adaptors, the call is
-   * delegated, else this generic adaptor will be used. 
+   * delegated, else this generic adaptor will be used.
    * @param appWindow - reference to app frame's window.
-   * @param routerDomain - the domain of the router (optional)
    **/
-  this.init = function(appWindow, routerDomain){
+  this.init = function(appWindow){
     var src = _this.unrouteUrl(appWindow.document.location.href);
     console.log('Initialize adaptor for', src);
     // Mapping of url prefix matches and adaptor objects
@@ -93,27 +97,28 @@ window.GenericAppAdaptor = function(routerDomain){
         break;
       }
     }
+    var adaptor = _this;
     if( AdaptorObj !== null ){
-      // Initialize adaptor and trigger onWindow.
-      console.log('Adaptor:', AdaptorObj.name);
-      (new AdaptorObj(routerDomain)).onWindow(appWindow);
-    }else{
-      // Initialize generic adaptor and trigger onWindow.
-      _this.onWindow(appWindow);
+      adaptor = new AdaptorObj(routerDomain);
     }
+    adaptor.onWindow(appWindow);
+    return adaptor;
   };
 
   this.onWindow = function(appWindow){
     console.log('Generic::onWindow');
-    var routedUrl = new window.URI(appWindow.document.location.href);
-    _this.routedHost = routedUrl.host();
-    if(_this.routerDomain === ''){ _this.routerDomain = routedUrl.domain(); }
-    _this.token = routedUrl.search(true).token;
+    var token = _this.getToken();
+    if(!token){
+      var routedUrl = new window.URI(appWindow.document.location.href);
+      _this.routedHost = routedUrl.host();
+      token = routedUrl.search(true).token;
+      if(token){ _this.setToken(token); }
+    }
     // Update any jQuery ajax call, if applicable.
     if('jQuery' in appWindow){
       appWindow.jQuery.ajaxPrefilter(function(options){
         //console.log('Updating ajax call');
-        options.url = _this.routeUrl(options.url, _this.token);
+        options.url = _this.routeUrl(options.url);
       });
     }
     // Process body on load (unfortunately DOMready is too soon)
@@ -126,13 +131,13 @@ window.GenericAppAdaptor = function(routerDomain){
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
-      var newUrl = _this.routeUrl(aTags[a].href, _this.token);
+      var newUrl = _this.routeUrl(aTags[a].href);
       aTags[a].href = newUrl;
     }
     // Update actions in <form> tags
     var formTags = appWindow.document.getElementsByTagName('form');
     for(var f=0; f < formTags.length; f++){
-      formTags[f].action = _this.routeUrl(formTags[f].action, _this.token);
+      formTags[f].action = _this.routeUrl(formTags[f].action);
     }
   };
 };
@@ -143,6 +148,16 @@ window.CodeOrgAdaptor = function(routerDomain){
 
     this.onWindow = function(appWindow){
       console.log('CodeOrg::onWindow');
+      var token = _this.getToken();
+      if(token){
+        var urlObj = window.URI(appWindow.document.location.href);
+        if(!urlObj.hasQuery('token')){
+          urlObj.addQuery('token', token);
+          console.log('Reloading frame to', urlObj.toString());
+          appWindow.document.location = urlObj.toString();
+          return;
+        }
+      }
       _parent.onWindow(appWindow);
       if('jQuery' in appWindow){
         console.log('intercept on code.org ajax init.');

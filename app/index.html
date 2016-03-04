@@ -1,42 +1,42 @@
 <!doctype html>
 <html>
   <head>
-	<meta charset="utf-8">
-	<title>Codecult</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
-	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-	<!-- build:css(.) styles/vendor.css -->
-	<!-- bower:css -->
-	<link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
-	<!-- endbower -->
-	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-	<!-- endbuild -->
-	<!-- build:css(.tmp) styles/main.css -->
-	<link rel="stylesheet" href="styles/bootstrap.css">
-	<link rel="stylesheet" href="styles/main.css">
-	<link rel="stylesheet" href="styles/apps.css">
-	<!-- endbuild -->
-	<script>document.domain = "codecult.nl"</script>
+  <meta charset="utf-8">
+  <title>Codecult</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+  <!-- endbower -->
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/bootstrap.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/apps.css">
+  <!-- endbuild -->
+  <script>document.domain = "codecult.nl"</script>
   </head>
   <body ng-app="eduraamApp" flex layout="column">
-	<!--[if lte IE 8]>
-	  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-	<![endif]-->
+  <!--[if lte IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
 
   <md-toolbar class='topbar' ng-controller="ToolbarCtrl">
     <div class="md-toolbar-tools ng-cloak" layout='row'>
-		<a href="#/">
-			<img class='logo' src="/images/logo_codecult_transparant.png" />
-			<div id='version_badge'>Private Beta</div>
-		</a>
-		<span flex></span>
+    <a href="#/">
+      <img class='logo' src="/images/logo_codecult_transparant.png" />
+      <div id='version_badge'>Private Beta</div>
+    </a>
+    <span flex></span>
         <md-button class="md-raised md-primary ng-cloak" ng-click="launchHelp()">Help!</md-button>
-		<md-progress-circular md-mode="indeterminate" ng-hide="userInfoName"></md-progress-circular>
+    <md-progress-circular md-mode="indeterminate" ng-hide="userInfoName"></md-progress-circular>
         <md-button class="md-raised ng-cloak" aria-label="Account"
-			style='margin-right: 20px;' ng-show="userInfoName">
+      style='margin-right: 20px;' ng-show="userInfoName">
             <md-icon md-svg-src="images/profile.svg"></md-icon>
-			{{ userInfoName }}
+      {{ userInfoName }}
         </md-button>
     </div>
   </md-toolbar>
@@ -60,9 +60,9 @@
             <label for="question">Stel hier je vraag</label>
             <textarea id='question' md-sidenav-focus></textarea>
           </md-input-container>
-		  <md-button>Verstuur</md-button>
+      <md-button>Verstuur</md-button>
         </form>
-	  </md-content>
+    </md-content>
       <md-content layout-padding>
         <md-subheader>Suggesties</md-subheader>
         <md-list>
@@ -80,37 +80,36 @@
     </md-sidenav>
   </div>
 
-	<!-- build:js(.) scripts/vendor.js -->
-	<!-- bower:js -->
-	<script src="bower_components/angular/angular.js"></script>
-	<script src="bower_components/angular-animate/angular-animate.js"></script>
-	<script src="bower_components/angular-aria/angular-aria.js"></script>
-	<script src="bower_components/angular-messages/angular-messages.js"></script>
-	<script src="bower_components/angular-resource/angular-resource.js"></script>
-	<script src="bower_components/angular-route/angular-route.js"></script>
-	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-	<script src="bower_components/angular-material/angular-material.js"></script>
-	<script src="bower_components/angular-environment/dist/angular-environment.js"></script>
-	<script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
-	<script src="bower_components/urijs/src/URI.js"></script>
-	<script src="bower_components/ngstorage/ngStorage.js"></script>
-	<!-- endbower -->
-	<!-- endbuild -->
+  <!-- build:js(.) scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
+  <script src="bower_components/angular-environment/dist/angular-environment.js"></script>
+  <script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
+  <script src="bower_components/urijs/src/URI.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
 
-	<!-- build:js({.tmp,app}) scripts/scripts.js -->
-	<script src="scripts/app.js"></script>
-	<script src="scripts/inheritence.js"></script>
-	<script src="scripts/app_adaptor.js"></script>
+  <!-- build:js({.tmp,app}) scripts/scripts.js -->
+  <script src="scripts/app.js"></script>
+  <script src="scripts/inheritence.js"></script>
+  <script src="scripts/app_adaptor.js"></script>
     <script src="scripts/controllers/toolbar.js"></script>
-	<script src="scripts/controllers/student_home.js"></script>
-	<script src="scripts/controllers/app_list.js"></script>
-	<script src="scripts/controllers/app.js"></script>
-	<script src="scripts/controllers/unit.js"></script>
-	<script src="scripts/controllers/login.js"></script>
-	<script src="scripts/services/apps.js"></script>
-	<script src="scripts/services/units.js"></script>
-	<script src="scripts/services/user.js"></script>
-    <script src="scripts/controllers/teacher-dashboard.js"></script>
-	<!-- endbuild -->
+  <script src="scripts/controllers/student_home.js"></script>
+  <script src="scripts/controllers/app_list.js"></script>
+  <script src="scripts/controllers/app.js"></script>
+  <script src="scripts/controllers/unit.js"></script>
+  <script src="scripts/controllers/login.js"></script>
+  <script src="scripts/services/apps.js"></script>
+  <script src="scripts/services/units.js"></script>
+  <script src="scripts/services/user.js"></script>
+  <script src="scripts/controllers/teacher-dashboard.js"></script>
+  <!-- endbuild -->
   </body>
 </html>
