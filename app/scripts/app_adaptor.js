@@ -94,7 +94,7 @@ window.GenericAppAdaptor = function(routerDomain){
     var adaptor = _this;
     for( var match in _this.adaptors ){
       if( src.substr(0, match.length) === match ){
-        adaptor = adaptors[match];
+        adaptor = _this.adaptors[match];
         if(_this.getToken()){
           console.log('Passing token to app-specific adaptor');
           adaptor.setToken(_this.getToken());
