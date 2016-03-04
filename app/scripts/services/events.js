@@ -13,9 +13,9 @@ angular.module('eduraamApp')
         this.store = function(token, verb, object, result){
           var payload;
           if(result){
-            payload = {'verb': verb, 'object': object, 'result': result};
+            payload = {'verb': verb, 'obj': object, 'result': result};
           }else{
-            payload = {'verb': verb, 'object': object};
+            payload = {'verb': verb, 'obj': object};
           }
           return $http({
             method: 'POST',
