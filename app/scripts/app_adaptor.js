@@ -4,6 +4,11 @@ window.GenericAppAdaptor = function(routerDomain){
   var _this = this;
   this.routerDomain = routerDomain || '';
 
+  // Mapping of url prefix matches and adaptor objects
+  this.adaptors = {
+    'https://studio.code.org/s/': (new window.CodeOrgAdaptor(routerDomain))
+  };
+
   this.unrouteUrl = function(url){
     if( url[0] === '#'){
       return url;
@@ -85,21 +90,17 @@ window.GenericAppAdaptor = function(routerDomain){
   this.init = function(appWindow){
     var src = _this.unrouteUrl(appWindow.document.location.href);
     console.log('Initialize adaptor for', src);
-    // Mapping of url prefix matches and adaptor objects
-    var adaptors = {
-      'https://studio.code.org/s/': window.CodeOrgAdaptor
-    };
     // Match an adaptor object based on the src location, or use default.
-    var AdaptorObj = null;
-    for( var match in adaptors ){
+    var adaptor = _this;
+    for( var match in _this.adaptors ){
       if( src.substr(0, match.length) === match ){
-        AdaptorObj = adaptors[match];
+        adaptor = adaptors[match];
+        if(_this.getToken()){
+          console.log('Passing token to app-specific adaptor');
+          adaptor.setToken(_this.getToken());
+        }
         break;
       }
-    }
-    var adaptor = _this;
-    if( AdaptorObj !== null ){
-      adaptor = new AdaptorObj(routerDomain);
     }
     adaptor.onWindow(appWindow);
     return adaptor;
