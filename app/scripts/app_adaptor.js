@@ -6,7 +6,7 @@ window.GenericAppAdaptor = function(routerDomain){
 
   // Mapping of url prefix matches and adaptor objects
   this.adaptors = {
-    'https://studio.code.org/s/': (new window.CodeOrgAdaptor(routerDomain))
+    'https://studio.code.org/s/': (new window.CodeOrgAdaptor(routerDomain, this))
   };
 
   this.unrouteUrl = function(url){
@@ -95,10 +95,6 @@ window.GenericAppAdaptor = function(routerDomain){
     for( var match in _this.adaptors ){
       if( src.substr(0, match.length) === match ){
         adaptor = _this.adaptors[match];
-        if(_this.getToken()){
-          console.log('Passing token to app-specific adaptor');
-          adaptor.setToken(_this.getToken());
-        }
         break;
       }
     }
@@ -143,8 +139,12 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 };
 
-window.CodeOrgAdaptor = function(routerDomain){
-    var _this = window.inherit(this, new window.GenericAppAdaptor(routerDomain));
+window.CodeOrgAdaptor = function(routerDomain, parentObj){
+    if(parentObj){
+      var _this = window.inherit(this, parentObj);
+    }else{
+      var _this = window.inherit(this, new window.GenericAppAdaptor(routerDomain));
+    }
     var _parent = _this._parent;
 
     this.onWindow = function(appWindow){
