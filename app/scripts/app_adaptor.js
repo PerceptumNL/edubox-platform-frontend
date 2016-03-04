@@ -82,6 +82,8 @@ window.GenericAppAdaptor = function(routerDomain){
   this.getToken = function(){ return _token; };
   this.setToken = function(token){ _token = token; };
 
+  this.storeEvent = function(){}; // Get's overriden by controller
+
   /**
    * Initialize adaptor depending on the src location of the app window.
    * If the location matches one of the app-specific adaptors, the call is
@@ -171,6 +173,15 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
             if( _this.unrouteUrl(settings.url).substr(0,34) ===
 				'https://studio.code.org/milestone/' ){
               console.log('Completed ', appWindow.document.location.pathname);
+              console.log(settings);
+              if(token && settings.data.testResult === 100){
+                _this.storeEvent(
+                  token,
+                  'http://adlnet.gov/expapi/verbs/completed',
+                  appWindow.document.location.pathname,
+                  settings.data.program
+                );
+              }
             }
           }
         );

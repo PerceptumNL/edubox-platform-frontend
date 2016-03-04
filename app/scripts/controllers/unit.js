@@ -9,9 +9,11 @@
  */
 
 angular.module('eduraamApp')
-  .controller('UnitCtrl', ['$scope', '$routeParams', 'Units',
-      function ($scope, $routeParams, Units) {
+  .controller('UnitCtrl', ['$scope', '$routeParams', 'Units', 'Events',
+      function ($scope, $routeParams, Units, Events) {
         var adaptor = new window.GenericAppAdaptor('codecult.nl');
+        adaptor.storeEvent = Events.store;
+
         Units.get(
           parseInt($routeParams.group),
           parseInt($routeParams.unit),
