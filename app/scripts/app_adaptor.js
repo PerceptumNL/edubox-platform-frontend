@@ -4,9 +4,10 @@ window.GenericAppAdaptor = function(routerDomain){
   var _this = this;
   this.routerDomain = routerDomain || '';
 
-  // Mapping of url prefix matches and adaptor objects
-  this.adaptors = {
-    'https://studio.code.org/s/': (new window.CodeOrgAdaptor(routerDomain, this))
+  this.getAdaptors = function(){
+    return {
+      'https://studio.code.org/s/': (new window.CodeOrgAdaptor(routerDomain, _this))
+    };
   };
 
   this.unrouteUrl = function(url){
@@ -92,9 +93,10 @@ window.GenericAppAdaptor = function(routerDomain){
     console.log('Initialize adaptor for', src);
     // Match an adaptor object based on the src location, or use default.
     var adaptor = _this;
-    for( var match in _this.adaptors ){
+    var adaptors = _this.getAdaptors();
+    for( var match in adaptors ){
       if( src.substr(0, match.length) === match ){
-        adaptor = _this.adaptors[match];
+        adaptor = adaptors[match];
         break;
       }
     }
