@@ -170,7 +170,7 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
             console.log('intercepting ajax call');
             if( _this.unrouteUrl(settings.url).substr(0,34) ===
 				'https://studio.code.org/milestone/' ){
-              console.log('Completed ', appWindow.document.location.pathame);
+              console.log('Completed ', appWindow.document.location.pathname);
             }
           }
         );
