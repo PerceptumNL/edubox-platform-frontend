@@ -140,10 +140,11 @@ window.GenericAppAdaptor = function(routerDomain){
 };
 
 window.CodeOrgAdaptor = function(routerDomain, parentObj){
+    var _this;
     if(parentObj){
-      var _this = window.inherit(this, parentObj);
+      _this = window.inherit(this, parentObj);
     }else{
-      var _this = window.inherit(this, new window.GenericAppAdaptor(routerDomain));
+      _this = window.inherit(this, new window.GenericAppAdaptor(routerDomain));
     }
     var _parent = _this._parent;
 
