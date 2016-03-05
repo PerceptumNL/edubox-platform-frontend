@@ -98,7 +98,7 @@ window.GenericAppAdaptor = function(routerDomain){
   this.init = function(appWindow){
     var src = _this.unrouteUrl(appWindow.document.location.href);
     _this.appUrls.unrouteUrlObj = new window.URI(src);
-    _this.appUrls.routedUrlObj = new window.URI(appWindow.document.location.ref);
+    _this.appUrls.routedUrlObj = new window.URI(appWindow.document.location.href);
     // Match an adaptor object based on the src location, or use default.
     var adaptor = _this;
     var adaptors = _this.getAdaptors();
