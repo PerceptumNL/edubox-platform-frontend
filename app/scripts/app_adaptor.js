@@ -126,7 +126,8 @@ window.GenericAppAdaptor = function(routerDomain){
         options.url = _this.routeUrl(options.url);
         options.converters['text html'] = function(value){
           console.log('Converting', unroutedScheme+'://'+unroutedHost);
-          return value.replace(unroutedScheme+'://'+unroutedHost, '');
+          return value.replace(
+            new RegExp(unroutedScheme+'://'+unroutedHost, 'gm'), '');
         };
       });
     }
