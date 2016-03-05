@@ -4,6 +4,11 @@ window.GenericAppAdaptor = function(routerDomain){
   var _this = this;
   this.routerDomain = routerDomain || '';
 
+  this.appUrls = {
+    routedUrlObj: null,
+    unrouteUrlObj: null
+  };
+
   this.getAdaptors = function(){
     return {
       'https://studio.code.org/s/': (new window.CodeOrgAdaptor(routerDomain, _this))
@@ -67,7 +72,7 @@ window.GenericAppAdaptor = function(routerDomain){
         }
         return urlObj.toString();
       // If host is the same as the current routed host
-      }else if( host === _this.routedHost ){
+      }else if( host === _this.appUrls.routedUrlObj.host() ){
         // Only add the token if applicable.
         if(token){
           return urlObj.setQuery('token', token).toString();
@@ -92,6 +97,8 @@ window.GenericAppAdaptor = function(routerDomain){
    **/
   this.init = function(appWindow){
     var src = _this.unrouteUrl(appWindow.document.location.href);
+    _this.appUrls.unrouteUrlObj = new window.URI(src);
+    _this.appUrls.routedUrlObj = new window.URI(appWindow.document.location.ref);
     // Match an adaptor object based on the src location, or use default.
     var adaptor = _this;
     var adaptors = _this.getAdaptors();
@@ -108,15 +115,19 @@ window.GenericAppAdaptor = function(routerDomain){
   this.onWindow = function(appWindow){
     var token = _this.getToken();
     if(!token){
-      var routedUrl = new window.URI(appWindow.document.location.href);
-      _this.routedHost = routedUrl.host();
-      token = routedUrl.search(true).token;
+      token = _this.appUrls.routedUrlObj.search(true).token;
       if(token){ _this.setToken(token); }
     }
     // Update any jQuery ajax call, if applicable.
     if('jQuery' in appWindow){
+      var unroutedHost = _this.appUrls.unrouteUrlObj.host();
+      var unroutedScheme = _this.appUrls.unrouteUrlObj.scheme();
       appWindow.jQuery.ajaxPrefilter(function(options){
         options.url = _this.routeUrl(options.url);
+        options.converters['text html'] = function(value){
+          console.log('Converting', unroutedScheme+'://'+unroutedHost);
+          return value.replace(unroutedScheme+'://'+unroutedHost, '');
+        };
       });
     }
     // Process body on load (unfortunately DOMready is too soon)
@@ -151,7 +162,7 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
     this.onWindow = function(appWindow){
       var token = _this.getToken();
       if(token){
-        var urlObj = window.URI(appWindow.document.location.href);
+        var urlObj = _this.appUrls.unrouteUrlObj.clone();
         if(!urlObj.hasQuery('token')){
           urlObj.addQuery('token', token);
           appWindow.document.location = urlObj.toString();
@@ -160,24 +171,34 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
       }
       _parent.onWindow(appWindow);
       if('jQuery' in appWindow){
+        var triggers = {
+          'https://studio.code.org/milestone/': _this.onAjaxMilestone
+        };
         appWindow.jQuery(appWindow.document).ajaxSend(
           function( event, jqxhr, settings ) {
-            if( _this.unrouteUrl(settings.url).substr(0,34) ===
-                'https://studio.code.org/milestone/' ){
-              if(token){
-                var activity = window.URI(
-                    _this.unrouteUrl(appWindow.document.location.href))
-                  .removeQuery('token')
-                  .toString();
-                _this.storeEvent(
-                  token,
-                  'http://adlnet.gov/expapi/verbs/completed',
-                  activity,
-                  settings.data
-                );
+            var url = _this.unrouteUrl(settings.url);
+            for( var match in triggers ){
+              if( url.substr(0, match.length) === match ){
+                triggers[match](event, jqxhr, settings);
               }
             }
           }
+        );
+      }
+    };
+
+    this.onAjaxMilestone = function(event, jqxhr, settings){
+      var token = _this.getToken();
+      if(token){
+        var activity = _this.appUrls.unrouteUrlObj
+          .clone()
+          .removeQuery('token')
+          .toString();
+        _this.storeEvent(
+          token,
+          'http://adlnet.gov/expapi/verbs/completed',
+          activity,
+          settings.data
         );
       }
     };
