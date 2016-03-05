@@ -2,34 +2,29 @@
 
 /**
  * @ngdoc function
- * @name eduraamApp.controller:StudentHomeCtrl
+ * @name eduraamApp.controller:HomescreenCtrl
  * @description Dealing with displaying the homepage for students
- * # StudentHomeCtrl
+ * # HomescreenCtrl
  * Controller of the eduraamApp
  */
 
 angular.module('eduraamApp')
-  .controller('StudentHomeCtrl', ['$scope', '$mdDialog', '$mdMedia', 'Units', '$location',
-        function ($scope, $mdDialog, $mdMedia, Units, $location) {
+  .controller('HomescreenCtrl', ['$scope', '$routeParams', '$mdDialog', '$mdMedia', 'Units', '$location',
+        function ($scope, $routeParams, $mdDialog, $mdMedia, Units, $location) {
             $scope.items = [];
-            var group;
+            var groupId = parseInt($routeParams.group);
             var loginUrls = {};
-            Units.all(function(units){
-              for(var g = 0; g < units.length; g++){
-                  // It is possible this callback is called twice,
-                  //  once from the cache and once from the network
-                  $scope.items = [];
-                  group = units[g];
-                  for(var i = 0; i < group.units.length; i++){
-                      $scope.items.push({
-                          'id': group.units[i].id,
-                          'group': group.id,
-                          'title': group.units[i].label,
-                          'description':'',
-                          'type': 'lesson'
-                      });
-                      loginUrls[group.units[i].login] = null;
-                  }
+            Units.all(groupId, function(units){
+              $scope.items = [];
+              for(var i = 0; i < units.length; i++){
+                  $scope.items.push({
+                      'id': units[i].id,
+                      'group': groupId,
+                      'title': units[i].label,
+                      'description':'',
+                      'type': 'lesson'
+                  });
+                  loginUrls[units[i].login] = null;
               }
               // Automatically login user into received units
               for(var loginUrl in loginUrls){
@@ -82,7 +77,7 @@ angular.module('eduraamApp')
                   $scope.customFullscreen = (wantsFullScreen === true);
                 });
               }else if(item.type === 'lesson'){
-                $location.path('/units/'+item.group+'/'+item.id+'/');
+                $location.path('/'+groupId+'/units/'+item.id+'/');
               }
             };
         }

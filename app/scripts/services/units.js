@@ -12,35 +12,28 @@ angular.module('eduraamApp')
   function ($resource, $cacheFactory, envService, $http) {
     var _this = this;
     var cache = $cacheFactory('edrm-units');
-    var res = $resource(envService.read('apiUrl')+'/collections/learning-units/', null,
+    var res = $resource(envService.read('apiUrl')+'/collections/units/', null,
         {'all': { method:'GET', withCredentials: true, cache: cache }});
-    var _units = null;
+    var _units = {};
 
-    this.all = function(callback){
-      if( _units !== null ){ callback(_units, null); }
-      res.all(function(value, headers){
-        if (JSON.stringify(value.units) !== JSON.stringify(_units)){
-          _units = value.units;
-          callback.call(this, _units, headers);
+    this.all = function(groupId, callback){
+      if( groupId in _units ){
+        callback(_units[groupId], null);
+      }
+      res.all({group:groupId}, function(value, headers){
+        if ( !(groupId in _units) ||
+            JSON.stringify(value.units) !== JSON.stringify(_units[groupId]) ){
+          _units[groupId] = value.units;
+          callback.call(this, value.units, headers);
         }
       });
     };
     this.get = function(groupId, unitId, callback){
-      _this.all(function(unitGroups, headers){
-        var group = null;
-        for(var i = 0; i < unitGroups.length ; i++){
-          if(unitGroups[i].id === groupId){
-            group = unitGroups[i];
-            break;
-          }
-        }
-        if(group === null){
-          throw 'No group could be matched to '+groupId;
-        }
+      _this.all(groupId, function(units, headers){
         var unit = null;
-        for(var j = 0; j < group.units.length ; j++){
-          if(group.units[j].id === unitId){
-            unit = group.units[j];
+        for(var i = 0; i < units.length ; i++){
+          if(units[i].id === unitId){
+            unit = units[i];
             break;
           }
         }
@@ -48,8 +41,8 @@ angular.module('eduraamApp')
         callback(unit, headers);
       });
     };
-    this.getLaunchUrl = function(group, unit){
-      return envService.read('launchUrl')+'/'+group+'/units/'+unit+'/';
+    this.getLaunchUrl = function(groupId, unitId){
+      return envService.read('launchUrl')+'/'+groupId+'/units/'+unitId+'/';
     };
     this.login = function(loginUrl){
       $http({

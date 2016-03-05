@@ -56,7 +56,7 @@ angular
     ]);
     $routeProvider
       .when('/', {
-        templateUrl: 'views/student_home.html'
+        templateUrl: 'views/group_selector.html'
       })
       .when('/teacher-dashboard/', {
         templateUrl: 'views/teacher-dashboard.html'
@@ -69,14 +69,17 @@ angular
         templateUrl: 'views/app.html',
         controller: 'AppCtrl',
       })
-      .when('/units/:group/:unit/', {
-        templateUrl: 'views/app.html',
-        controller: 'UnitCtrl',
-      })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
         controllerAs: 'login'
+      })
+      .when('/:group/', {
+        templateUrl: 'views/homescreen.html'
+      })
+      .when('/:group/units/:unit/', {
+        templateUrl: 'views/app.html',
+        controller: 'UnitCtrl',
       })
       .otherwise({
         redirectTo: '/'

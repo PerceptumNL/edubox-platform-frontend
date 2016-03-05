@@ -3,6 +3,8 @@
 $homescreen-bgcolor: black;
 $homescreen-bg-image: url('/images/background_image.jpg');
 
+$group-item-bgcolor: #FF9800;
+$group-item-color: white;
 $message-item-bgcolor: white;
 $message-item-color: black;
 $lesson-item-bgcolor: #03A9F4;
@@ -70,7 +72,7 @@ md-toolbar.topbar {
     font-size: small;
     border-radius: .25em;
     background-color: #03A9F4;
-	text-transform: uppercase;
+    text-transform: uppercase;
 }
 
 .teacher-dashboard {
@@ -81,54 +83,62 @@ md-toolbar.topbar {
     padding: 10px;
 }
 
-.student-home {
+.group_selector,
+.homescreen {
     padding: 50px 0 0 20px;
 }
 
-.student-home .md-subhead {
-  color: inherit!important;
+.group_selector .md-subhead,
+.homescreen .md-subhead {
+    color: inherit!important;
 }
 
-.student-home .message-item {
+.group_selector md-card {
+    cursor: pointer;
+    background: $group-item-bgcolor;
+    color: $group-item-color;
+}
+
+.homescreen .message-item {
     cursor: pointer;
     background: $message-item-bgcolor;
     color: $message-item-color;
 }
 
-.student-home .message-item .icon {
+.homescreen .message-item .icon {
     fill: $message-item-color;
 }
 
-.student-home .message-item:hover {
+.homescreen .message-item:hover {
     background: lighten($message-item-bgcolor, 20%);
 }
 
-.student-home .lesson-item {
+.homescreen .lesson-item {
     cursor: pointer;
     background: $lesson-item-bgcolor;
     color: $lesson-item-color;
 }
 
-.student-home .lesson-item:hover {
+.homescreen .lesson-item:hover {
     background: lighten($lesson-item-bgcolor, 20%);
 }
 
-.student-home .lesson-item .icon{
+.homescreen .lesson-item .icon{
     fill: $lesson-item-color;
     stroke: $lesson-item-color;
 }
 
-.student-home .challenge-item {
+.homescreen .challenge-item {
     cursor: pointer;
     background: $challenge-item-bgcolor;
     color: $challenge-item-color;
 }
 
-.student-home .challenge-item:hover {
+.homescreen .challenge-item:hover {
     background: lighten($challenge-item-bgcolor, 20%);
 }
 
-.student-home .challenge-item .icon {
+.homescreen .challenge-item .icon {
     fill: $challenge-item-color;
     stroke: $challenge-item-color;
 }
