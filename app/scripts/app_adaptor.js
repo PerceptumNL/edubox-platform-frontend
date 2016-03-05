@@ -120,14 +120,16 @@ window.GenericAppAdaptor = function(routerDomain){
     }
     // Update any jQuery ajax call, if applicable.
     if('jQuery' in appWindow){
-      var unroutedHost = _this.appUrls.unrouteUrlObj.host();
-      var unroutedScheme = _this.appUrls.unrouteUrlObj.scheme();
       appWindow.jQuery.ajaxPrefilter(function(options){
         options.url = _this.routeUrl(options.url);
         options.converters['text html'] = function(value){
-          console.log('Converting', unroutedScheme+'://'+unroutedHost);
           return value.replace(
-            new RegExp(unroutedScheme+'://'+unroutedHost, 'gm'), '');
+            /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gm,
+            function(url){
+              console.log('Converting', url);
+              return _this.routeUrl(url);
+            }
+          );
         };
       });
     }
