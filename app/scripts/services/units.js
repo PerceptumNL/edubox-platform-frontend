@@ -27,7 +27,6 @@ angular.module('eduraamApp')
     };
     this.get = function(groupId, unitId, callback){
       _this.all(function(unitGroups, headers){
-        console.log(unitGroups);
         var group = null;
         for(var i = 0; i < unitGroups.length ; i++){
           if(unitGroups[i].id === groupId){

@@ -92,7 +92,6 @@ window.GenericAppAdaptor = function(routerDomain){
    **/
   this.init = function(appWindow){
     var src = _this.unrouteUrl(appWindow.document.location.href);
-    console.log('Initialize adaptor for', src);
     // Match an adaptor object based on the src location, or use default.
     var adaptor = _this;
     var adaptors = _this.getAdaptors();
@@ -107,7 +106,6 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 
   this.onWindow = function(appWindow){
-    console.log('Generic::onWindow');
     var token = _this.getToken();
     if(!token){
       var routedUrl = new window.URI(appWindow.document.location.href);
@@ -118,7 +116,6 @@ window.GenericAppAdaptor = function(routerDomain){
     // Update any jQuery ajax call, if applicable.
     if('jQuery' in appWindow){
       appWindow.jQuery.ajaxPrefilter(function(options){
-        //console.log('Updating ajax call');
         options.url = _this.routeUrl(options.url);
       });
     }
@@ -128,7 +125,6 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 
   this.onDOM = function(appWindow){
-    console.log('Generic::onDOM');
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
@@ -153,32 +149,26 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
     var _parent = _this._parent;
 
     this.onWindow = function(appWindow){
-      console.log('CodeOrg::onWindow');
       var token = _this.getToken();
       if(token){
         var urlObj = window.URI(appWindow.document.location.href);
         if(!urlObj.hasQuery('token')){
           urlObj.addQuery('token', token);
-          console.log('Reloading frame to', urlObj.toString());
           appWindow.document.location = urlObj.toString();
           return;
         }
       }
       _parent.onWindow(appWindow);
       if('jQuery' in appWindow){
-        console.log('intercept on code.org ajax init.');
         appWindow.jQuery(appWindow.document).ajaxSend(
           function( event, jqxhr, settings ) {
-            console.log('intercepting ajax call');
-            if( _this.unrouteUrl(settings.url).substr(0,34) ===
-				'https://studio.code.org/milestone/' ){
-              console.log('Completed ', appWindow.document.location.pathname);
-              console.log(settings);
+            var unhashedUrl = _this.unrouteUrl(settings.url);
+            if( unhashedUrl.substr(0,34) === 'https://studio.code.org/milestone/' ){
               if(token){
                 _this.storeEvent(
                   token,
                   'http://adlnet.gov/expapi/verbs/completed',
-                  appWindow.document.location.pathname,
+                  unhashedUrl,
                   settings.data
                 );
               }

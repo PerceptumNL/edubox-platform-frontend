@@ -14,9 +14,7 @@ angular.module('eduraamApp')
             $scope.items = [];
             var group;
             var loginUrls = {};
-            Units.all(function(units, headers){
-              if(headers){ console.log('units from network'); }
-              else{ console.log('units from memory'); }
+            Units.all(function(units){
               for(var g = 0; g < units.length; g++){
                   // It is possible this callback is called twice,
                   //  once from the cache and once from the network

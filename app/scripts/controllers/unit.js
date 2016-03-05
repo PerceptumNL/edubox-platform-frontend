@@ -18,7 +18,6 @@ angular.module('eduraamApp')
           parseInt($routeParams.group),
           parseInt($routeParams.unit),
           function(unit){
-            console.log('Setting', unit.token);
             adaptor.setToken(unit.token);
           }
         );
