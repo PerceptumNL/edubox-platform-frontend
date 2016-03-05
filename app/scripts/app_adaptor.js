@@ -125,10 +125,7 @@ window.GenericAppAdaptor = function(routerDomain){
         options.converters['text html'] = function(value){
           return value.replace(
             /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gm,
-            function(url){
-              console.log('Converting', url);
-              return _this.routeUrl(url);
-            }
+            function(url){ return _this.routeUrl(url); }
           );
         };
       });
