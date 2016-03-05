@@ -162,13 +162,17 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
       if('jQuery' in appWindow){
         appWindow.jQuery(appWindow.document).ajaxSend(
           function( event, jqxhr, settings ) {
-            var unhashedUrl = _this.unrouteUrl(settings.url);
-            if( unhashedUrl.substr(0,34) === 'https://studio.code.org/milestone/' ){
+            if( _this.unrouteUrl(settings.url).substr(0,34) ===
+                'https://studio.code.org/milestone/' ){
               if(token){
+                var activity = window.URI(
+                    _this.unrouteUrl(appWindow.document.location.href))
+                  .removeQuery('token')
+                  .toString();
                 _this.storeEvent(
                   token,
                   'http://adlnet.gov/expapi/verbs/completed',
-                  unhashedUrl,
+                  activity,
                   settings.data
                 );
               }
