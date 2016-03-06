@@ -11,10 +11,10 @@ angular.module('eduraamApp')
   .controller('ToolbarCtrl', ['$scope', '$mdSidenav', 'User', 'envService', 'VERSION',
     function ($scope, $mdSidenav, User, envService, VERSION) {
       $scope.userInfoName = null;
-      if(envService.get() === 'staging'){
+      if(envService.get() === 'production'){
         $scope.version = VERSION;
       }else{
-        $scope.version = 'staging';
+        $scope.version = envService.get();
       }
       User.info(function(info){
         $scope.userInfoName = info.name;
