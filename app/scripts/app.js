@@ -30,22 +30,25 @@ angular
       },
       vars: {
         development: {
-          apiUrl: '//localhost:8000/api',
-          accountsUrl: '//localhost:8000/accounts',
-          launchUrl: '//localhost:8000/launch',
-          launchUrlAppRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/apps\/[0-9]+\//,
-          launchUrlUnitRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/units\/[0-9]+\//
+          apiUrl: 'http://localhost:8000/api',
+          accountsUrl: 'http://localhost:8000/accounts',
+          accountsUrlRegex: /http:\/\/localhost:8000\/accounts\//,
+          launchUrl: 'http://localhost:8000/launch',
+          launchUrlAppRegex: /http:\/\/localhost:8000\/launch\/[0-9]+\/apps\/[0-9]+\//,
+          launchUrlUnitRegex: /http:\/\/localhost:8000\/launch\/[0-9]+\/units\/[0-9]+\//
         },
         staging: {
-          apiUrl: '//api.staging.codecult.nl',
-          accountsUrl: '//accounts.staging.codecult.nl',
-          launchUrl: '//launch.staging.codecult.nl',
-          launchUrlAppRegex: /https?:\/\/launch.staging.codecult.nl\/[0-9]+\/apps\/[0-9]+\//,
-          launchUrlUnitRegex: /https?:\/\/launch.staging.codecult.nl\/[0-9]+\/units\/[0-9]+\//
+          apiUrl: 'http://api.staging.codecult.nl',
+          accountsUrl: 'http://accounts.staging.codecult.nl',
+          accountsUrlRegex: /http:\/\/accounts.staging.codecult.nl\//,
+          launchUrl: 'http://launch.staging.codecult.nl',
+          launchUrlAppRegex: /http:\/\/launch.staging.codecult.nl\/[0-9]+\/apps\/[0-9]+\//,
+          launchUrlUnitRegex: /http:\/\/launch.staging.codecult.nl\/[0-9]+\/units\/[0-9]+\//
         },
         production: {
           apiUrl: '//api.codecult.nl',
           accountsUrl: '//accounts.codecult.nl',
+          accountsUrlRegex: /https?:\/\/accounts.codecult.nl\//,
           launchUrl: '//launch.codecult.nl',
           launchUrlAppRegex: /https?:\/\/launch.codecult.nl\/[0-9]+\/apps\/[0-9]+\//,
           launchUrlUnitRegex: /https?:\/\/launch.codecult.nl\/[0-9]+\/units\/[0-9]+\//
@@ -60,8 +63,7 @@ angular
       'self',
       envServiceProvider.read('launchUrlAppRegex'),
       envServiceProvider.read('launchUrlUnitRegex'),
-      /https?:\/\/accounts.codecult.nl\//,
-      /https?:\/\/[[a-z.-_]+.app.codecult.nl\//,
+      envServiceProvider.read('accountsUrlRegex'),
     ]);
     $routeProvider
       .when('/', {
