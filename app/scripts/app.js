@@ -20,11 +20,13 @@ angular
     'environment',
     'http-auth-interceptor',
   ])
+  .constant('VERSION', 'Private Beta 0.7.10')
   .config(function (envServiceProvider) {
     envServiceProvider.config({
       domains: {
         development: ['localhost'],
-        production: ['platform.codecult.nl', 'staging.codecult.nl']
+        staging: ['staging.codecult.nl'],
+        production: ['platform.codecult.nl']
       },
       vars: {
         development: {
@@ -33,6 +35,13 @@ angular
           launchUrl: '//localhost:8000/launch',
           launchUrlAppRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/apps\/[0-9]+\//,
           launchUrlUnitRegex: /https?:\/\/localhost:8000\/launch\/[0-9]+\/units\/[0-9]+\//
+        },
+        staging: {
+          apiUrl: '//api.staging.codecult.nl',
+          accountsUrl: '//accounts.staging.codecult.nl',
+          launchUrl: '//launch.staging.codecult.nl',
+          launchUrlAppRegex: /https?:\/\/launch.staging.codecult.nl\/[0-9]+\/apps\/[0-9]+\//,
+          launchUrlUnitRegex: /https?:\/\/launch.staging.codecult.nl\/[0-9]+\/units\/[0-9]+\//
         },
         production: {
           apiUrl: '//api.codecult.nl',

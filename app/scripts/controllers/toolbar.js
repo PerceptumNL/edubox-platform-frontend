@@ -8,15 +8,20 @@
  * Controller of the eduraamApp
  */
 angular.module('eduraamApp')
-  .controller('ToolbarCtrl', ['$scope', '$mdSidenav', 'User',
-    function ($scope, $mdSidenav, User) {
-		$scope.userInfoName = null;
-		User.info(function(info){
-			$scope.userInfoName = info.name;
-		});
-        $scope.launchHelp = function(){
-            $mdSidenav('help-sidenav').open();
-        };
+  .controller('ToolbarCtrl', ['$scope', '$mdSidenav', 'User', 'envService', 'VERSION',
+    function ($scope, $mdSidenav, User, envService, VERSION) {
+      $scope.userInfoName = null;
+      if(envService.get() === 'staging'){
+        $scope.version = VERSION;
+      }else{
+        $scope.version = 'staging';
+      }
+      User.info(function(info){
+        $scope.userInfoName = info.name;
+      });
+      $scope.launchHelp = function(){
+          $mdSidenav('help-sidenav').open();
+      };
     }
   ])
   .controller('HelpCtrl', ['$scope', '$mdDialog', '$mdSidenav',
