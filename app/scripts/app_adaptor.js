@@ -6,7 +6,7 @@ window.GenericAppAdaptor = function(routerDomain){
 
   this.appUrls = {
     routedUrlObj: null,
-    unrouteUrlObj: null
+    unroutedUrlObj: null
   };
 
   this.getAdaptors = function(){
@@ -97,7 +97,7 @@ window.GenericAppAdaptor = function(routerDomain){
    **/
   this.init = function(appWindow){
     var src = _this.unrouteUrl(appWindow.document.location.href);
-    _this.appUrls.unrouteUrlObj = new window.URI(src);
+    _this.appUrls.unroutedUrlObj = new window.URI(src);
     _this.appUrls.routedUrlObj = new window.URI(appWindow.document.location.href);
     // Match an adaptor object based on the src location, or use default.
     var adaptor = _this;
@@ -162,7 +162,7 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
     this.onWindow = function(appWindow){
       var token = _this.getToken();
       if(token){
-        var urlObj = _this.appUrls.unrouteUrlObj.clone();
+        var urlObj = _this.appUrls.routedUrlObj.clone();
         if(!urlObj.hasQuery('token')){
           urlObj.addQuery('token', token);
           appWindow.document.location = urlObj.toString();
@@ -190,7 +190,7 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
     this.onAjaxMilestone = function(event, jqxhr, settings){
       var token = _this.getToken();
       if(token){
-        var activity = _this.appUrls.unrouteUrlObj
+        var activity = _this.appUrls.unroutedUrlObj
           .clone()
           .removeQuery('token')
           .toString();
