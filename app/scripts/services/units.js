@@ -48,7 +48,7 @@ angular.module('eduraamApp')
       $http({
         method: 'GET',
         withCredentials: true,
-        url: envService.read('accountsUrl')+loginUrl
+        url: loginUrl
       });
     };
   }]);
