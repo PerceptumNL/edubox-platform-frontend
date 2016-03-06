@@ -30,6 +30,7 @@ angular
       },
       vars: {
         development: {
+          routerDomain: 'localhost:5000',
           apiUrl: 'http://localhost:8000/api',
           accountsUrl: 'http://localhost:8000/accounts',
           accountsUrlRegex: /http:\/\/localhost:8000\/accounts\//,
@@ -38,6 +39,7 @@ angular
           launchUrlUnitRegex: /http:\/\/localhost:8000\/launch\/[0-9]+\/units\/[0-9]+\//
         },
         staging: {
+          routerDomain: 'staging.codecult.nl',
           apiUrl: 'http://api.staging.codecult.nl',
           accountsUrl: 'http://accounts.staging.codecult.nl',
           accountsUrlRegex: /http:\/\/accounts.staging.codecult.nl\//,
@@ -46,6 +48,7 @@ angular
           launchUrlUnitRegex: /http:\/\/launch.staging.codecult.nl\/[0-9]+\/units\/[0-9]+\//
         },
         production: {
+          routerDomain: 'codecult.nl',
           apiUrl: '//api.codecult.nl',
           accountsUrl: '//accounts.codecult.nl',
           accountsUrlRegex: /https?:\/\/accounts.codecult.nl\//,

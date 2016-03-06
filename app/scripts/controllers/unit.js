@@ -9,9 +9,9 @@
  */
 
 angular.module('eduraamApp')
-  .controller('UnitCtrl', ['$scope', '$routeParams', 'Units', 'Events',
-      function ($scope, $routeParams, Units, Events) {
-        var adaptor = new window.GenericAppAdaptor('codecult.nl');
+  .controller('UnitCtrl', ['$scope', '$routeParams', 'Units', 'Events', 'envService',
+      function ($scope, $routeParams, Units, Events, envService) {
+        var adaptor = new window.GenericAppAdaptor(envService.read('routerDomain'));
         adaptor.storeEvent = Events.store;
 
         Units.get(
