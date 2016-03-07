@@ -114,7 +114,6 @@ window.GenericAppAdaptor = function(envService){
         break;
       }
     }
-    console.log('Adaptor', adaptor);
     adaptor.onWindow(appWindow);
     return adaptor;
   };
@@ -182,11 +181,9 @@ window.CodeOrgAdaptor = function(envService, parentObj){
           'studio.code.org/milestone/': _this.onAjaxMilestone
         };
         var protocolSkip = (_this.routerProtocol+'://').length;
-        console.log('Set CodeOrgAdaptor:jQuery triggers');
         appWindow.jQuery(appWindow.document).ajaxSend(
           function( event, jqxhr, settings ) {
             var url = _this.unrouteUrl(settings.url);
-            console.log('Ajax:trigger', url);
             for( var match in triggers ){
               if( url.substr(protocolSkip, match.length) === match ){
                 triggers[match](event, jqxhr, settings);
