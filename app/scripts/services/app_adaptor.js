@@ -25,7 +25,7 @@ window.GenericAppAdaptor = function(envService){
     } else {
       // convert url into a more manageable form.
       var urlObj = new window.URI(url);
-      if( urlObj.domain() === _this.routerHostname ){
+      if( urlObj.host().split('.').slice(1).join('.') === _this.routerHostname ){
         // Unhash subdomain
         var subdomain = urlObj.subdomain();
         var unhashedDomain = '';
