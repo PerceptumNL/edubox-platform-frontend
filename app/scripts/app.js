@@ -31,6 +31,7 @@ angular
       vars: {
         development: {
           routerDomain: 'localhost:5000',
+          routerProtocol: 'http',
           apiUrl: 'http://api.localhost:8000',
           accountsUrl: 'http://accounts.localhost:8000',
           accountsUrlRegex: /http:\/\/accounts.localhost:8000\//,
@@ -40,6 +41,7 @@ angular
         },
         staging: {
           routerDomain: 'staging.codecult.nl',
+          routerProtocol: 'http',
           apiUrl: 'http://api.staging.codecult.nl',
           accountsUrl: 'http://accounts.staging.codecult.nl',
           accountsUrlRegex: /http:\/\/accounts.staging.codecult.nl\//,
@@ -49,6 +51,7 @@ angular
         },
         production: {
           routerDomain: 'codecult.nl',
+          routerProtocol: 'https',
           apiUrl: '//api.codecult.nl',
           accountsUrl: '//accounts.codecult.nl',
           accountsUrlRegex: /https?:\/\/accounts.codecult.nl\//,
