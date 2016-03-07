@@ -25,9 +25,10 @@ window.GenericAppAdaptor = function(envService){
     } else {
       // convert url into a more manageable form.
       var urlObj = new window.URI(url);
-      if( urlObj.host().split('.').slice(1).join('.') === _this.routerHostname ){
+      var hostParts = urlObj.hostname().split('.');
+      if( hostParts.slice(1).join('.') === _this.routerHostname ){
         // Unhash subdomain
-        var subdomain = urlObj.subdomain();
+        var subdomain = hostParts[0];
         var unhashedDomain = '';
         for( var i = 0; i < subdomain.length; i += 2){
           unhashedDomain += String.fromCharCode(
