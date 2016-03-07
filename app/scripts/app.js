@@ -30,6 +30,7 @@ angular
       },
       vars: {
         development: {
+          xssDomain: 'codecult.local',
           routerDomain: 'codecult.local:5000',
           routerProtocol: 'http',
           apiUrl: 'http://api.codecult.local:8000',
@@ -40,6 +41,7 @@ angular
           launchUrlUnitRegex: /http:\/\/launch.codecult.local:8000\/[0-9]+\/units\/[0-9]+\//
         },
         staging: {
+          xssDomain: 'codecult.nl',
           routerDomain: 'staging.codecult.nl',
           routerProtocol: 'http',
           apiUrl: 'http://api.staging.codecult.nl',
@@ -50,6 +52,7 @@ angular
           launchUrlUnitRegex: /http:\/\/launch.staging.codecult.nl\/[0-9]+\/units\/[0-9]+\//
         },
         production: {
+          xssDomain: 'codecult.nl',
           routerDomain: 'codecult.nl',
           routerProtocol: 'https',
           apiUrl: '//api.codecult.nl',
@@ -103,6 +106,7 @@ angular
       });
   })
   .run(['$rootScope', 'envService', function($rootScope, envService){
+    window.document.domain = envService.read('xssDomain');
     $rootScope.$on('event:auth-loginRequired', function(){
       var currentUrl = encodeURIComponent(window.location.href);
       window.location.href = envService.read('accountsUrl')+'/login/?next='+currentUrl;

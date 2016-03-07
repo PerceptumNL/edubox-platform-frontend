@@ -46,6 +46,7 @@ module.exports = function(config) {
 
     // web server port
     port: 8080,
+    hostname: 'codecult.local',
 
     // Start these browsers, currently available:
     // - Chrome
