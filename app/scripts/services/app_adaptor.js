@@ -175,13 +175,14 @@ window.CodeOrgAdaptor = function(envService, parentObj){
       _parent.onWindow(appWindow);
       if('jQuery' in appWindow){
         var triggers = {
-          _this.routerProtocol+'://studio.code.org/milestone/': _this.onAjaxMilestone
+          'studio.code.org/milestone/': _this.onAjaxMilestone
         };
+        var protocolSkip = (_this.routerProtocol+'://').length;
         appWindow.jQuery(appWindow.document).ajaxSend(
           function( event, jqxhr, settings ) {
             var url = _this.unrouteUrl(settings.url);
             for( var match in triggers ){
-              if( url.substr(0, match.length) === match ){
+              if( url.substr(protocolSkip, match.length) === match ){
                 triggers[match](event, jqxhr, settings);
               }
             }
