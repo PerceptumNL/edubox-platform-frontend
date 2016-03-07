@@ -3,6 +3,7 @@
 window.GenericAppAdaptor = function(envService){
   var _this = this;
   this.routerDomain = envService.read('routerDomain');
+  this.routerNakedDomain = new window.URI('http://'+this.routerDomain).domain();
   this.routerProtocol = envService.read('routerProtocol');
 
   this.appUrls = {
@@ -12,7 +13,7 @@ window.GenericAppAdaptor = function(envService){
 
   this.getAdaptors = function(){
     return {
-      'https://studio.code.org/s/': (new window.CodeOrgAdaptor(envService, _this))
+      'studio.code.org/s/': (new window.CodeOrgAdaptor(envService, _this))
     };
   };
 
@@ -24,7 +25,7 @@ window.GenericAppAdaptor = function(envService){
     } else {
       // convert url into a more manageable form.
       var urlObj = new window.URI(url);
-      if( urlObj.domain() === _this.routerDomain ){
+      if( urlObj.domain() === _this.routerNakedDomain ){
         // Unhash subdomain
         var subdomain = urlObj.subdomain();
         var unhashedDomain = '';
@@ -105,8 +106,9 @@ window.GenericAppAdaptor = function(envService){
     // Match an adaptor object based on the src location, or use default.
     var adaptor = _this;
     var adaptors = _this.getAdaptors();
+    var protocolSkip = (_this.routerProtocol+'://').length;
     for( var match in adaptors ){
-      if( src.substr(0, match.length) === match ){
+      if( src.substr(protocolSkip, match.length) === match ){
         adaptor = adaptors[match];
         break;
       }
