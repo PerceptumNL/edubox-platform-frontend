@@ -31,12 +31,12 @@ angular
       vars: {
         development: {
           routerDomain: 'localhost:5000',
-          apiUrl: 'http://localhost:8000/api',
-          accountsUrl: 'http://localhost:8000/accounts',
-          accountsUrlRegex: /http:\/\/localhost:8000\/accounts\//,
-          launchUrl: 'http://localhost:8000/launch',
-          launchUrlAppRegex: /http:\/\/localhost:8000\/launch\/[0-9]+\/apps\/[0-9]+\//,
-          launchUrlUnitRegex: /http:\/\/localhost:8000\/launch\/[0-9]+\/units\/[0-9]+\//
+          apiUrl: 'http://api.localhost:8000',
+          accountsUrl: 'http://accounts.localhost:8000',
+          accountsUrlRegex: /http:\/\/accounts.localhost:8000\//,
+          launchUrl: 'http://launch.localhost:8000',
+          launchUrlAppRegex: /http:\/\/launch.localhost:8000\/[0-9]+\/apps\/[0-9]+\//,
+          launchUrlUnitRegex: /http:\/\/launch.localhost:8000\/[0-9]+\/units\/[0-9]+\//
         },
         staging: {
           routerDomain: 'staging.codecult.nl',
