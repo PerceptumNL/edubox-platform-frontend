@@ -30,14 +30,14 @@ angular
       },
       vars: {
         development: {
-          routerDomain: 'localhost:5000',
+          routerDomain: 'codecult.local:5000',
           routerProtocol: 'http',
-          apiUrl: 'http://api.localhost:8000',
-          accountsUrl: 'http://accounts.localhost:8000',
-          accountsUrlRegex: /http:\/\/accounts.localhost:8000\//,
-          launchUrl: 'http://launch.localhost:8000',
-          launchUrlAppRegex: /http:\/\/launch.localhost:8000\/[0-9]+\/apps\/[0-9]+\//,
-          launchUrlUnitRegex: /http:\/\/launch.localhost:8000\/[0-9]+\/units\/[0-9]+\//
+          apiUrl: 'http://api.codecult.local:8000',
+          accountsUrl: 'http://accounts.codecult.local:8000',
+          accountsUrlRegex: /http:\/\/accounts.codecult.local:8000\//,
+          launchUrl: 'http://launch.codecult.local:8000',
+          launchUrlAppRegex: /http:\/\/launch.codecult.local:8000\/[0-9]+\/apps\/[0-9]+\//,
+          launchUrlUnitRegex: /http:\/\/launch.codecult.local:8000\/[0-9]+\/units\/[0-9]+\//
         },
         staging: {
           routerDomain: 'staging.codecult.nl',
