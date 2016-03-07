@@ -3,7 +3,7 @@
 window.GenericAppAdaptor = function(envService){
   var _this = this;
   this.routerDomain = envService.read('routerDomain');
-  this.routerNakedDomain = new window.URI('http://'+this.routerDomain).domain();
+  this.routerHostname = new window.URI('http://'+this.routerDomain).hostname();
   this.routerProtocol = envService.read('routerProtocol');
 
   this.appUrls = {
@@ -25,7 +25,7 @@ window.GenericAppAdaptor = function(envService){
     } else {
       // convert url into a more manageable form.
       var urlObj = new window.URI(url);
-      if( urlObj.domain() === _this.routerNakedDomain ){
+      if( urlObj.domain() === _this.routerHostname ){
         // Unhash subdomain
         var subdomain = urlObj.subdomain();
         var unhashedDomain = '';
