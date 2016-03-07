@@ -1,8 +1,9 @@
 'use strict';
 
-window.GenericAppAdaptor = function(routerDomain){
+window.GenericAppAdaptor = function(envService){
   var _this = this;
-  this.routerDomain = routerDomain || '';
+  this.routerDomain = envService.read('routerDomain');
+  this.routerProtocol = envService.read('routerProtocol');
 
   this.appUrls = {
     routedUrlObj: null,
@@ -11,7 +12,7 @@ window.GenericAppAdaptor = function(routerDomain){
 
   this.getAdaptors = function(){
     return {
-      'https://studio.code.org/s/': (new window.CodeOrgAdaptor(routerDomain, _this))
+      'https://studio.code.org/s/': (new window.CodeOrgAdaptor(envService, _this))
     };
   };
 
@@ -70,6 +71,8 @@ window.GenericAppAdaptor = function(routerDomain){
         if(token){
           urlObj = urlObj.setQuery('token', token);
         }
+        // Ensure the router protocol
+        urlObj.protocol(_this.routerProtocol);
         return urlObj.toString();
       // If host is the same as the current routed host
       }else if( host === _this.appUrls.routedUrlObj.host() ){
@@ -150,12 +153,12 @@ window.GenericAppAdaptor = function(routerDomain){
   };
 };
 
-window.CodeOrgAdaptor = function(routerDomain, parentObj){
+window.CodeOrgAdaptor = function(envService, parentObj){
     var _this;
     if(parentObj){
       _this = window.inherit(this, parentObj);
     }else{
-      _this = window.inherit(this, new window.GenericAppAdaptor(routerDomain));
+      _this = window.inherit(this, new window.GenericAppAdaptor(envService));
     }
     var _parent = _this._parent;
 
@@ -203,3 +206,12 @@ window.CodeOrgAdaptor = function(routerDomain, parentObj){
       }
     };
 };
+
+/**
+ * @ngdoc service
+ * @name eduraamApp.AppAdaptor
+ * @description
+ * # AppAdaptor
+ * Service in the eduraamApp.
+ */
+angular.module('eduraamApp').service('AppAdaptor', ['envService', window.GenericAppAdaptor]);

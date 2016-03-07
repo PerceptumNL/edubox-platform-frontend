@@ -9,22 +9,22 @@
  */
 
 angular.module('eduraamApp')
-  .controller('UnitCtrl', ['$scope', '$routeParams', 'Units', 'Events', 'envService',
-      function ($scope, $routeParams, Units, Events, envService) {
-        var adaptor = new window.GenericAppAdaptor(envService.read('routerDomain'));
-        adaptor.storeEvent = Events.store;
+  .controller('UnitCtrl', [
+      '$scope', '$routeParams', 'Units', 'Events', 'AppAdaptor',
+      function ($scope, $routeParams, Units, Events, AppAdaptor) {
+        AppAdaptor.storeEvent = Events.store;
+        window.activateAppAdaptor = function(appWindow){
+          AppAdaptor = AppAdaptor.init(appWindow);
+        };
 
         Units.get(
           parseInt($routeParams.group),
           parseInt($routeParams.unit),
           function(unit){
-            adaptor.setToken(unit.token);
+            AppAdaptor.setToken(unit.token);
           }
         );
         $scope.appLaunchUrl = Units.getLaunchUrl(
           $routeParams.group, $routeParams.unit);
-        window.activateAppAdaptor = function(appWindow){
-          adaptor = adaptor.init(appWindow);
-        };
       }
   ]);
