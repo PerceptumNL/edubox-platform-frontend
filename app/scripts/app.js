@@ -78,7 +78,7 @@ angular
       .when('/', {
         templateUrl: 'views/group_selector.html'
       })
-      .when('/teacher-dashboard/', {
+      .when('/:group/teacher-dashboard/', {
         templateUrl: 'views/teacher-dashboard.html'
       })
       .when('/apps/', {
