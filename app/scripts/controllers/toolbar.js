@@ -22,6 +22,10 @@ angular.module('eduraamApp')
       $scope.launchHelp = function(){
           $mdSidenav('help-sidenav').open();
       };
+      $scope.logout = function(){
+        var currentUrl = encodeURIComponent(window.location.href);
+        window.location = envService.read('accountsUrl')+'/logout/?next='+currentUrl;
+      };
     }
   ])
   .controller('HelpCtrl', ['$scope', '$mdDialog', '$mdSidenav',
