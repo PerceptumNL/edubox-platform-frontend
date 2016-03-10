@@ -11,8 +11,7 @@
         <tbody>
           <tr ng-repeat="student in students">
             <td>{{student.name}}</td>
-            <td ng-repeat="skill in skills"
-              ng-switch="student.skills[skill.id].level.index">
+            <td ng-repeat="skill in student.skills" ng-switch="skill.level.index">
               <span ng-switch-when="1">
                 <md-icon md-svg-src="images/star_black.svg"></md-icon>
                 <md-icon md-svg-src="images/star_border.svg"></md-icon>
