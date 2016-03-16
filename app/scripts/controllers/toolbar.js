@@ -8,9 +8,14 @@
  * Controller of the eduraamApp
  */
 angular.module('eduraamApp')
-  .controller('ToolbarCtrl', ['$scope', '$mdSidenav', 'User', 'envService', 'VERSION',
-    function ($scope, $mdSidenav, User, envService, VERSION) {
+  .controller('ToolbarCtrl', [
+      '$rootScope', '$scope', '$location', '$mdSidenav', 'User', 'envService', 'VERSION',
+    function ($rootScope, $scope, $location,  $mdSidenav, User, envService, VERSION) {
+      var dashboardGroup = null;
+      var isTeacher = false;
       $scope.userInfoName = null;
+      $scope.showDashboardBtn = false;
+
       if(envService.get() === 'production'){
         $scope.version = VERSION;
       }else{
@@ -18,6 +23,7 @@ angular.module('eduraamApp')
       }
       User.info(function(info){
         $scope.userInfoName = info.name;
+        isTeacher = info.isTeacher;
       });
       $scope.launchHelp = function(){
           $mdSidenav('help-sidenav').open();
@@ -25,6 +31,20 @@ angular.module('eduraamApp')
       $scope.logout = function(){
         var currentUrl = encodeURIComponent(window.location.href);
         window.location = envService.read('accountsUrl')+'/logout/?next='+currentUrl;
+      };
+      $rootScope.$on('$routeChangeSuccess', function(ev, current){
+        if ( current && current.params && current.params.group ){
+          dashboardGroup = current.params.group;
+          $scope.showDashboardBtn = isTeacher;
+        }else{
+          dashboardGroup = null;
+          $scope.showDashboardBtn = false;
+        }
+      });
+      $scope.loadDashboard = function(){
+        if( dashboardGroup ){
+          $location.path('/'+dashboardGroup+'/dashboard/');
+        }
       };
     }
   ])

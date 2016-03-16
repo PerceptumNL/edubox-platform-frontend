@@ -9,7 +9,8 @@
  */
 
 angular.module('eduraamApp')
-  .controller('HomescreenCtrl', ['$scope', '$routeParams', '$mdDialog', '$mdMedia', 'Units', '$location',
+  .controller('HomescreenCtrl', [
+      '$scope', '$routeParams', '$mdDialog', '$mdMedia', 'Units', '$location',
         function ($scope, $routeParams, $mdDialog, $mdMedia, Units, $location) {
             $scope.items = [];
             var groupId = parseInt($routeParams.group);
