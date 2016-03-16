@@ -18,7 +18,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'environment',
-    'http-auth-interceptor',
+    'http-auth-interceptor'
   ])
   .constant('VERSION', 'Private Beta 0.7.11')
   .config(function (envServiceProvider) {
