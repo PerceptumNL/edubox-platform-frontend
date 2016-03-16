@@ -10,7 +10,7 @@
 angular.module('eduraamApp')
   .controller('TeacherDashboardCtrl', ['$scope', 'Skills', '$routeParams', 'Groups',
       function ($scope, Skills, $routeParams, Groups) {
-        $scope.students = [];
+        $scope.students = null;
         $scope.skills = [];
         $scope.groupTitle = null;
         Groups.get($routeParams.group, function(group){
