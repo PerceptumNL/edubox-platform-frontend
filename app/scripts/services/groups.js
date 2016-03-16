@@ -30,6 +30,7 @@ angular.module('eduraamApp')
       };
 
       this.get = function(groupId, callback){
+        groupId = parseInt(groupId);
         _this.all(function(groups, headers){
           var group = null;
           for(var i = 0; i < groups.length ; i++){
