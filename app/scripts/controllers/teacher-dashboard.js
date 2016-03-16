@@ -21,6 +21,6 @@ angular.module('eduraamApp')
             $scope.skills = groupSkills[0].skills;
             $scope.students = groupSkills;
           }
-        });
+        }, true);
       }
   ]);

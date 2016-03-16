@@ -15,13 +15,19 @@ angular.module('eduraamApp')
         null,
         {'all': { method:'GET', withCredentials: true }});
 
-      this.getMySkills = function(callback){
-        res.all(function(value, headers){
+      this.getMySkills = function(callback, filterDashboard){
+        params = ( filterDashboard ? { 'filter_dashboard': 1 } : {} );
+        res.all(params, function(value, headers){
           callback.call(this, value.skills, headers);
         });
       };
-      this.getGroupSkills = function(groupId, callback){
-        res.all({group:groupId}, function(value, headers){
+      this.getGroupSkills = function(groupId, callback, filterDashboard){
+        if( filterDashboard ){
+          var params = { 'filter_dashboard': 1, 'group': groupId }
+        } else {
+          var params = { 'group': groupId }
+        }
+        res.all(params, function(value, headers){
           callback.call(this, value.skills, headers);
         });
       };
