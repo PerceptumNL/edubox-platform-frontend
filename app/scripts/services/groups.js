@@ -16,13 +16,15 @@ angular.module('eduraamApp')
         null,
         {'all': { method:'GET', withCredentials: true }});
 
-      var _groups = null;
-      this.all = function(callback){
-        if( _groups !== null ){ callback(_groups, null); }
-        res.all(function(value, headers){
+      var _groups = {};
+      this.all = function(callback, role){
+        var params = ( role ? { role: role } : {} );
+        role = ( role ? role : '*' );
+        if( _groups[role] ){ callback(_groups[role], null); }
+        res.all(params, function(value, headers){
           if (JSON.stringify(value.groups) !== JSON.stringify(_groups)){
-            _groups = value.groups;
-            callback.call(this, _groups, headers);
+            _groups[role] = value.groups;
+            callback.call(this, _groups[role], headers);
           }
         });
       };

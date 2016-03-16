@@ -9,9 +9,9 @@
  */
 angular.module('eduraamApp')
   .controller('ToolbarCtrl', [
-      '$rootScope', '$scope', '$location', '$mdSidenav', 'User', 'envService', 'VERSION',
-    function ($rootScope, $scope, $location,  $mdSidenav, User, envService, VERSION) {
-      var dashboardGroup = null;
+      '$rootScope', '$scope', '$location', '$mdSidenav',
+      'User', 'envService', 'VERSION', 'Groups',
+    function ($rootScope, $scope, $location,  $mdSidenav, User, envService, VERSION, Groups) {
       var isTeacher = false;
       $scope.userInfoName = null;
       $scope.showDashboardBtn = false;
@@ -32,19 +32,19 @@ angular.module('eduraamApp')
         var currentUrl = encodeURIComponent(window.location.href);
         window.location = envService.read('accountsUrl')+'/logout/?next='+currentUrl;
       };
-      $rootScope.$on('$routeChangeSuccess', function(ev, current){
-        if ( current && current.params && current.params.group ){
-          dashboardGroup = current.params.group;
-          $scope.showDashboardBtn = isTeacher;
-        }else{
-          dashboardGroup = null;
+      $scope.teachingGroups = [];
+      Groups.all(function(groups){
+        if ( groups.length > 0 ){
+          $scope.teachingGroups = groups;
+          $scope.showDashboardBtn = true;
+        } else {
+          $scope.teachingGroups = [];
           $scope.showDashboardBtn = false;
         }
-      });
-      $scope.loadDashboard = function(){
-        if( dashboardGroup ){
-          $location.path('/'+dashboardGroup+'/dashboard/');
-        }
+      }, 'Teacher');
+
+      $scope.loadDashboard = function(groupId){
+        $location.path('/'+groupId+'/dashboard/');
       };
     }
   ])
