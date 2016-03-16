@@ -16,16 +16,15 @@ angular.module('eduraamApp')
         {'all': { method:'GET', withCredentials: true }});
 
       this.getMySkills = function(callback, filterDashboard){
-        params = ( filterDashboard ? { 'filter_dashboard': 1 } : {} );
+        var params = ( filterDashboard ? { dashboard: 1 } : {} );
         res.all(params, function(value, headers){
           callback.call(this, value.skills, headers);
         });
       };
       this.getGroupSkills = function(groupId, callback, filterDashboard){
+        var params = { group: groupId };
         if( filterDashboard ){
-          var params = { 'filter_dashboard': 1, 'group': groupId }
-        } else {
-          var params = { 'group': groupId }
+          params.dashboard =  1;
         }
         res.all(params, function(value, headers){
           callback.call(this, value.skills, headers);
