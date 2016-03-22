@@ -11,19 +11,7 @@
     <md-dialog-content>
       <div class="md-dialog-content">
         <h2>{{title}}</h2>
-        <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel
-        maximus metus. Ut ac tincidunt orci. Ut nec hendrerit nisl, at feugiat
-        nunc. Pellentesque felis velit, ornare non orci eget, vestibulum
-        efficitur ex. Curabitur consectetur dui eros, a consectetur turpis
-        faucibus in. Proin a imperdiet turpis. Pellentesque eu nibh molestie,
-        placerat enim sed, dictum justo. Fusce dignissim orci eleifend placerat
-        vestibulum. Curabitur pretium erat orci. Proin rhoncus efficitur
-        fermentum. Nulla at quam dui. Fusce luctus in ligula nec elementum.
-        Suspendisse nec mi a diam feugiat sodales. Praesent eu sem urna.
-        Pellentesque sed placerat nulla, vitae aliquam mi. In hac habitasse
-        platea dictumst.
-        </p>
+        <div ng-bind-html="description"></div>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">

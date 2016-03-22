@@ -4,8 +4,8 @@
  * @ngdoc service
  * @name eduraamApp.Units
  * @description
- * # Apps
- * Factory in the eduraamApp.
+ * # Units
+ * Service in the eduraamApp.
  */
 angular.module('eduraamApp')
   .service('Units', ['$resource', '$cacheFactory', 'envService', '$http',
