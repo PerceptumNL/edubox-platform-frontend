@@ -86,8 +86,8 @@ angular
         controller: 'AppListCtrl',
       })
       .when('/apps/:group/:app/', {
-        templateUrl: 'views/app.html',
         controller: 'AppCtrl',
+        templateUrl: 'views/loader.html'
       })
       .when('/login', {
         templateUrl: 'views/login.html',
@@ -98,8 +98,8 @@ angular
         templateUrl: 'views/homescreen.html'
       })
       .when('/:group/units/:unit/', {
-        templateUrl: 'views/app.html',
         controller: 'UnitCtrl',
+        templateUrl: 'views/loader.html'
       })
       .otherwise({
         redirectTo: '/'

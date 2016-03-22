@@ -24,7 +24,7 @@ angular.module('eduraamApp')
             AppAdaptor.setToken(unit.token);
           }
         );
-        $scope.appLaunchUrl = Units.getLaunchUrl(
-          $routeParams.group, $routeParams.unit);
+        window.EDRMBrowser.open(Units.getLaunchUrl(
+          $routeParams.group, $routeParams.unit));
       }
   ]);

@@ -25,7 +25,7 @@
 
   <md-toolbar class='topbar' ng-controller="ToolbarCtrl">
     <div class="md-toolbar-tools ng-cloak" layout='row'>
-    <a href="#/">
+    <a href="#/" id='logo-home-btn'>
       <img class='logo' src="/images/logo_codecult_transparant.png" />
       <div id='version_badge'>{{version}}</div>
     </a>
@@ -61,8 +61,6 @@
       </md-menu>
     </div>
   </md-toolbar>
-  <md-content ng-view="" flex class="main-content">
-  </md-content>
   <div layout="row" ng-controller="HelpCtrl" class='ng-cloak'>
     <md-sidenav class="md-sidenav-right md-whiteframe-z2 md-closed"
       md-component-id="help-sidenav">
@@ -101,6 +99,11 @@
     </md-sidenav>
   </div>
 
+  <md-content flex id="browser-container" ng-controller="BrowserCtrl" class='hide'>
+    <iframe width="100%" frameborder="0" id="browser-frame"></iframe>
+  </md-content>
+  <md-content ng-view="" flex class="main-content" id="main-container">
+  </md-content>
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
   <script src="bower_components/angular/angular.js"></script>
@@ -135,6 +138,9 @@
   <script src="scripts/controllers/unit.js"></script>
   <script src="scripts/services/app_adaptor.js"></script>
   <script src="scripts/services/skills.js"></script>
+  <script src="scripts/services/challenges.js"></script>
+  <script src="scripts/services/homescreen_items.js"></script>
+  <script src="scripts/controllers/browser.js"></script>
   <!-- endbuild -->
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
