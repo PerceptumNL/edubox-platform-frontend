@@ -13,7 +13,8 @@ window.GenericAppAdaptor = function(envService){
 
   this.getAdaptors = function(){
     return {
-      'studio.code.org/s/': (new window.CodeOrgAdaptor(envService, _this))
+      'studio.code.org/s/': (new window.CodeOrgAdaptor(envService, _this)),
+      'studio.code.org/flappy/': (new window.CodeOrgAdaptor(envService, _this))
     };
   };
 
