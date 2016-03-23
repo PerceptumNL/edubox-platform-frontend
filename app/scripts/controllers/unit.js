@@ -12,11 +12,6 @@ angular.module('eduraamApp')
   .controller('UnitCtrl', [
       '$scope', '$routeParams', 'Units', 'Events', 'AppAdaptor',
       function ($scope, $routeParams, Units, Events, AppAdaptor) {
-        AppAdaptor.storeEvent = Events.store;
-        window.activateAppAdaptor = function(appWindow){
-          AppAdaptor = AppAdaptor.init(appWindow);
-        };
-
         Units.get(
           parseInt($routeParams.group),
           parseInt($routeParams.unit),

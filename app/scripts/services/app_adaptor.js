@@ -14,7 +14,8 @@ window.GenericAppAdaptor = function(envService){
   this.getAdaptors = function(){
     return {
       'studio.code.org/s/': (new window.CodeOrgAdaptor(envService, _this)),
-      'studio.code.org/flappy/': (new window.CodeOrgAdaptor(envService, _this))
+      'studio.code.org/flappy/': (new window.CodeOrgAdaptor(envService, _this)),
+      'scratchmit.edu/projects/': (new window.ScratchAdaptor(envService, _this))
     };
   };
 
@@ -209,6 +210,29 @@ window.CodeOrgAdaptor = function(envService, parentObj){
           settings.data
         );
       }
+    };
+};
+
+window.ScratchAdaptor = function(envService, parentObj){
+    var _this;
+    if(parentObj){
+      _this = window.inherit(this, parentObj);
+    }else{
+      _this = window.inherit(this, new window.GenericAppAdaptor(envService));
+    }
+    var _parent = _this._parent;
+
+    this.onWindow = function(appWindow){
+      var token = _this.getToken();
+      if(token){
+        var urlObj = _this.appUrls.routedUrlObj.clone();
+        if(!urlObj.hasQuery('token')){
+          urlObj.addQuery('token', token);
+          appWindow.document.location = urlObj.toString();
+          return;
+        }
+      }
+      _parent.onWindow(appWindow);
     };
 };
 
