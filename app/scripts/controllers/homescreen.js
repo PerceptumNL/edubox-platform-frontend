@@ -37,6 +37,7 @@ angular.module('eduraamApp')
                       'title': items.challenges[j].label,
                       'description':'',
                       'body': items.challenges[j].body,
+                      'url': items.challenges[j].url,
                       'type': 'challenge'
                   });
               }
@@ -73,6 +74,7 @@ angular.module('eduraamApp')
                     };
                     $scope.start = function() {
                       $mdDialog.hide();
+                      window.EDRMBrowser.open(item.url);
                     };
                   },
                   templateUrl: 'views/project_description.html',
