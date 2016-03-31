@@ -100,7 +100,7 @@
   </div>
 
   <md-content flex id="browser-container" ng-controller="BrowserCtrl" class='hide'>
-    <iframe width="100%" frameborder="0" id="browser-frame"></iframe>
+  <iframe width="100%" height="100%" frameborder="0" id="browser-frame"></iframe>
   </md-content>
   <md-content ng-view="" flex class="main-content" id="main-container">
   </md-content>
@@ -121,8 +121,9 @@
   <!-- endbuild -->
 
   <!-- build:js({.tmp,app}) scripts/scripts.js -->
-  <script src="scripts/app.js"></script>
+  <script src="scripts/polyfills.js"></script>
   <script src="scripts/inheritence.js"></script>
+  <script src="scripts/app.js"></script>
   <script src="scripts/services/apps.js"></script>
   <script src="scripts/services/units.js"></script>
   <script src="scripts/services/user.js"></script>
