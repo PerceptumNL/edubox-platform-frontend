@@ -198,4 +198,5 @@ md-toolbar.topbar {
 
 #browser-container {
   display: flex;
+  height: calc(100% - 68px);
 }
