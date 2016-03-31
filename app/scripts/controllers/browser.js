@@ -17,32 +17,49 @@ angular.module('eduraamApp')
           AppAdaptor = AppAdaptor.init(appWindow);
         };
 
-        var browserFrame = angular.element(
-            document.getElementById('browser-frame'));
+        var browserFrame = document.getElementById('browser-frame');
         var browserContainer = angular.element(
             document.getElementById('browser-container'));
 
-        this.getBrowserFrame = function(){
-          return browserFrame;
-        };
-
-        this.getBrowserContainer = function(){
-          return browserContainer;
-        };
-
+        this.getBrowserContainer = function(){ return browserContainer; };
         var getMainContainer = function(){
           return angular.element(document.getElementById('main-container'));
         };
 
+/*        var fetchAndLoad = function(url, frame){
+          var doc = frame.contentDocument || frame.contentWindow.document;
+          $http({ method: 'GET', url: url })
+            .then(function(response){
+              var data = response.data;
+              var routedData = data.replace(
+                  /https?:\/\/([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/gm,
+                  function(url){ return AppAdaptor.routeUrl(url); });
+              doc.open();
+              doc.write(routedData);
+              doc.close();
+            }, function(){
+              //TODO: Notify user something went wrong.
+            });
+        };
+*/
+
         this.open = function(url, dontShowFrame){
-          _this.getBrowserFrame().attr('src', url);
+          angular.element(browserFrame).attr('src', url);
+//          fetchAndLoad(url, browserFrame);
           if( !dontShowFrame ){
             setTimeout(_this.ensureBrowserOnTop, 1);
           }
         };
 
+        var clearFrame = function(frame){
+          var doc = frame.contentDocument || frame.contentWindow.document;
+          doc.open();
+          doc.write('');
+          doc.close();
+        };
+
         this.close = function(){
-          _this.getBrowserFrame().attr('src', '');
+          clearFrame(browserFrame);
           setTimeout(_this.ensureMainOnTop, 1);
         };
 

@@ -1,5 +1,4 @@
 'use strict';
-
 window.GenericAppAdaptor = function(envService){
   var _this = this;
   this.routerDomain = envService.read('routerDomain');
@@ -15,7 +14,7 @@ window.GenericAppAdaptor = function(envService){
     return {
       'studio.code.org/s/': (new window.CodeOrgAdaptor(envService, _this)),
       'studio.code.org/flappy/': (new window.CodeOrgAdaptor(envService, _this)),
-      'scratchmit.edu/projects/': (new window.ScratchAdaptor(envService, _this))
+      'scratch.mit.edu/projects/': (new window.ScratchAdaptor(envService, _this))
     };
   };
 
@@ -43,17 +42,17 @@ window.GenericAppAdaptor = function(envService){
     }
   };
 
-  this.routeUrl = function(url){
+  this.routeUrl = function(url, ignoreToken){
     var routing = {
       'code.org': true,
       'scratch.mit.edu': true,
       'google.com': true,
       'google-analytics': true
     };
-    var token = _this.getToken();
+    var token = (ignoreToken ? null : _this.getToken() );
     if( url[0] === '#'){
       return url;
-    } else if( url[0] === '/'){
+    } else if( url[0] === '/' && ( url.length === 1 || url[1] !== '/' ) ){
       if(token){
         return new window.URI(url).setQuery('token', token).toString();
       }
@@ -62,7 +61,14 @@ window.GenericAppAdaptor = function(envService){
       var urlObj = new window.URI(url);
       var host = urlObj.host();
       // if host should be routed
-      if( routing[host] || routing[urlObj.domain()] ){
+      var routeHost = false;
+      for(var suffix in routing){
+        if( host.endsWith(suffix) ){
+          routeHost = true;
+          break;
+        }
+      }
+      if( routeHost ){
         // Construct the routed host to send the request to.
         var routedHost = '';
         for (var i=0; i < host.length; i++) {
@@ -138,12 +144,30 @@ window.GenericAppAdaptor = function(envService){
         };
       });
     }
+
+    appWindow.addEventListener('DOMContentLoaded',
+      function(){ _this.onDOM(appWindow); });
     // Process body on load (unfortunately DOMready is too soon)
     appWindow.addEventListener('load',
-      function(){ _this.onDOM(appWindow); });
+      function(){ _this.onLoad(appWindow); });
   };
 
   this.onDOM = function(appWindow){
+    return true;
+    var scripts = appWindow.document.body.getElementsByTagName('script');
+    for( var i = 0; i < scripts.length; i++){
+      if( scripts[i].src && ( scripts[i].src.startsWith('//') || scripts[i].src.startsWith('http') ) ){
+        var newSrc = _this.routeUrl(scripts[i].src, true);
+        if( newSrc !== scripts[i].src ){
+          var newScript = appWindow.document.createElement('script');
+          newScript.src = newSrc;
+          scripts[i].parentNode.replaceChild(newScript, scripts[i]);
+        }
+      }
+    }
+  };
+
+  this.onLoad = function(appWindow){
     // Update links in <a> tags
     var aTags = appWindow.document.getElementsByTagName('a');
     for(var a=0; a < aTags.length; a++){
@@ -231,6 +255,32 @@ window.ScratchAdaptor = function(envService, parentObj){
           appWindow.document.location = urlObj.toString();
           return;
         }
+      }
+      if( appWindow.swfobject ){
+        var swfobject = appWindow.swfobject;
+        appWindow.swfobject = {
+          'embedSWF': function(swfUrlStr, _1, _2, _3, _4, xiSwfUrlStr, flashvarsObj, _7, _8, _9){
+            swfUrlStr = _this.routeUrl(swfUrlStr, true);
+            xiSwfUrlStr = _this.routeUrl(xiSwfUrlStr, true);
+            var urlOverrides = JSON.parse(decodeURIComponent(flashvarsObj.urlOverrides));
+            for( var key in urlOverrides ){
+              urlOverrides[key] = _this.routeUrl(urlOverrides[key], true);
+            }
+            console.log('new url overrides');
+            console.log(urlOverrides);
+            flashvarsObj.urlOverrides = encodeURIComponent(JSON.stringify(urlOverrides));
+            swfobject.embedSWF(swfUrlStr, _1, _2, _3, _4, xiSwfUrlStr, flashvarsObj, _7, _8, _9);
+          },
+          'hasFlashPlayerVersion': swfobject.hasFlashPlayerVersion,
+          'getObjectById': swfobject.getObjectById,
+        };
+      }
+      if( appWindow.Scratch.INIT_DATA ){
+        var routeObjURLValue = function(obj, key){ obj[key] = _this.routeUrl(obj[key], true); };
+        routeObjURLValue(appWindow.Scratch.INIT_DATA.GLOBAL_URLS, 'media_url');
+        routeObjURLValue(appWindow.Scratch.INIT_DATA.GLOBAL_URLS, 'static_url');
+        routeObjURLValue(appWindow.Scratch.INIT_DATA.PROJECT, 'embedUrl');
+        routeObjURLValue(appWindow.Scratch.INIT_DATA.COI, 'TARGET_DOMAIN');
       }
       _parent.onWindow(appWindow);
     };
