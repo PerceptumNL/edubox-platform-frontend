@@ -20,7 +20,7 @@ angular
     'environment',
     'http-auth-interceptor'
   ])
-  .constant('VERSION', 'Private Beta 0.7.11')
+  .constant('VERSION', 'Private Beta 0.7.12')
   .config(function (envServiceProvider) {
     envServiceProvider.config({
       domains: {
