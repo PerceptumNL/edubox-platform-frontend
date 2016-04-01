@@ -42,6 +42,11 @@ md-toolbar.topbar {
 
 .md-toolbar-tools img.logo {
     height: 60px;
+    width: 72px;
+}
+
+#logo-home-bn {
+    width: 72px;
 }
 
 .help-question-block {
@@ -63,7 +68,6 @@ md-toolbar.topbar {
     float: right;
     margin-left: 10px;
     padding: 5px;
-    margin-top: 20px;
     font-weight: bold;
     font-size: small;
     border-radius: .25em;
