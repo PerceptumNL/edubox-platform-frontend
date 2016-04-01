@@ -29,36 +29,37 @@
       <img class='logo' src="/images/logo_codecult_transparant.png" />
     </a>
     <div id='version_badge'>{{version}}</div>
-    <span flex></span>
-        <!--<md-button class="md-raised md-primary ng-cloak"
-            ng-click="launchHelp()">Help!</md-button>-->
-    <md-progress-circular md-mode="indeterminate" ng-hide="userInfoName"></md-progress-circular>
-      <md-menu ng-show="showDashboardBtn" md-offset="0 50"
-        md-position-mode="target-right target">
-        <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
-        style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
-          <md-icon md-svg-src="images/dashboard.svg"></md-icon>
-          Overzicht
-        </md-button>
-        <md-menu-content width="4">
-          <md-menu-item ng-repeat="group in teachingGroups">
-            <md-button ng-click="loadDashboard(group.id)">{{ group.title }}</md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-      <md-menu ng-show="userInfoName" md-offset="0 50"
-        md-position-mode="target-right target">
-        <md-button class="md-raised ng-cloak" aria-label="Account"
-        style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
-            <md-icon md-svg-src="images/profile.svg"></md-icon>
-      {{ userInfoName }}
-        </md-button>
-        <md-menu-content width="4">
-          <md-menu-item>
-            <md-button ng-click="logout()">Logout</md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
+    <div class="align-right">
+      <!--<md-button class="md-raised md-primary ng-cloak"
+          ng-click="launchHelp()">Help!</md-button>-->
+      <md-progress-circular md-mode="indeterminate" ng-hide="userInfoName"></md-progress-circular>
+        <md-menu ng-show="showDashboardBtn" md-offset="0 50"
+          md-position-mode="target-right target">
+          <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
+          style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
+            <md-icon md-svg-src="images/dashboard.svg"></md-icon>
+            Overzicht
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item ng-repeat="group in teachingGroups">
+              <md-button ng-click="loadDashboard(group.id)">{{ group.title }}</md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <md-menu ng-show="userInfoName" md-offset="0 50"
+          md-position-mode="target-right target">
+          <md-button class="md-raised ng-cloak" aria-label="Account"
+          style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
+              <md-icon md-svg-src="images/profile.svg"></md-icon>
+        {{ userInfoName }}
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="logout()">Logout</md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
     </div>
   </md-toolbar>
   <div layout="row" ng-controller="HelpCtrl" class='ng-cloak'>

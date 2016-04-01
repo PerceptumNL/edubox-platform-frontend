@@ -30,6 +30,7 @@ md-content {
 
 md-content.main-content {
     display: flex;
+    height: calc(100% - 64px);
     background-color: $homescreen-bgcolor;
     background-image: $homescreen-bg-image;
     background-size: cover;
@@ -43,6 +44,12 @@ md-toolbar.topbar {
 .md-toolbar-tools img.logo {
     height: 60px;
     width: 72px;
+}
+
+.md-toolbar-tools .align-right {
+    position: absolute;
+    right: 0px;
+    padding-top: 12px;
 }
 
 #logo-home-bn {
@@ -198,5 +205,5 @@ md-toolbar.topbar {
 
 #browser-container {
   display: flex;
-  height: calc(100% - 68px);
+  height: calc(100% - 64px);
 }
