@@ -107,6 +107,11 @@ md-toolbar.topbar {
     color: $group-item-color;
 }
 
+.group_selector md-card,
+.homescreen md-card {
+    min-height: 112px;
+}
+
 .homescreen .message-item {
     cursor: pointer;
     background: $message-item-bgcolor;
