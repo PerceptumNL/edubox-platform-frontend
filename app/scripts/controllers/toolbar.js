@@ -9,7 +9,7 @@
  */
 angular.module('eduraamApp')
   .controller('ToolbarCtrl', [
-      '$rootScope', '$scope', '$location', '$mdSidenav',
+      '$rootScope', '$scope', '$location', '$mdSidenav', '$mdDialog',
       'User', 'envService', 'VERSION', 'Groups',
     function ($rootScope, $scope, $location,  $mdSidenav, User, envService, VERSION, Groups) {
       var isTeacher = false;
@@ -31,6 +31,28 @@ angular.module('eduraamApp')
       $scope.logout = function(){
         var currentUrl = encodeURIComponent(window.location.href);
         window.location = envService.read('accountsUrl')+'/logout/?next='+currentUrl;
+      };
+      $scope.changePassword = function(){
+          $mdDialog.show({
+            controller: function ($scope, $mdDialog) {
+              $scope.title = item.title;
+              $scope.hide = function() {
+                $mdDialog.hide();
+              };
+              $scope.cancel = function() {
+                $mdDialog.cancel();
+              };
+              $scope.submit = function(form) {
+                console.log(form);
+                $mdDialog.hide();
+              };
+            },
+            templateUrl: 'views/change_password.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen
+          })
       };
       $scope.teachingGroups = [];
       Groups.all(function(groups){
