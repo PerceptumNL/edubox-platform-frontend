@@ -187,7 +187,7 @@ window.CodeOrgAdaptor = function(envService, parentObj){
             var url = _this.unrouteUrl(settings.url);
             for( var match in triggers ){
               if( url.substr(protocolSkip, match.length) === match ){
-                triggers[match](event, jqxhr, settings);
+                triggers[match](event, jqxhr, settings, appWindow);
               }
             }
           }
@@ -195,7 +195,13 @@ window.CodeOrgAdaptor = function(envService, parentObj){
       }
     };
 
-    this.onAjaxMilestone = function(event, jqxhr, settings){
+    this.onAjaxMilestone = function(event, jqxhr, settings, appWindow){
+      try{
+        var code = appWindow.Blockly.Generator.blockSpaceToCode('JavaScript', null, false);
+        var codegen = appWindow.require("/home/ubuntu/staging/apps/build/js/codegen.js");
+        code = codegen.strip(code);
+        console.log(code);
+      } catch (e) { console.log('Could not extract JS code'); }
       var token = _this.getToken();
       if(token){
         var activity = _this.appUrls.unroutedUrlObj
