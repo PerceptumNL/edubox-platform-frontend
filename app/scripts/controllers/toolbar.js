@@ -9,9 +9,10 @@
  */
 angular.module('eduraamApp')
   .controller('ToolbarCtrl', [
-      '$rootScope', '$scope', '$location', '$mdSidenav',
+      '$rootScope', '$scope', '$location', '$mdDialog', '$mdMedia', '$http',
       'User', 'envService', 'VERSION', 'Groups',
-    function ($rootScope, $scope, $location,  $mdSidenav, User, envService, VERSION, Groups) {
+    function ($rootScope, $scope, $location,  $mdDialog, $mdMedia, $http,
+              User, envService, VERSION, Groups) {
       var isTeacher = false;
       $scope.userInfoName = null;
       $scope.showDashboardBtn = false;
@@ -25,8 +26,67 @@ angular.module('eduraamApp')
         $scope.userInfoName = info.name;
         isTeacher = info.isTeacher;
       });
-      $scope.launchHelp = function(){
-          $mdSidenav('help-sidenav').open();
+      $scope.launchHelp = function(ev){
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          $http({
+            method: 'GET',
+            url: envService.read('apiUrl')+'/csrf/'
+          }).then(function(){
+            $mdDialog.show({
+              controller: function ($scope, $mdDialog, $http) {
+                $scope.hide = function() {
+                  $mdDialog.hide();
+                };
+                $scope.cancel = function() {
+                  $mdDialog.cancel();
+                };
+                $scope.submit = function() {
+                  var question = document.getElementById('help_dialog').question.value;
+                  $http({
+                    method: 'POST',
+                    url: envService.read('apiUrl')+'/questions/',
+                    data: {
+                      'location': $location.url(),
+                      'question': question
+                    },
+                    withCredentials: true
+                  }).then(
+                    function(){
+                      $mdDialog.hide();
+                      $mdDialog.show(
+                        $mdDialog.alert()
+                          .parent(angular.element(document.body))
+                          .clickOutsideToClose(true)
+                          .title('Verstuurd')
+                          .textContent('We zullen je vraag zo snel mogelijk beantwoorden')
+                          .ariaLabel('We zullen je vraag zo snel mogelijk beantwoorden')
+                          .ok('Ok')
+                          .targetEvent(ev)
+                      );
+                    },
+                    function(){
+                      $mdDialog.hide();
+                      $mdDialog.show(
+                        $mdDialog.alert()
+                          .parent(angular.element(document.body))
+                          .clickOutsideToClose(true)
+                          .title('Foutje')
+                          .textContent('Er is iets fout gegaan bij het versturen van je vraag')
+                          .ariaLabel('Er is iets fout gegaan bij het versturen van je vraag')
+                          .ok('Ok')
+                          .targetEvent(ev)
+                      );
+                    }
+                  );
+                };
+              },
+              templateUrl: 'views/ask_help.html',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: useFullScreen
+            });
+          });
       };
       $scope.logout = function(){
         var currentUrl = encodeURIComponent(window.location.href);

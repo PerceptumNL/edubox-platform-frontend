@@ -105,8 +105,10 @@ angular
         redirectTo: '/'
       });
   })
-  .run(['$rootScope', 'envService', function($rootScope, envService){
+  .run(['$rootScope', 'envService', '$http', function($rootScope, envService, $http){
     window.document.domain = envService.read('xssDomain');
+    $http.defaults.xsrfCookieName = 'csrftoken';
+    $http.defaults.xsrfHeaderName = 'X-CSRFToken';
     $rootScope.$on('event:auth-loginRequired', function(){
       var currentUrl = encodeURIComponent(window.location.href);
       window.location.href = envService.read('accountsUrl')+'/login/?next='+currentUrl;
