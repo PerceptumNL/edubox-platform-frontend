@@ -204,14 +204,17 @@ window.CodeOrgAdaptor = function(envService, parentObj){
       _parent.onWindow(appWindow);
       if('jQuery' in appWindow){
         var triggers = {
-          'studio.code.org/milestone/': _this.onAjaxMilestone
+          'studio.code.org/milestone/': _this.onAjaxMilestone,
+          'studio.code.org/v3/sources/': _this.onSourceSubmit,
+          '/v3/sources/': _this.onSourceSubmit
         };
         var protocolSkip = (_this.routerProtocol+'://').length;
         appWindow.jQuery(appWindow.document).ajaxSend(
           function( event, jqxhr, settings ) {
             var url = _this.unrouteUrl(settings.url);
+            var skip = (settings.url[0] === '/' ? 0 : protocolSkip );
             for( var match in triggers ){
-              if( url.substr(protocolSkip, match.length) === match ){
+              if( url.substr(skip, match.length) === match ){
                 triggers[match](event, jqxhr, settings);
               }
             }
@@ -232,6 +235,25 @@ window.CodeOrgAdaptor = function(envService, parentObj){
           'http://adlnet.gov/expapi/verbs/completed',
           activity,
           settings.data
+        );
+      }
+    };
+
+    this.onSourceSubmit = function(event, jqxhr, settings){
+      var token = _this.getToken();
+      if(token && settings.type === 'PUT'){
+        var activity = _this.appUrls.unroutedUrlObj
+          .clone()
+          .removeQuery('token')
+          .toString();
+        _this.storeEvent(
+          token,
+          'http://activitystrea.ms/schema/1.0/build',
+          activity,
+          {
+            'type': 'javascript',
+            'code': JSON.parse(settings.data).source
+          }
         );
       }
     };

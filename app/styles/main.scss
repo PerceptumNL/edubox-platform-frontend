@@ -30,6 +30,7 @@ md-content {
 
 md-content.main-content {
     display: flex;
+    height: calc(100% - 64px);
     background-color: $homescreen-bgcolor;
     background-image: $homescreen-bg-image;
     background-size: cover;
@@ -40,12 +41,20 @@ md-toolbar.topbar {
   background-color: white;
 }
 
-.md-toolbar-tools a {
-    height: 100%;
+.md-toolbar-tools img.logo {
+    height: 60px;
+    width: 72px;
 }
 
-.md-toolbar-tools img.logo {
-    height: 90%;
+.md-toolbar-tools .align-right {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    padding-top: 12px;
+}
+
+#logo-home-bn {
+    width: 72px;
 }
 
 .help-question-block {
@@ -67,7 +76,6 @@ md-toolbar.topbar {
     float: right;
     margin-left: 10px;
     padding: 5px;
-    margin-top: 20px;
     font-weight: bold;
     font-size: small;
     border-radius: .25em;
@@ -97,6 +105,11 @@ md-toolbar.topbar {
     cursor: pointer;
     background: $group-item-bgcolor;
     color: $group-item-color;
+}
+
+.group_selector md-card,
+.homescreen md-card {
+    min-height: 112px;
 }
 
 .homescreen .message-item {
@@ -198,5 +211,5 @@ md-toolbar.topbar {
 
 #browser-container {
   display: flex;
-  height: calc(100% - 68px);
+  height: calc(100% - 64px);
 }
