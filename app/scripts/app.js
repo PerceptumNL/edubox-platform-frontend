@@ -94,6 +94,10 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
+      .when('/inbox/', {
+        templateUrl: 'views/inbox.html',
+        controller: 'InboxCtrl',
+      })
       .when('/:group/', {
         templateUrl: 'views/homescreen.html'
       })

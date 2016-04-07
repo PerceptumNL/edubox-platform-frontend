@@ -83,12 +83,28 @@ md-toolbar.topbar {
     text-transform: uppercase;
 }
 
+.mail-list,
 .teacher-dashboard {
     padding: 50px 20px 0 20px;
 }
 
-.teacher-dashboard md-card {
+.teacher-dashboard md-toolbar {
+    margin-bottom: 20px;
+}
+
+.mail-list md-card-content,
+.teacher-dashboard md-card-content {
     padding: 10px;
+    margin-bottom: 20px;
+}
+
+.mail-list md-toolbar {
+    margin-bottom: 0px;
+}
+
+.mail-list .md-subheader {
+    background: rgb(245,245,245);
+    color: rgba(0,0,0,0.54);
 }
 
 .group_selector,
@@ -212,4 +228,8 @@ md-toolbar.topbar {
 #browser-container {
   display: flex;
   height: calc(100% - 64px);
+}
+
+.loading-toolbar {
+  padding-right: 16px;
 }

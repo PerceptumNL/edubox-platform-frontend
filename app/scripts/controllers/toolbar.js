@@ -26,6 +26,9 @@ angular.module('eduraamApp')
         $scope.userInfoName = info.name;
         isTeacher = info.isTeacher;
       });
+      $scope.launchMail = function(){
+        $location.path('/inbox/');
+      };
       $scope.launchHelp = function(ev){
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           $http({
