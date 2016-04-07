@@ -15,7 +15,7 @@ angular.module('eduraamApp')
         $scope.messages = messages;
       });
       $scope.loadMessage = function(message){
-        //$location.path('/inbox/'+message.id+'/');
+        $location.path('/inbox/'+message.id+'/');
       };
     }
   ]);

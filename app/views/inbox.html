@@ -15,8 +15,8 @@
         <md-list flex ng-show="messages.length>0">
           <md-divider></md-divider>
           <md-subheader class="md-no-sticky">Nieuwe berichten</md-subheader>
-          <md-list-item class="md-3-line" ng-repeat="message in messages"
-            ng-click="loadMessage(message)">
+          <md-list-item class="md-3-line" ng-repeat="message in messages">
+          <!--ng-click="loadMessage(message)">-->
             <md-icon md-svg-icon="images/mail_black.svg"></md-icon>
             <div class="md-list-item-text" layout="column">
               <h3>{{ message.title }}</h3>
