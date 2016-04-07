@@ -10,12 +10,12 @@
 angular.module('eduraamApp')
   .controller('InboxCtrl', ['$scope', '$location', 'Inbox',
     function($scope, $location, Inbox){
-      $scope.messages = [];
+      $scope.messages = null;
       Inbox.all(function(messages){
         $scope.messages = messages;
       });
       $scope.loadMessage = function(message){
-        $location.path('/mail/'+message.id+'/');
+        //$location.path('/inbox/'+message.id+'/');
       };
     }
   ]);
