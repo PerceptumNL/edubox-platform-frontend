@@ -95,6 +95,10 @@ angular.module('eduraamApp')
         var currentUrl = encodeURIComponent(window.location.href);
         window.location = envService.read('accountsUrl')+'/logout/?next='+currentUrl;
       };
+      $scope.changePassword = function(){
+        var currentUrl = encodeURIComponent(window.location.href);
+        window.location = envService.read('accountsUrl')+'/password/change/?next='+currentUrl;
+      };
       $scope.teachingGroups = [];
       Groups.all(function(groups){
         if ( groups.length > 0 ){
