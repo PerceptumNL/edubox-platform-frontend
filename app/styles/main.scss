@@ -71,6 +71,7 @@ md-toolbar.topbar {
 
 #version_badge {
     color: white;
+    cursor: help;
     font-family: Roboto, Arial;
     vertical-align: middle;
     float: right;
@@ -84,6 +85,7 @@ md-toolbar.topbar {
 }
 
 .mail-list,
+.release-list,
 .teacher-dashboard {
     padding: 50px 20px 0 20px;
 }
@@ -101,6 +103,24 @@ md-toolbar.topbar {
 .mail-list .md-subheader {
     background: rgb(245,245,245);
     color: rgba(0,0,0,0.54);
+}
+
+.release-list md-card{
+  margin-bottom: 20px;;
+}
+
+.release-list md-card md-toolbar{
+  background: gray;
+}
+
+.release-list md-card.release-delivered md-toolbar{
+  background: green;
+}
+
+.release-list md-card md-toolbar .release-date{
+  font-size: 16px;
+  padding-top: 24px;
+  padding-right: 10px;
 }
 
 .group_selector,

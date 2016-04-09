@@ -10,18 +10,25 @@
 angular.module('eduraamApp')
   .controller('ToolbarCtrl', [
       '$rootScope', '$scope', '$location', '$mdDialog', '$mdMedia', '$http',
-      'User', 'envService', 'VERSION', 'Groups',
+      'User', 'envService', 'VERSION_LABEL', 'Groups', 'Releases',
     function ($rootScope, $scope, $location,  $mdDialog, $mdMedia, $http,
-              User, envService, VERSION, Groups) {
+              User, envService, VERSION_LABEL, Groups, Releases) {
       var isTeacher = false;
       $scope.userInfoName = null;
       $scope.showDashboardBtn = false;
 
       if(envService.get() === 'production'){
-        $scope.version = VERSION;
+        $scope.version = VERSION_LABEL;
       }else{
         $scope.version = envService.get();
       }
+      Releases.last(function(release){
+        $scope.version += ' '+release.major+'.'+release.minor+'.'+release.patch;
+      });
+      $scope.launchReleases = function(){
+        $location.path('/releases/');
+      };
+
       User.info(function(info){
         $scope.userInfoName = info.name;
         isTeacher = info.isTeacher;

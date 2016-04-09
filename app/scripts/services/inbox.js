@@ -8,7 +8,7 @@
  * Service in the eduraamApp.
  */
 angular.module('eduraamApp')
-  .service('Inbox', ['$resource', '$cacheFactory', 'envService', '$http',
+  .service('Inbox', ['$resource', '$cacheFactory', 'envService',
   function ($resource, $cacheFactory, envService) {
     var _this = this;
     var cache = $cacheFactory('edrm-inbox');
