@@ -24,7 +24,7 @@ angular.module('eduraamApp')
       }
       Releases.mostRecent(function(release){
         $scope.version += ' '+release.major+'.'+release.minor+'.'+release.patch;
-      });
+      }, true);
       $scope.launchReleases = function(){
         $location.path('/releases/');
       };
