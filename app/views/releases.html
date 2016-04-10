@@ -1,5 +1,5 @@
+<md-progress-linear md-mode="indeterminate" ng-hide="releases"></md-progress-linear>
 <div class='release-list' layout-fill>
-  <md-progress-linear md-mode="indeterminate" ng-hide="releases"></md-progress-linear>
   <md-content flex="grow" layout-align="center start" ng-show="releases">
     <md-card flex-xs="grow" ng-repeat="release in releases"
       ng-class="{'release-delivered': release.delivered}">
