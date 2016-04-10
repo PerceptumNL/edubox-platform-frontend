@@ -30,9 +30,9 @@ angular.module('eduraamApp')
       });
     };
 
-    this.last = function(callback){
+    this.mostRecent = function(callback){
       _this.all(function(releases, headers){
-        callback(releases.pop(), headers);
+        callback(releases[0], headers);
       });
     };
   }]);
