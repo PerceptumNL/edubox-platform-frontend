@@ -6,6 +6,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <style> .ng-hide, .ng-cloak { display: none !important; } </style>
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
@@ -25,15 +26,16 @@
   <![endif]-->
 
   <md-toolbar class='topbar' ng-controller="ToolbarCtrl">
-    <div class="md-toolbar-tools ng-cloak" layout='row'>
+    <div class="md-toolbar-tools" layout='row'>
     <a href="#/" id='logo-home-btn'>
-      <img class='logo' src="/images/logo_codecult_transparant.png" />
+      <img class='logo' src="/images/logo_codecult_transparant_small.png" />
     </a>
-    <div id='version_badge' ng-click='launchReleases()'>{{version}}</div>
+    <p ng-hide='true'>&nbsp;&nbsp;laden...</p>
+    <div id='version_badge' class='ng-cloak' ng-click='launchReleases()' ng-bind='version' ng-show='version'></div>
     <div class='loading-toolbar align-right' ng-hide="userInfoName">
       <md-progress-circular md-mode="indeterminate"></md-progress-circular>
     </div>
-    <div class="align-right" ng-show="userInfoName">
+    <div class="align-right ng-hide" ng-show="userInfoName">
       <md-menu ng-show="showDashboardBtn" md-offset="0 50"
         md-position-mode="target-right target">
         <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
@@ -43,7 +45,7 @@
         </md-button>
         <md-menu-content width="4">
           <md-menu-item ng-repeat="group in teachingGroups">
-            <md-button ng-click="loadDashboard(group.id)">{{ group.title }}</md-button>
+            <md-button ng-click="loadDashboard(group.id)" ng-bind='group.title'></md-button>
           </md-menu-item>
         </md-menu-content>
       </md-menu>
@@ -58,7 +60,7 @@
         <md-button class="md-raised ng-cloak" aria-label="Account"
         style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
             <md-icon md-svg-src="images/profile.svg"></md-icon>
-      {{ userInfoName }}
+          <span ng-bind='userInfoName'></span>
         </md-button>
         <md-menu-content width="4">
           <md-menu-item>
