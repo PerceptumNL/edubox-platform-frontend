@@ -91,19 +91,53 @@ md-toolbar.topbar {
     padding: 50px 20px 0 20px;
 }
 
-.mail-list md-card-content,
+.mail-list md-card-content {
+    padding: 10px;
+    padding-bottom: 30px;
+}
+
 .teacher-dashboard md-card-content {
     padding: 10px;
     margin-bottom: 20px;
-}
-
-.teacher-dashboard md-card-content {
     margin-top: 20px;
 }
 
-.mail-list .md-subheader {
-    background: rgb(245,245,245);
-    color: rgba(0,0,0,0.54);
+
+.mail-list .message md-toolbar,
+.mail-list .message .md-toolbar-tools {
+  height: 50px;
+  min-height: 50px;
+  max-height: 50px;
+}
+
+.mail-list md-card.message {
+  margin-bottom: 20px;
+}
+
+.mail-list md-card.message md-card-content {
+  position: relative;
+}
+
+.mail-list div.mail-contents {
+  padding: 5px;
+}
+
+.mail-list div.mail-contents p:first-child {
+  margin-top: 0;
+}
+
+.mail-list div.mail-contents p:last-child {
+  margin-bottom: 0;
+}
+
+.mail-list div.mail-datetime {
+  position: absolute;
+  bottom: 0px;
+  right: 10px;
+  padding-top: 10px;
+  font-size: 12px;
+  color: #333;
+  padding-bottom: 10px;
 }
 
 .release-list md-card{

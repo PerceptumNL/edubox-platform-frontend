@@ -1,0 +1,38 @@
+$lesson-item-bgcolor: #03A9F4;
+$lesson-item-color: white;
+
+.new-homescreen .lesson-item {
+  margin: 20px;
+  cursor: pointer;
+  width: 200px;
+  text-align: center;
+}
+
+.new-homescreen .lesson-item .item-title {
+  font-family: Roboto;
+  font-size: 24px;
+  padding-top: 5px;
+}
+
+.new-homescreen .lesson-item .icon-holder {
+  background: #03A9F4;
+  color: white;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+.new-homescreen .lesson-item .icon-holder:hover {
+  background: lighten($lesson-item-bgcolor, 20%);
+}
+
+.new-homescreen .lesson-item .icon-holder.circle {
+  border-radius: 360px;
+  margin: 0 25px 10px 25px;
+  padding: 12% 12%;
+  width: 150px;
+  height: 150px;
+}
+
+.new-homescreen .lesson-item .icon-holder .icon{
+  fill: $lesson-item-color;
+  stroke: $lesson-item-color;
+}
