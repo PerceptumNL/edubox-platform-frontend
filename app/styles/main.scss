@@ -168,7 +168,7 @@ md-toolbar.topbar {
     color: inherit!important;
 }
 
-.group_selector md-card {
+.group_selector md-card.group-card {
     cursor: pointer;
     background: $group-item-bgcolor;
     color: $group-item-color;
