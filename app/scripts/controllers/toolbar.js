@@ -52,11 +52,13 @@ angular.module('eduraamApp')
                 };
                 $scope.submit = function() {
                   var question = document.getElementById('help_dialog').question.value;
+                  var browserLocation = window.EDRMBrowser.getCurrentUrl();
                   $http({
                     method: 'POST',
                     url: envService.read('apiUrl')+'/questions/',
                     data: {
                       'location': $location.url(),
+                      'browser': browserLocation,
                       'question': question
                     },
                     withCredentials: true
