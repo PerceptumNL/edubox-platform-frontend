@@ -1,7 +1,7 @@
 // bower:scss
 // endbower
-$homescreen-bgcolor: black;
-$homescreen-bg-image: url('/images/background_image.jpg');
+$homescreen-bgcolor: #e9e9e9;
+$homescreen-bg-image: none; //url('/images/background_image.jpg');
 
 $group-item-bgcolor: #FF9800;
 $group-item-color: white;
@@ -126,7 +126,7 @@ md-toolbar.topbar {
 
 .group_selector,
 .homescreen {
-    padding: 50px 0 0 20px;
+    padding: 50px 20px 0 20px;
 }
 
 .group_selector .md-subhead,

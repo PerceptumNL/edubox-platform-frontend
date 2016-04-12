@@ -1,19 +1,24 @@
 <div ng-controller="HomescreenCtrl" layout-fill class='homescreen'>
   <md-content flex="grow" layout-align="center start">
-    <div layout-wrap layout="row">
-      <md-card ng-repeat="item in items" flex-xs="grow" flex-sm="45"
-        flex-md="40" flex-gt-md="30" ng-click="onItemClick(item)"
-        class="{{ getItemClass(item) }}">
-        <md-card-title>
-          <md-card-title-text>
-          <span class="md-headline">{{item.title}}</span>
-          <span class="md-subhead">{{item.description}}</span>
-          </md-card-title-text>
-          <md-card-title-media>
-          <div class="md-media-sm icon" ng-include="getItemIcon(item)"></div>
-          </md-card-title-media>
-        </md-card-title>
-      </md-card>
-    </div>
+    <md-card flex-xs="grow" style='margin-bottom: 20px'>
+      <md-card-content>
+        <div layout-wrap layout="row" class='itemgroup'>
+          <div ng-repeat="item in items" flex-xs="grow" flex-sm="45"
+            flex-md="40" flex-gt-md="33">
+            <md-card ng-click="onItemClick(item)" class="{{ getItemClass(item) }}">
+              <md-card-title>
+                <md-card-title-text>
+                <span class="md-headline">{{item.title}}</span>
+                <span class="md-subhead">{{item.description}}</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                <div class="md-media-sm icon" ng-include="getItemIcon(item)"></div>
+                </md-card-title-media>
+              </md-card-title>
+            </md-card>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
   </md-content>
 </div>
