@@ -10,9 +10,9 @@
 angular.module('eduraamApp')
   .controller('ToolbarCtrl', [
       '$rootScope', '$scope', '$location', '$mdDialog', '$mdMedia', '$http',
-      'User', 'envService', 'VERSION_LABEL', 'Groups', 'Releases',
+      'User', 'envService', 'VERSION_LABEL', 'Groups', 'Releases', 'Inbox',
     function ($rootScope, $scope, $location,  $mdDialog, $mdMedia, $http,
-              User, envService, VERSION_LABEL, Groups, Releases) {
+              User, envService, VERSION_LABEL, Groups, Releases, Inbox) {
       var isTeacher = false;
       $scope.userInfoName = null;
       $scope.showDashboardBtn = false;
@@ -28,6 +28,12 @@ angular.module('eduraamApp')
       $scope.launchReleases = function(){
         $location.path('/releases/');
       };
+
+      Inbox.getUnreadCount(function(count){
+        if(count > 0){
+          $scope.unreadCount = count;
+        }
+      });
 
       User.info(function(info){
         $scope.userInfoName = info.name;

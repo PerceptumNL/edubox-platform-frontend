@@ -41,4 +41,10 @@ angular.module('eduraamApp')
         callback(message, headers);
       });
     };
+
+    this.getUnreadCount = function(callback){
+      _this.all(function(messages){
+        callback(messages.length)
+      })
+    }
   }]);
