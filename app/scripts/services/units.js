@@ -18,7 +18,9 @@ angular.module('eduraamApp')
 
     this.all = function(groupId, callback){
       if( groupId in _units ){
-        callback(_units[groupId], null);
+        setTimeout(function(){
+          callback(_units[groupId], null);
+        }, 0);
       }
       res.all({group:groupId}, function(value, headers){
         if ( !(groupId in _units) ||

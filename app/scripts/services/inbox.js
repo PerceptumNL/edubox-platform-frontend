@@ -18,7 +18,9 @@ angular.module('eduraamApp')
 
     this.all = function(callback){
       if( _messages ){
-        callback(_messages, null);
+        setTimeout(function(){
+          callback(_messages, null);
+        }, 0);
       }
       res.all(function(value, headers){
         if ( ! _messages ||
@@ -43,8 +45,8 @@ angular.module('eduraamApp')
     };
 
     this.getUnreadCount = function(callback){
-      _this.all(function(messages){
-        callback(messages.length)
-      })
-    }
+      _this.all(function(messages, headers){
+        callback(messages.length, headers);
+      });
+    };
   }]);

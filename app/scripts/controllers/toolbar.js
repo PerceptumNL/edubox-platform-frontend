@@ -22,16 +22,28 @@ angular.module('eduraamApp')
       }else{
         $scope.version = envService.get();
       }
-      Releases.mostRecent(function(release){
-        $scope.version += ' '+release.major+'.'+release.minor+'.'+release.patch;
+      Releases.mostRecent(function(release, headers){
+        if( !headers ){
+          $scope.$apply(function(){
+            $scope.version += ' '+release.major+'.'+release.minor+'.'+release.patch;
+          });
+        } else {
+          $scope.version += ' '+release.major+'.'+release.minor+'.'+release.patch;
+        }
       }, true);
       $scope.launchReleases = function(){
         $location.path('/releases/');
       };
 
-      Inbox.getUnreadCount(function(count){
+      Inbox.getUnreadCount(function(count, headers){
         if(count > 0){
-          $scope.unreadCount = count;
+          if( !headers ){
+            $scope.$apply(function(){
+              $scope.unreadCount = count;
+            });
+          } else {
+            $scope.unreadCount = count;
+          }
         }
       });
 
@@ -115,13 +127,20 @@ angular.module('eduraamApp')
         window.location = envService.read('accountsUrl')+'/password/change/?next='+currentUrl;
       };
       $scope.teachingGroups = [];
-      Groups.all(function(groups){
-        if ( groups.length > 0 ){
-          $scope.teachingGroups = groups;
-          $scope.showDashboardBtn = true;
+      Groups.all(function(groups, headers){
+        var updateFn = function(){
+          if ( groups.length > 0 ){
+            $scope.teachingGroups = groups;
+            $scope.showDashboardBtn = true;
+          } else {
+            $scope.teachingGroups = [];
+            $scope.showDashboardBtn = false;
+          }
+        };
+        if( !headers ){
+          $scope.$apply(updateFn);
         } else {
-          $scope.teachingGroups = [];
-          $scope.showDashboardBtn = false;
+          updateFn();
         }
       }, 'Teacher');
 

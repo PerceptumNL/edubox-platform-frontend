@@ -20,7 +20,9 @@ angular.module('eduraamApp')
     this.all = function(callback, deliveredOnly){
       var filters = (deliveredOnly ? {'delivered': '1'} : {});
       if( _releases ){
-        callback(_releases, null);
+        setTimeout(function(){
+          callback(_releases, null);
+        }, 0);
       }
       var equal = function(a, b){
         return JSON.stringify(a) === JSON.stringify(b);

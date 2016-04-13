@@ -20,7 +20,11 @@ angular.module('eduraamApp')
       this.all = function(callback, role){
         var params = ( role ? { role: role } : {} );
         role = ( role ? role : '*' );
-        if( _groups[role] ){ callback(_groups[role], null); }
+        if( _groups[role] ){
+          setTimeout(function(){
+            callback(_groups[role], null);
+          }, 0);
+        }
         res.all(params, function(value, headers){
           if (JSON.stringify(value.groups) !== JSON.stringify(_groups)){
             _groups[role] = value.groups;
