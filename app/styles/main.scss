@@ -58,6 +58,16 @@ md-toolbar.topbar {
     width: 72px;
 }
 
+.unread-msg-count {
+  display: inline-block;
+  background-color: #b20000;
+  color: #fff;
+  font-weight: bold;
+  padding: 0 3px;
+  font-size: 14px;
+  line-height: 19px;
+}
+
 .help-question-block {
     background-color: lightblue;
 }

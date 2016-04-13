@@ -51,7 +51,8 @@
       </md-menu>
       <md-button class="md-raised ng-cloak" ng-click="launchMail()">
         <md-icon md-svg-icon="images/mail_black.svg"></md-icon> Berichten
-        <span ng-show='unreadCount' ng-bind='"("+unreadCount+")"'></span>
+        <span ng-show='unreadCount' ng-bind='unreadCount'
+          class='unread-msg-count'></span>
       </md-button>
       <md-button class="md-raised ng-cloak" ng-click="launchHelp()">
         <md-icon md-svg-icon="images/help_black.svg"></md-icon> Help
