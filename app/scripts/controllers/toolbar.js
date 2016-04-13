@@ -11,8 +11,10 @@ angular.module('eduraamApp')
   .controller('ToolbarCtrl', [
       '$rootScope', '$scope', '$location', '$mdDialog', '$mdMedia', '$http',
       'User', 'envService', 'VERSION_LABEL', 'Groups', 'Releases', 'Inbox',
+      '$mdSidenav',
     function ($rootScope, $scope, $location,  $mdDialog, $mdMedia, $http,
-              User, envService, VERSION_LABEL, Groups, Releases, Inbox) {
+              User, envService, VERSION_LABEL, Groups, Releases, Inbox,
+              $mdSidenav) {
       var isTeacher = false;
       $scope.userInfoName = null;
       $scope.showDashboardBtn = false;
@@ -51,6 +53,10 @@ angular.module('eduraamApp')
         $scope.userInfoName = info.name;
         isTeacher = info.isTeacher;
       });
+      $scope.expandMenu = function(){
+        $mdSidenav('menu-sidenav').open();
+      };
+
       $scope.launchMail = function(){
         $location.path('/inbox/');
       };

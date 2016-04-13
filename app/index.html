@@ -26,53 +26,100 @@
   <![endif]-->
 
   <md-toolbar class='topbar' ng-controller="ToolbarCtrl">
-    <div class="md-toolbar-tools" layout='row'>
-    <a href="#/" id='logo-home-btn'>
-      <img class='logo' src="/images/logo_codecult_transparant_small.png" />
-    </a>
-    <p ng-hide='true'>&nbsp;&nbsp;laden...</p>
-    <div id='version_badge' class='ng-cloak' ng-click='launchReleases()' ng-bind='version' ng-show='version'></div>
-    <div class='loading-toolbar align-right' ng-hide="userInfoName">
-      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    <div class="md-toolbar-tools menu-small" layout='row' hide-gt-sm>
+      <a href="#/" id='logo-home-btn'>
+        <img class='logo' src="/images/logo_codecult_transparant_small.png" />
+      </a>
+      <p ng-hide='true'>&nbsp;&nbsp;laden...</p>
+      <div class='loading-toolbar align-right' ng-hide="userInfoName">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <div class="align-right ng-hide" ng-show="userInfoName">
+        <md-menu ng-show="showDashboardBtn" md-offset="0 50"
+          md-position-mode="target-right target">
+          <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
+            ng-click="$mdOpenMenu($event)">
+            <md-icon md-svg-src="images/dashboard.svg"></md-icon>
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item ng-repeat="group in teachingGroups">
+              <md-button ng-click="loadDashboard(group.id)" ng-bind='group.title'></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <md-button class="md-raised ng-cloak" ng-click="launchMail()">
+          <md-icon md-svg-icon="images/mail_black.svg"></md-icon>
+          <span ng-show='unreadCount' ng-bind='unreadCount'
+            class='unread-msg-count'></span>
+        </md-button>
+        <md-button class="md-raised ng-cloak" ng-click="launchHelp()">
+          <md-icon md-svg-icon="images/help_black.svg"></md-icon>
+        </md-button>
+        <md-menu md-offset="0 50"
+          md-position-mode="target-right target">
+          <md-button class="md-raised ng-cloak" aria-label="Account"
+            ng-click="$mdOpenMenu($event)">
+              <md-icon md-svg-src="images/profile.svg"></md-icon>
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="changePassword()">Verander wachtwoord</md-button>
+            </md-menu-item>
+            <md-menu-item>
+            <md-button ng-click="logout()"><strong>Log uit</strong></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
     </div>
-    <div class="align-right ng-hide" ng-show="userInfoName">
-      <md-menu ng-show="showDashboardBtn" md-offset="0 50"
-        md-position-mode="target-right target">
-        <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
-        style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
-          <md-icon md-svg-src="images/dashboard.svg"></md-icon>
-          Overzicht
+    <div class="md-toolbar-tools" layout='row' hide-xs hide-sm show-gt-sm>
+      <a href="#/" id='logo-home-btn'>
+        <img class='logo' src="/images/logo_codecult_transparant_small.png" />
+      </a>
+      <p ng-hide='true'>&nbsp;&nbsp;laden...</p>
+      <div id='version_badge' class='ng-cloak' ng-click='launchReleases()' ng-bind='version'
+        ng-show='version'></div>
+      <div class='loading-toolbar align-right' ng-hide="userInfoName">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <div class="align-right ng-hide" ng-show="userInfoName">
+        <md-menu ng-show="showDashboardBtn" md-offset="0 50"
+          md-position-mode="target-right target">
+          <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
+          style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
+            <md-icon md-svg-src="images/dashboard.svg"></md-icon>
+            Overzicht
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item ng-repeat="group in teachingGroups">
+              <md-button ng-click="loadDashboard(group.id)" ng-bind='group.title'></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <md-button class="md-raised ng-cloak" ng-click="launchMail()">
+          <md-icon md-svg-icon="images/mail_black.svg"></md-icon> Berichten
+          <span ng-show='unreadCount' ng-bind='unreadCount'
+            class='unread-msg-count'></span>
         </md-button>
-        <md-menu-content width="4">
-          <md-menu-item ng-repeat="group in teachingGroups">
-            <md-button ng-click="loadDashboard(group.id)" ng-bind='group.title'></md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-      <md-button class="md-raised ng-cloak" ng-click="launchMail()">
-        <md-icon md-svg-icon="images/mail_black.svg"></md-icon> Berichten
-        <span ng-show='unreadCount' ng-bind='unreadCount'
-          class='unread-msg-count'></span>
-      </md-button>
-      <md-button class="md-raised ng-cloak" ng-click="launchHelp()">
-        <md-icon md-svg-icon="images/help_black.svg"></md-icon> Help
-      </md-button>
-      <md-menu md-offset="0 50"
-        md-position-mode="target-right target">
-        <md-button class="md-raised ng-cloak" aria-label="Account"
-        style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
-            <md-icon md-svg-src="images/profile.svg"></md-icon>
-          <span ng-bind='userInfoName'></span>
+        <md-button class="md-raised ng-cloak" ng-click="launchHelp()">
+          <md-icon md-svg-icon="images/help_black.svg"></md-icon> Help
         </md-button>
-        <md-menu-content width="4">
-          <md-menu-item>
-            <md-button ng-click="changePassword()">Verander wachtwoord</md-button>
-          </md-menu-item>
-          <md-menu-item>
-          <md-button ng-click="logout()"><strong>Log uit</strong></md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
+        <md-menu md-offset="0 50"
+          md-position-mode="target-right target">
+          <md-button class="md-raised ng-cloak" aria-label="Account"
+          style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
+              <md-icon md-svg-src="images/profile.svg"></md-icon>
+            <span ng-bind='userInfoName'></span>
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="changePassword()">Verander wachtwoord</md-button>
+            </md-menu-item>
+            <md-menu-item>
+            <md-button ng-click="logout()"><strong>Log uit</strong></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
       </div>
     </div>
   </md-toolbar>
@@ -94,9 +141,9 @@
             <label for="question">Stel hier je vraag</label>
             <textarea id='question' md-sidenav-focus></textarea>
           </md-input-container>
-      <md-button>Verstuur</md-button>
+          <md-button>Verstuur</md-button>
         </form>
-    </md-content>
+      </md-content>
       <md-content layout-padding>
         <md-subheader>Suggesties</md-subheader>
         <md-list>
