@@ -14,12 +14,19 @@ angular.module('eduraamApp')
       $scope.onGroupSelect = function(group){
         $location.path('/'+group.id+'/');
       };
-      Groups.all(function(groups){
-        if(groups.length === 1){
-          // If there is only one group, select it.
-          $scope.onGroupSelect(groups[0]);
+      Groups.all(function(groups, headers){
+        var updateFn = function(){
+          if(groups.length === 1){
+            // If there is only one group, select it.
+            $scope.onGroupSelect(groups[0]);
+          }
+          $scope.groups = groups;
+        };
+        if( !headers ){
+          $scope.$apply(updateFn);
+        } else {
+          updateFn();
         }
-        $scope.groups = groups;
       });
     }
   ]);

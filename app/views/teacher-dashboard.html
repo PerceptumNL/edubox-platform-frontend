@@ -1,43 +1,55 @@
 <div class='teacher-dashboard' ng-controller='TeacherDashboardCtrl' layout-fill>
   <md-content flex="grow" layout-align="center start">
     <md-card flex-xs="grow">
-      <h2 ng-show="groupTitle"> Overzicht voor {{ groupTitle }} </h2>
-      <md-progress-circular md-mode="indeterminate" ng-hide="students"></md-progress-circular>
-      <table class='table table-striped' ng-show='students'>
-        <thead>
-          <tr>
-            <th>Leerling</th>
-            <th ng-repeat="skill in skills">{{skill.title}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="student in students">
-            <td>{{student.name}}</td>
-            <td ng-repeat="skill in student.skills" ng-switch="skill.level.index">
-              <span ng-switch-when="1">
-                <md-icon md-svg-src="images/star_black.svg"></md-icon>
-                <md-icon md-svg-src="images/star_border.svg"></md-icon>
-                <md-icon md-svg-src="images/star_border.svg"></md-icon>
-              </span>
-              <span ng-switch-when="2">
-                <md-icon md-svg-src="images/star_black.svg"></md-icon>
-                <md-icon md-svg-src="images/star_black.svg"></md-icon>
-                <md-icon md-svg-src="images/star_border.svg"></md-icon>
-              </span>
-              <span ng-switch-when="3">
-                <md-icon md-svg-src="images/star_black.svg"></md-icon>
-                <md-icon md-svg-src="images/star_black.svg"></md-icon>
-                <md-icon md-svg-src="images/star_black.svg"></md-icon>
-              </span>
-              <span ng-switch-default>
-                <md-icon md-svg-src="images/star_border.svg"></md-icon>
-                <md-icon md-svg-src="images/star_border.svg"></md-icon>
-                <md-icon md-svg-src="images/star_border.svg"></md-icon>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <md-toolbar class='md-hue-1'>
+        <div class="md-toolbar-tools">
+          <h2 ng-show="groupTitle"> Overzicht voor groep {{ groupTitle }} </h2>
+        </div>
+      </md-toolbar>
+      <md-progress-linear md-mode="indeterminate"
+        ng-hide="students"></md-progress-linear>
+      <md-card-content>
+        <table class='table table-striped' ng-show='students'>
+          <thead>
+            <tr>
+              <th>Leerling</th>
+              <th>Laatste login</th>
+              <th ng-repeat="skill in skills">{{skill.title}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="student in students">
+              <td>{{student.name}}
+                <span ng-show='studentsInfo[student.id].isTeacher'>(Docent)</span>
+              </td>
+              <td ng-show='studentsInfo'
+                ng-bind='studentsInfo[student.id].last_login'></td>
+              <td ng-repeat="skill in student.skills" ng-switch="skill.level.index">
+                <span ng-switch-when="1">
+                  <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                  <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                  <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                </span>
+                <span ng-switch-when="2">
+                  <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                  <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                  <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                </span>
+                <span ng-switch-when="3">
+                  <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                  <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                  <md-icon md-svg-src="images/star_black.svg"></md-icon>
+                </span>
+                <span ng-switch-default>
+                  <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                  <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                  <md-icon md-svg-src="images/star_border.svg"></md-icon>
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </md-card-content>
     </md-card>
   </md-content>
 </div>

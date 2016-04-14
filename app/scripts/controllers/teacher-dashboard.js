@@ -8,8 +8,8 @@
  * Controller of the eduraamApp
  */
 angular.module('eduraamApp')
-  .controller('TeacherDashboardCtrl', ['$scope', 'Skills', '$routeParams', 'Groups',
-      function ($scope, Skills, $routeParams, Groups) {
+  .controller('TeacherDashboardCtrl', ['$scope', 'Skills', '$routeParams', 'Groups', 'User',
+      function ($scope, Skills, $routeParams, Groups, User) {
         $scope.students = null;
         $scope.skills = [];
         $scope.groupTitle = null;
@@ -22,5 +22,8 @@ angular.module('eduraamApp')
             $scope.students = groupSkills;
           }
         }, true);
+        User.getGroupInfo($routeParams.group, function(studentsInfo){
+          $scope.studentsInfo = studentsInfo;
+        });
       }
   ]);

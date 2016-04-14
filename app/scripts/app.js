@@ -20,7 +20,7 @@ angular
     'environment',
     'http-auth-interceptor'
   ])
-  .constant('VERSION', 'Private Beta 0.7.12')
+  .constant('VERSION_LABEL', 'Private Beta')
   .config(function (envServiceProvider) {
     envServiceProvider.config({
       domains: {
@@ -78,8 +78,9 @@ angular
       .when('/', {
         templateUrl: 'views/group_selector.html'
       })
-      .when('/:group/dashboard/', {
-        templateUrl: 'views/teacher-dashboard.html'
+      .when('/releases/', {
+        templateUrl: 'views/releases.html',
+        controller: 'ReleaseListCtrl',
       })
       .when('/apps/', {
         templateUrl: 'views/app_list.html',
@@ -94,8 +95,15 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
+      .when('/inbox/', {
+        templateUrl: 'views/inbox.html',
+        controller: 'InboxCtrl',
+      })
       .when('/:group/', {
         templateUrl: 'views/homescreen.html'
+      })
+      .when('/:group/dashboard/', {
+        templateUrl: 'views/teacher-dashboard.html'
       })
       .when('/:group/units/:unit/', {
         controller: 'UnitCtrl',
