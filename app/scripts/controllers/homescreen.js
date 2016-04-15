@@ -14,32 +14,41 @@ angular.module('eduraamApp')
       'Units', 'HomescreenItems', '$location',
         function ($scope, $routeParams, $mdDialog, $mdMedia,
           Units, HomescreenItems, $location) {
-            $scope.items = [];
+            $scope.units = [];
+            $scope.challenges = [];
             var groupId = parseInt($routeParams.group);
-            var loginUrls = {};
-            HomescreenItems.all(groupId, function(items){
+            HomescreenItems.all(groupId, function(items, headers){
               var updateUnitScopeFn = function(){
-                $scope.items = [];
-                for(var i = 0; i < items.units.length; i++){
-                    $scope.items.push({
-                        'id': items.units[i].id,
-                        'group': groupId,
-                        'title': items.units[i].label,
-                        'description':'',
-                        'type': 'lesson'
-                    });
-                    loginUrls[items.units[i].login] = null;
+                var loginUrls = {};
+                if( items.units.length > 0){
+                  $scope.units = [];
+                  for(var i = 0; i < items.units.length; i++){
+                      $scope.units.push({
+                          'id': items.units[i].id,
+                          'group': groupId,
+                          'title': items.units[i].label,
+                          'description':'',
+                          'type': 'lesson'
+                      });
+                      loginUrls[items.units[i].login] = null;
+                  }
                 }
-                for(var j = 0; j < items.challenges.length; j++){
-                    $scope.items.push({
-                        'id': items.challenges[j].id,
-                        'group': groupId,
-                        'title': items.challenges[j].label,
-                        'description':'',
-                        'body': items.challenges[j].body,
-                        'url': items.challenges[j].url,
-                        'type': 'challenge'
-                    });
+                if( items.challenges.length > 0){
+                  $scope.challenges = [];
+                  for(var j = 0; j < items.challenges.length; j++){
+                      $scope.challenges.push({
+                          'id': items.challenges[j].id,
+                          'group': groupId,
+                          'title': items.challenges[j].label,
+                          'description':'',
+                          'body': items.challenges[j].body,
+                          'url': items.challenges[j].url,
+                          'type': 'challenge'
+                      });
+                      if(items.challenges[j].login){
+                        loginUrls[items.challenges[j].login] = null;
+                      }
+                  }
                 }
                 // Automatically login user into received units
                 for(var loginUrl in loginUrls){

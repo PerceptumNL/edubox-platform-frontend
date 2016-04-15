@@ -1,9 +1,29 @@
 <div ng-controller="HomescreenCtrl" layout-fill class='homescreen'>
   <md-content flex="grow" layout-align="center start">
-    <md-card flex-xs="grow" style='margin-bottom: 20px'>
+    <md-card flex-xs="grow" class='item-group' ng-show='units.length'>
       <md-card-content>
-        <div layout-wrap layout="row" class='itemgroup'>
-          <div ng-repeat="item in items" flex-xs="grow" flex-sm="45"
+        <div layout-wrap layout="row" ng-show='units'>
+          <div ng-repeat="item in units" flex-xs="grow" flex-sm="45"
+            flex-md="40" flex-gt-md="33">
+            <md-card ng-click="onItemClick(item)" class="{{ getItemClass(item) }}">
+              <md-card-title>
+                <md-card-title-text>
+                <span class="md-headline">{{item.title}}</span>
+                <span class="md-subhead">{{item.description}}</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                <div class="md-media-sm icon" ng-include="getItemIcon(item)"></div>
+                </md-card-title-media>
+              </md-card-title>
+            </md-card>
+          </div>
+        </div>
+      </md-card-content>
+    </md-card>
+    <md-card flex-xs="grow" class='item-group' ng-show='challenges.length'>
+      <md-card-content>
+      <div layout-wrap layout="row">
+          <div ng-repeat="item in challenges" flex-xs="grow" flex-sm="45"
             flex-md="40" flex-gt-md="33">
             <md-card ng-click="onItemClick(item)" class="{{ getItemClass(item) }}">
               <md-card-title>
