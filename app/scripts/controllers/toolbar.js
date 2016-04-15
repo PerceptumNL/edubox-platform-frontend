@@ -53,9 +53,6 @@ angular.module('eduraamApp')
         $scope.userInfoName = info.name;
         isTeacher = info.isTeacher;
       });
-      $scope.expandMenu = function(){
-        $mdSidenav('menu-sidenav').open();
-      };
 
       $scope.launchMail = function(){
         $location.path('/inbox/');
