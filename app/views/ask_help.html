@@ -1,0 +1,27 @@
+<md-dialog aria-label="Waar kunnen we je mee helpen?"  ng-cloak>
+  <form id='help_dialog'>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Waar kunnen we mee helpen?</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">X
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <md-input-container md-no-float style="width: 100%; height: auto;">
+          <label for="question">Stel hier je vraag</label>
+          <textarea name='question' md-autofocus rows='5'></textarea>
+        </md-input-container>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <md-button ng-click="hide()">
+        Annuleren
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="submit()">Verstuur</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -9,37 +9,144 @@
  */
 angular.module('eduraamApp')
   .controller('ToolbarCtrl', [
-      '$rootScope', '$scope', '$location', '$mdSidenav',
-      'User', 'envService', 'VERSION', 'Groups',
-    function ($rootScope, $scope, $location,  $mdSidenav, User, envService, VERSION, Groups) {
+      '$rootScope', '$scope', '$location', '$mdDialog', '$mdMedia', '$http',
+      'User', 'envService', 'VERSION_LABEL', 'Groups', 'Releases', 'Inbox',
+      '$mdSidenav',
+    function ($rootScope, $scope, $location,  $mdDialog, $mdMedia, $http,
+              User, envService, VERSION_LABEL, Groups, Releases, Inbox,
+              $mdSidenav) {
       var isTeacher = false;
       $scope.userInfoName = null;
       $scope.showDashboardBtn = false;
 
       if(envService.get() === 'production'){
-        $scope.version = VERSION;
+        $scope.version = VERSION_LABEL;
       }else{
         $scope.version = envService.get();
       }
+      Releases.mostRecent(function(release, headers){
+        if( !headers ){
+          $scope.$apply(function(){
+            $scope.version += ' '+release.major+'.'+release.minor+'.'+release.patch;
+          });
+        } else {
+          $scope.version += ' '+release.major+'.'+release.minor+'.'+release.patch;
+        }
+      }, true);
+      $scope.launchReleases = function(){
+        $location.path('/releases/');
+      };
+
+      Inbox.getUnreadCount(function(count, headers){
+        if(count > 0){
+          if( !headers ){
+            $scope.$apply(function(){
+              $scope.unreadCount = count;
+            });
+          } else {
+            $scope.unreadCount = count;
+          }
+        }
+      });
+
       User.info(function(info){
         $scope.userInfoName = info.name;
         isTeacher = info.isTeacher;
       });
-      $scope.launchHelp = function(){
-          $mdSidenav('help-sidenav').open();
+      $scope.expandMenu = function(){
+        $mdSidenav('menu-sidenav').open();
+      };
+
+      $scope.launchMail = function(){
+        $location.path('/inbox/');
+      };
+      $scope.launchHelp = function(ev){
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          $http({
+            method: 'GET',
+            url: envService.read('apiUrl')+'/csrf/'
+          }).then(function(){
+            $mdDialog.show({
+              controller: function ($scope, $mdDialog, $http) {
+                $scope.hide = function() {
+                  $mdDialog.hide();
+                };
+                $scope.cancel = function() {
+                  $mdDialog.cancel();
+                };
+                $scope.submit = function() {
+                  var question = document.getElementById('help_dialog').question.value;
+                  var browserLocation = window.EDRMBrowser.getCurrentUrl();
+                  $http({
+                    method: 'POST',
+                    url: envService.read('apiUrl')+'/questions/',
+                    data: {
+                      'location': $location.url(),
+                      'browser': browserLocation,
+                      'question': question
+                    },
+                    withCredentials: true
+                  }).then(
+                    function(){
+                      $mdDialog.hide();
+                      $mdDialog.show(
+                        $mdDialog.alert()
+                          .parent(angular.element(document.body))
+                          .clickOutsideToClose(true)
+                          .title('Verstuurd')
+                          .textContent('We zullen je vraag zo snel mogelijk beantwoorden. Het antwoord kan je dan vinden onder "Berichten"')
+                          .ariaLabel('We zullen je vraag zo snel mogelijk beantwoorden. Het antwoord kan je dan vinden onder "Berichten"')
+                          .ok('Ok')
+                          .targetEvent(ev)
+                      );
+                    },
+                    function(){
+                      $mdDialog.hide();
+                      $mdDialog.show(
+                        $mdDialog.alert()
+                          .parent(angular.element(document.body))
+                          .clickOutsideToClose(true)
+                          .title('Foutje')
+                          .textContent('Er is iets fout gegaan bij het versturen van je vraag')
+                          .ariaLabel('Er is iets fout gegaan bij het versturen van je vraag')
+                          .ok('Ok')
+                          .targetEvent(ev)
+                      );
+                    }
+                  );
+                };
+              },
+              templateUrl: 'views/ask_help.html',
+              parent: angular.element(document.body),
+              targetEvent: ev,
+              clickOutsideToClose:true,
+              fullscreen: useFullScreen
+            });
+          });
       };
       $scope.logout = function(){
         var currentUrl = encodeURIComponent(window.location.href);
         window.location = envService.read('accountsUrl')+'/logout/?next='+currentUrl;
       };
+      $scope.changePassword = function(){
+        var currentUrl = encodeURIComponent(window.location.href);
+        window.location = envService.read('accountsUrl')+'/password/change/?next='+currentUrl;
+      };
       $scope.teachingGroups = [];
-      Groups.all(function(groups){
-        if ( groups.length > 0 ){
-          $scope.teachingGroups = groups;
-          $scope.showDashboardBtn = true;
+      Groups.all(function(groups, headers){
+        var updateFn = function(){
+          if ( groups.length > 0 ){
+            $scope.teachingGroups = groups;
+            $scope.showDashboardBtn = true;
+          } else {
+            $scope.teachingGroups = [];
+            $scope.showDashboardBtn = false;
+          }
+        };
+        if( !headers ){
+          $scope.$apply(updateFn);
         } else {
-          $scope.teachingGroups = [];
-          $scope.showDashboardBtn = false;
+          updateFn();
         }
       }, 'Teacher');
 

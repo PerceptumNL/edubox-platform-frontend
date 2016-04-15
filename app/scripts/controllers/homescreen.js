@@ -15,23 +15,32 @@ angular.module('eduraamApp')
             $scope.items = [];
             var groupId = parseInt($routeParams.group);
             var loginUrls = {};
-            Units.all(groupId, function(units){
-              $scope.items = [];
-              for(var i = 0; i < units.length; i++){
-                  $scope.items.push({
-                      'id': units[i].id,
-                      'group': groupId,
-                      'title': units[i].label,
-                      'description':'',
-                      'type': 'lesson'
-                  });
-                  loginUrls[units[i].login] = null;
-              }
-              // Automatically login user into received units
-              for(var loginUrl in loginUrls){
-                setTimeout(Units.login(loginUrl));
+
+            Units.all(groupId, function(units, headers){
+              var updateUnitScopeFn = function(){
+                $scope.items = [];
+                for(var i = 0; i < units.length; i++){
+                    $scope.items.push({
+                        'id': units[i].id,
+                        'group': groupId,
+                        'title': units[i].label,
+                        'description':'',
+                        'type': 'lesson'
+                    });
+                    loginUrls[units[i].login] = null;
+                }
+                // Automatically login user into received units
+                for(var loginUrl in loginUrls){
+                  setTimeout(Units.login(loginUrl));
+                }
+              };
+              if( !headers ){
+                $scope.$apply(updateUnitScopeFn);
+              } else {
+                updateUnitScopeFn();
               }
             });
+
             $scope.getTypeLabel = function(item){
               return {
                 'lesson': 'Les',

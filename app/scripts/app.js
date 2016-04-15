@@ -20,7 +20,7 @@ angular
     'environment',
     'http-auth-interceptor'
   ])
-  .constant('VERSION', 'Private Beta 0.7.12')
+  .constant('VERSION_LABEL', 'Private Beta')
   .config(function (envServiceProvider) {
     envServiceProvider.config({
       domains: {
@@ -78,8 +78,9 @@ angular
       .when('/', {
         templateUrl: 'views/group_selector.html'
       })
-      .when('/:group/dashboard/', {
-        templateUrl: 'views/teacher-dashboard.html'
+      .when('/releases/', {
+        templateUrl: 'views/releases.html',
+        controller: 'ReleaseListCtrl',
       })
       .when('/apps/', {
         templateUrl: 'views/app_list.html',
@@ -94,8 +95,15 @@ angular
         controller: 'LoginCtrl',
         controllerAs: 'login'
       })
+      .when('/inbox/', {
+        templateUrl: 'views/inbox.html',
+        controller: 'InboxCtrl',
+      })
       .when('/:group/', {
         templateUrl: 'views/homescreen.html'
+      })
+      .when('/:group/dashboard/', {
+        templateUrl: 'views/teacher-dashboard.html'
       })
       .when('/:group/units/:unit/', {
         controller: 'UnitCtrl',
@@ -105,8 +113,10 @@ angular
         redirectTo: '/'
       });
   })
-  .run(['$rootScope', 'envService', function($rootScope, envService){
+  .run(['$rootScope', 'envService', '$http', function($rootScope, envService, $http){
     window.document.domain = envService.read('xssDomain');
+    $http.defaults.xsrfCookieName = 'csrftoken';
+    $http.defaults.xsrfHeaderName = 'X-CSRFToken';
     $rootScope.$on('event:auth-loginRequired', function(){
       var currentUrl = encodeURIComponent(window.location.href);
       window.location.href = envService.read('accountsUrl')+'/login/?next='+currentUrl;

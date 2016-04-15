@@ -1,11 +1,12 @@
 <!doctype html>
-<html>
+<html lang="nl">
   <head>
   <meta charset="utf-8">
   <title>Codecult</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width">
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <style> .ng-hide, .ng-cloak { display: none !important; } </style>
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
@@ -16,6 +17,7 @@
   <link rel="stylesheet" href="styles/bootstrap.css">
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/apps.css">
+  <link rel="stylesheet" href="styles/homescreen.css">
   <!-- endbuild -->
   </head>
   <body ng-app="eduraamApp" flex layout="column">
@@ -24,15 +26,63 @@
   <![endif]-->
 
   <md-toolbar class='topbar' ng-controller="ToolbarCtrl">
-    <div class="md-toolbar-tools ng-cloak" layout='row'>
-    <a href="#/" id='logo-home-btn'>
-      <img class='logo' src="/images/logo_codecult_transparant.png" />
-    </a>
-    <div id='version_badge'>{{version}}</div>
-    <div class="align-right">
-      <!--<md-button class="md-raised md-primary ng-cloak"
-          ng-click="launchHelp()">Help!</md-button>-->
-      <md-progress-circular md-mode="indeterminate" ng-hide="userInfoName"></md-progress-circular>
+    <div class="md-toolbar-tools menu-small" layout='row' hide-gt-sm>
+      <a href="#/" id='logo-home-btn'>
+        <img class='logo' src="/images/logo_codecult_transparant_small.png" />
+      </a>
+      <p ng-hide='true'>&nbsp;&nbsp;laden...</p>
+      <div class='loading-toolbar align-right' ng-hide="userInfoName">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <div class="align-right ng-hide" ng-show="userInfoName">
+        <md-menu ng-show="showDashboardBtn" md-offset="0 50"
+          md-position-mode="target-right target">
+          <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
+            ng-click="$mdOpenMenu($event)">
+            <md-icon md-svg-src="images/dashboard.svg"></md-icon>
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item ng-repeat="group in teachingGroups">
+              <md-button ng-click="loadDashboard(group.id)" ng-bind='group.title'></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+        <md-button class="md-raised ng-cloak" ng-click="launchMail()">
+          <md-icon md-svg-icon="images/mail_black.svg"></md-icon>
+          <span ng-show='unreadCount' ng-bind='unreadCount'
+            class='unread-msg-count'></span>
+        </md-button>
+        <md-button class="md-raised ng-cloak" ng-click="launchHelp()">
+          <md-icon md-svg-icon="images/help_black.svg"></md-icon>
+        </md-button>
+        <md-menu md-offset="0 50"
+          md-position-mode="target-right target">
+          <md-button class="md-raised ng-cloak" aria-label="Account"
+            ng-click="$mdOpenMenu($event)">
+              <md-icon md-svg-src="images/profile.svg"></md-icon>
+          </md-button>
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="changePassword()">Verander wachtwoord</md-button>
+            </md-menu-item>
+            <md-menu-item>
+            <md-button ng-click="logout()"><strong>Log uit</strong></md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+    </div>
+    <div class="md-toolbar-tools" layout='row' hide-xs hide-sm show-gt-sm>
+      <a href="#/" id='logo-home-btn'>
+        <img class='logo' src="/images/logo_codecult_transparant_small.png" />
+      </a>
+      <p ng-hide='true'>&nbsp;&nbsp;laden...</p>
+      <div id='version_badge' class='ng-cloak' ng-click='launchReleases()' ng-bind='version'
+        ng-show='version'></div>
+      <div class='loading-toolbar align-right' ng-hide="userInfoName">
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <div class="align-right ng-hide" ng-show="userInfoName">
         <md-menu ng-show="showDashboardBtn" md-offset="0 50"
           md-position-mode="target-right target">
           <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
@@ -42,20 +92,31 @@
           </md-button>
           <md-menu-content width="4">
             <md-menu-item ng-repeat="group in teachingGroups">
-              <md-button ng-click="loadDashboard(group.id)">{{ group.title }}</md-button>
+              <md-button ng-click="loadDashboard(group.id)" ng-bind='group.title'></md-button>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
-        <md-menu ng-show="userInfoName" md-offset="0 50"
+        <md-button class="md-raised ng-cloak" ng-click="launchMail()">
+          <md-icon md-svg-icon="images/mail_black.svg"></md-icon> Berichten
+          <span ng-show='unreadCount' ng-bind='unreadCount'
+            class='unread-msg-count'></span>
+        </md-button>
+        <md-button class="md-raised ng-cloak" ng-click="launchHelp()">
+          <md-icon md-svg-icon="images/help_black.svg"></md-icon> Help
+        </md-button>
+        <md-menu md-offset="0 50"
           md-position-mode="target-right target">
           <md-button class="md-raised ng-cloak" aria-label="Account"
           style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
               <md-icon md-svg-src="images/profile.svg"></md-icon>
-        {{ userInfoName }}
+            <span ng-bind='userInfoName'></span>
           </md-button>
           <md-menu-content width="4">
             <md-menu-item>
-              <md-button ng-click="logout()">Logout</md-button>
+              <md-button ng-click="changePassword()">Verander wachtwoord</md-button>
+            </md-menu-item>
+            <md-menu-item>
+            <md-button ng-click="logout()"><strong>Log uit</strong></md-button>
             </md-menu-item>
           </md-menu-content>
         </md-menu>
@@ -80,9 +141,9 @@
             <label for="question">Stel hier je vraag</label>
             <textarea id='question' md-sidenav-focus></textarea>
           </md-input-container>
-      <md-button>Verstuur</md-button>
+          <md-button>Verstuur</md-button>
         </form>
-    </md-content>
+      </md-content>
       <md-content layout-padding>
         <md-subheader>Suggesties</md-subheader>
         <md-list>
@@ -140,9 +201,11 @@
   <script src="scripts/controllers/unit.js"></script>
   <script src="scripts/services/app_adaptor.js"></script>
   <script src="scripts/services/skills.js"></script>
-  <script src="scripts/services/challenges.js"></script>
-  <script src="scripts/services/homescreen_items.js"></script>
   <script src="scripts/controllers/browser.js"></script>
+  <script src="scripts/controllers/inbox.js"></script>
+  <script src="scripts/services/inbox.js"></script>
+  <script src="scripts/controllers/release_list.js"></script>
+  <script src="scripts/services/releases.js"></script>
   <!-- endbuild -->
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

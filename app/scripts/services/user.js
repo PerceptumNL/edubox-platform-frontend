@@ -17,15 +17,11 @@ angular.module('eduraamApp')
               { withCredentials: true }
           ).then(function(result){ callback(result.data.info); });
         },
-        changePassword: function(oldPwd1, oldPwd2, newPwd, callback, errorCallback){
-          if( oldPwd1 !== oldPwd2 ){
-            throw 'Passwords are not the same';
-          }
-          $http.post(
-              envService.read('accountsUrl')+'/change_password',
-              {'old': oldPwd1, 'new': newPwd},
+        getGroupInfo: function(groupId, callback){
+          $http.get(
+              envService.read('accountsUrl')+'/info?group='+groupId,
               { withCredentials: true }
-          ).then(callback, errorCallback);
+          ).then(function(result){ callback(result.data.info); });
         }
       };
   }]);

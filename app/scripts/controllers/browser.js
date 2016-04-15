@@ -10,8 +10,9 @@
 angular.module('eduraamApp')
   .controller('BrowserCtrl', ['$rootScope', function ($rootScope) {
     var _this = this;
-    var browserFrame = angular.element(
-        document.getElementById('browser-frame'));
+    var _isOpen = false;
+    var browserFrameElement = document.getElementById('browser-frame');
+    var browserFrame = angular.element(browserFrameElement);
     var browserContainer = angular.element(
         document.getElementById('browser-container'));
 
@@ -32,11 +33,24 @@ angular.module('eduraamApp')
       if( !dontShowFrame ){
         setTimeout(_this.ensureBrowserOnTop, 1);
       }
+      _isOpen = true;
     };
 
     this.close = function(){
       _this.getBrowserFrame().attr('src', '');
       setTimeout(_this.ensureMainOnTop, 1);
+      _isOpen = false;
+    };
+
+    this.isOpen = function(){ return _isOpen; };
+
+    this.getCurrentUrl = function(){
+      if( !_isOpen ){ return null; }
+      if( browserFrameElement.contentWindow ){
+        return browserFrameElement.contentWindow.location.href;
+      } else {
+        return browserFrame.attr('src');
+      }
     };
 
     this.ensureBrowserOnTop = function(){
