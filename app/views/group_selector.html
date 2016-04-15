@@ -1,25 +1,21 @@
 <div ng-controller="GroupSelectorCtrl" layout-fill class='group_selector'>
-  <md-content flex="grow" layout-align="center start">
-    <md-card flex-xs="grow" style='margin-bottom: 20px'>
-      <md-toolbar class='md-hue-1'>
-        <div class="md-toolbar-tools">
-          <h3>Selecteer uw groep</h3>
+  <div class="card">
+    <div class='card-image color-block blue'>
+      <span class='card-title'>Selecteer uw groep</span>
+    </div>
+    <div class="card-content">
+      <div class="row">
+        <div class="col l4 m6 s12" ng-repeat='group in groups'>
+          <a class='card blue white-text hoverable'
+            ng-click='onGroupSelect(group)'>
+            <div class="card-content">
+              <span class="card-title valign-wrapper">
+                {{ group.title }}
+              </span>
+            </div>
+          </a>
         </div>
-      </md-toolbar>
-      <md-card-content>
-        <div layout-wrap layout="row" class='itemgroup'>
-          <div ng-repeat="group in groups" flex-xs="grow" flex-sm="45"
-            flex-md="40" flex-gt-md="33">
-            <md-card class='group-card' ng-click="onGroupSelect(group)">
-              <md-card-title>
-                <md-card-title-text>
-                <span class="md-headline">{{group.title}}</span>
-                </md-card-title-text>
-              </md-card-title>
-            </md-card>
-          </div>
-        </div>
-      </md-card-content>
-    </md-card>
-  </md-content>
+      </div>
+    </div>
+  </div>
 </div>
