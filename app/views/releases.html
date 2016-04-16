@@ -1,25 +1,43 @@
 <md-progress-linear md-mode="indeterminate" ng-hide="releases"></md-progress-linear>
 <div class='release-list' layout-fill>
-  <md-content flex="grow" layout-align="center start" ng-show="releases">
-    <md-card flex-xs="grow" ng-repeat="release in releases"
-      ng-class="{'release-delivered': release.delivered}">
-      <md-toolbar>
-        <div class="md-toolbar-tools">
-          <h2>Release {{release.major}}.{{release.minor}}.{{release.patch}}</h2>
-          <div class='align-right release-date' ng-show='release.scheduled'>
+  <div class='card'>
+    <div class='card-image color-block blue'>
+      <span class='card-title'>Versies</span>
+    </div>
+  </div>
+  <div class="progress" ng-hide='releases !== null'>
+    <div class="indeterminate"></div>
+  </div>
+  <ul class='collapsible popout' data-collapsible="accordion"
+    ng-show='releases.length > 0'>
+    <li ng-repeat="release in releases">
+    <div class='collapsible-header'
+      ng-class="{'green lighten-3':release.delivered}">
+        Versie&nbsp;
+        <span ng-bind="[release.major, release.minor, release.patch].join('.')">
+        </span>
+        <div class='right'>
+          <span ng-show='release.scheduled' class='chip release-date'>
             {{ release.delivered?"Actief op":"Verwacht op" }}&nbsp;{{ release.scheduled }}
-          </div>
+          </span>
         </div>
-      </md-toolbar>
-      <md-card-content>
-      <p ng-show="release.description">{{ release.description }}</p>
-      <md-list flex>
-        <md-list-item ng-repeat="item in release.items">
-          <md-icon md-svg-icon="images/release_{{ item.type }}_black.svg"></md-icon>
-          <p>{{ item.description }}</p>
-          <md-divider ng-if="!$last"></md-divider>
-       </md-list-item>
-      </md-card-content>
-    </md-card>
-  </md-content>
+      </div>
+      <div class='collapsible-body'>
+        <p ng-show="release.description">{{ release.description }}</p>
+        <div class='release-items'>
+          <ul class='collection'>
+            <li class='collection-item' ng-repeat='item in release.items'>
+              <span class='title'>
+                <i class='material-icons circle'
+                  ng-bind="({'feature':'star', 'bugfix': 'bug_report', 'other': 'extension'})[item.type]">
+                </i>
+                {{item.description }}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
+<script>$(document).ready(function(){$('.collapsible').collapsible();});</script>
