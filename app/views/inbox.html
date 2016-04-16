@@ -1,28 +1,27 @@
-<md-progress-linear md-mode="indeterminate"
-  ng-hide="messages !== null"></md-progress-linear>
+<div class="progress" ng-hide='messages !== null'>
+  <div class="indeterminate"></div>
+</div>
 <div class='mail-list' layout-fill>
-  <md-content flex="grow">
-    <div layout='row' flex='grow' layout-align="center center" ng-show="messages.length === 0">
-      <md-card class='message empty-inbox' flex-xs='grow' flex-sm="90" flex-md="80" flex-gt-md="60">
-        <md-card-content>
+  <div class='row' ng-show='messages.length === 0'>
+    <div class='col s12'>
+      <div class="card">
+        <div class="card-content">
           <h3>Op dit moment zijn er geen ongelezen berichten</h3>
-        </md-card-content>
-      </md-card>
+        </div>
+      </div>
     </div>
-    <div layout='row' ng-repeat="message in messages" flex='grow'
-        layout-align="center center">
-      <md-card class='message' flex-xs='grow' flex-sm="90" flex-md="80"
-        flex-gt-md="60">
-        <md-toolbar class='md-hue-1'>
-          <div class="md-toolbar-tools">
-            {{ message.title }}
-          </div>
-        </md-toolbar>
-        <md-card-content>
+  </div>
+  <div class='row' ng-repeat="message in messages">
+    <div class='col s12'>
+      <div class="card">
+        <div class='card-image color-block blue'>
+          <span class='card-title' ng-bind='message.title'></span>
+        </div>
+        <div class="card-content">
           <div class='mail-contents' ng-bind-html="message.summary"></div>
           <div class='mail-datetime'><i>Ontvangen op {{ message.datetime }}</i></div>
-        </md-card-content>
-      </md-card>
+        </div>
+      </div>
     </div>
-  </md-content>
+  </div>
 </div>
