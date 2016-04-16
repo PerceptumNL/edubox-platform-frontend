@@ -15,9 +15,10 @@
     <li ng-repeat="message in messages">
       <div class='collapsible-header'>
         <span ng-bind='message.title'></span>
-        <span class='chip right datetime' ng-bind='message.datetime'></span>
       </div>
-      <div class='collapsible-body' ng-bind-html='message.summary'></div>
+      <div class='collapsible-body'>
+        <div class='date-small right' ng-bind='message.date'></div>
+        <div ng-bind-html='message.summary'></div>
     </li>
   </ul>
 </div>
