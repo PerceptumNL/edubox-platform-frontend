@@ -11,10 +11,8 @@ angular.module('eduraamApp')
   .controller('ToolbarCtrl', [
       '$rootScope', '$scope', '$location', '$mdDialog', '$mdMedia', '$http',
       'User', 'envService', 'VERSION_LABEL', 'Groups', 'Releases', 'Inbox',
-      '$mdSidenav',
     function ($rootScope, $scope, $location,  $mdDialog, $mdMedia, $http,
-              User, envService, VERSION_LABEL, Groups, Releases, Inbox,
-              $mdSidenav) {
+              User, envService, VERSION_LABEL, Groups, Releases, Inbox) {
       var isTeacher = false;
       $scope.userInfoName = null;
       $scope.showDashboardBtn = false;
