@@ -1,0 +1,17 @@
+.inbox .date-small {
+  font-size: 0.9em;
+  color: gray;
+  padding: 5px;
+}
+
+.inbox .collapsible-body {
+  background-color: #fff;
+}
+
+.inbox .collapsible-header {
+  font-size: 1em;
+}
+
+.inbox .collapsible-header.active {
+  font-size: 1.2em;
+}

@@ -4,170 +4,163 @@
   <meta charset="utf-8">
   <title>Codecult</title>
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
   <style> .ng-hide, .ng-cloak { display: none !important; } </style>
   <!-- build:css(.) styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="bower_components/Materialize/bin/materialize.css" />
   <!-- endbower -->
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
-  <link rel="stylesheet" href="styles/bootstrap.css">
   <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/navbar.css">
+  <link rel="stylesheet" href="styles/browser.css">
+  <link rel="stylesheet" href="styles/releases.css">
+  <link rel="stylesheet" href="styles/inbox.css">
+<!--  <link rel="stylesheet" href="styles/bootstrap.css">
   <link rel="stylesheet" href="styles/apps.css">
-  <link rel="stylesheet" href="styles/homescreen.css">
+  <link rel="stylesheet" href="styles/homescreen.css">-->
   <!-- endbuild -->
   </head>
   <body ng-app="eduraamApp" flex layout="column">
   <!--[if lte IE 8]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-
-  <md-toolbar class='topbar' ng-controller="ToolbarCtrl">
-    <div class="md-toolbar-tools menu-small" layout='row' hide-gt-sm>
-      <a href="#/" id='logo-home-btn'>
-        <img class='logo' src="/images/logo_codecult_transparant_small.png" />
-      </a>
-      <p ng-hide='true'>&nbsp;&nbsp;laden...</p>
-      <div class='loading-toolbar align-right' ng-hide="userInfoName">
-        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  <nav class='blue' ng-controller="ToolbarCtrl">
+    <div class="nav-wrapper">
+      <div class='logo'>
+        <a href="#/">
+          <img src="/images/logo_codecult_transparant_small.png">
+        </a>
+        <a href="#/releases/" id='menu-release-item'
+          class='hide-on-med-and-down ng-cloak' ng-show='version'>
+          <div class='chip white' ng-bind='version'></div>
+        </a>
       </div>
-      <div class="align-right ng-hide" ng-show="userInfoName">
-        <md-menu ng-show="showDashboardBtn" md-offset="0 50"
-          md-position-mode="target-right target">
-          <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
-            ng-click="$mdOpenMenu($event)">
-            <md-icon md-svg-src="images/dashboard.svg"></md-icon>
-          </md-button>
-          <md-menu-content width="4">
-            <md-menu-item ng-repeat="group in teachingGroups">
-              <md-button ng-click="loadDashboard(group.id)" ng-bind='group.title'></md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
-        <md-button class="md-raised ng-cloak" ng-click="launchMail()">
-          <md-icon md-svg-icon="images/mail_black.svg"></md-icon>
-          <span ng-show='unreadCount' ng-bind='unreadCount'
-            class='unread-msg-count'></span>
-        </md-button>
-        <md-button class="md-raised ng-cloak" ng-click="launchHelp()">
-          <md-icon md-svg-icon="images/help_black.svg"></md-icon>
-        </md-button>
-        <md-menu md-offset="0 50"
-          md-position-mode="target-right target">
-          <md-button class="md-raised ng-cloak" aria-label="Account"
-            ng-click="$mdOpenMenu($event)">
-              <md-icon md-svg-src="images/profile.svg"></md-icon>
-          </md-button>
-          <md-menu-content width="4">
-            <md-menu-item>
-              <md-button ng-click="changePassword()">Verander wachtwoord</md-button>
-            </md-menu-item>
-            <md-menu-item>
-            <md-button ng-click="logout()"><strong>Log uit</strong></md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
-      </div>
+      <ul class='right hide-on-med-and-up'>
+        <a href="#" data-activates="mobile-main-menu" class="button-collapse">
+            <i class="material-icons">menu</i>
+        </a>
+      </ul>
+      <ul class="right main-menu hide-on-small-only">
+        <li>
+          <a href="#/">
+            <i class="material-icons left">view_module</i>
+            <span class='menu-icon-label'>Home</span>
+          </a>
+        </li>
+        <li ng-show='showDashboardBtn'>
+          <a class='dropdown-button' href='#'
+              data-constrainwidth="false" data-beloworigin="true"
+              data-gutter="5" data-alignment='right'
+              data-activates='menu-dashboard-dropdown'>
+            <i class="material-icons left">trending_up</i>
+            <span class='menu-icon-label'>Overzicht</span>
+          </a>
+          <ul id='menu-dashboard-dropdown' class='dropdown-content blue'
+            style='margin-top: 3px'>
+            <li ng-repeat='group in teachingGroups'>
+              <a ng-click='loadDashboard(group.id)'
+                ng-bind='group.title'></a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a ng-click="launchHelp()">
+            <i class="material-icons left">help_outline</i>
+            <span class='menu-icon-label'>Help</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/inbox/"><i class="material-icons left">email</i>
+          <span class='menu-icon-label'>
+            Berichten
+            <span ng-bind='"&nbsp;("+unreadCount+")"' ng-show='unreadCount'></span>
+          </span>
+        </a>
+        </li>
+        <li class='primary-menu-item'>
+          <a class='dropdown-button' href='#'
+              data-constrainwidth="false" data-beloworigin="true"
+              data-gutter="5"
+              data-activates='menu-account-dropdown'>
+            <i class="material-icons left">account_box</i>
+            <span class='menu-icon-label' ng-bind="userInfoName"></span>
+          </a>
+          <ul id='menu-account-dropdown' class='dropdown-content blue'
+            style='margin-top: 3px'>
+            <li><a ng-click='changePassword()'>Wachtwoord veranderen</a></li>
+            <li class="divider"></li>
+            <li><a ng-click="logout()">Log uit</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="side-nav blue mobile-menu right" id="mobile-main-menu">
+        <li class='primary-menu-item'>
+          <a class='dropdown-button' href='#'
+              data-constrainwidth='true' data-beloworigin="true"
+              data-gutter="5" data-alignment='left'
+              data-activates='mobile-menu-account-dropdown'>
+            <i class="material-icons left">account_box</i>
+            <span class='menu-icon-label' ng-bind='userInfoName'></span>
+          </a>
+          <ul id='mobile-menu-account-dropdown' class='dropdown-content blue'
+            style='margin-top: 5px'>
+            <li><a ng-click='changePassword()'>Wachtwoord veranderen</a></li>
+            <li class="divider"></li>
+            <li><a ng-click="logout()">Log uit</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="material-icons left">view_module</i>
+          <span class='menu-icon-label'>Home</span>
+        </a>
+        </li>
+        <li ng-show='showDashboardBtn'>
+          <a class='dropdown-button' href='#'
+              data-constrainwidth='true' data-beloworigin="true"
+              data-gutter="5" data-alignment='left'
+              data-activates='mobile-menu-dashboard-dropdown'>
+            <i class="material-icons left">trending_up</i>
+            <span class='menu-icon-label'>Overzicht</span>
+          </a>
+          <ul id='mobile-menu-dashboard-dropdown' class='dropdown-content blue'
+            style='margin-top: 5px'>
+            <li ng-repeat='group in teachingGroups'>
+              <a ng-click='loadDashboard(group.id)'
+                ng-bind='group.title'></a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#"><i class="material-icons left">help_outline</i>
+          <span class='menu-icon-label'>Help</span>
+        </a>
+        </li>
+        <li>
+          <a href="#"><i class="material-icons left">email</i>
+          <span class='menu-icon-label'>
+            Berichten
+            <span ng-bind='"&nbsp;("+unreadCount+")"' ng-show='unreadCount'></span>
+          </span>
+        </a>
+        </li>
+      </ul>
     </div>
-    <div class="md-toolbar-tools" layout='row' hide-xs hide-sm show-gt-sm>
-      <a href="#/" id='logo-home-btn'>
-        <img class='logo' src="/images/logo_codecult_transparant_small.png" />
-      </a>
-      <p ng-hide='true'>&nbsp;&nbsp;laden...</p>
-      <div id='version_badge' class='ng-cloak' ng-click='launchReleases()' ng-bind='version'
-        ng-show='version'></div>
-      <div class='loading-toolbar align-right' ng-hide="userInfoName">
-        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-      </div>
-      <div class="align-right ng-hide" ng-show="userInfoName">
-        <md-menu ng-show="showDashboardBtn" md-offset="0 50"
-          md-position-mode="target-right target">
-          <md-button class="md-raised md-primary ng-cloak" aria-label="Overzicht"
-          style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
-            <md-icon md-svg-src="images/dashboard.svg"></md-icon>
-            Overzicht
-          </md-button>
-          <md-menu-content width="4">
-            <md-menu-item ng-repeat="group in teachingGroups">
-              <md-button ng-click="loadDashboard(group.id)" ng-bind='group.title'></md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
-        <md-button class="md-raised ng-cloak" ng-click="launchMail()">
-          <md-icon md-svg-icon="images/mail_black.svg"></md-icon> Berichten
-          <span ng-show='unreadCount' ng-bind='unreadCount'
-            class='unread-msg-count'></span>
-        </md-button>
-        <md-button class="md-raised ng-cloak" ng-click="launchHelp()">
-          <md-icon md-svg-icon="images/help_black.svg"></md-icon> Help
-        </md-button>
-        <md-menu md-offset="0 50"
-          md-position-mode="target-right target">
-          <md-button class="md-raised ng-cloak" aria-label="Account"
-          style='margin-right: 20px;' ng-click="$mdOpenMenu($event)">
-              <md-icon md-svg-src="images/profile.svg"></md-icon>
-            <span ng-bind='userInfoName'></span>
-          </md-button>
-          <md-menu-content width="4">
-            <md-menu-item>
-              <md-button ng-click="changePassword()">Verander wachtwoord</md-button>
-            </md-menu-item>
-            <md-menu-item>
-            <md-button ng-click="logout()"><strong>Log uit</strong></md-button>
-            </md-menu-item>
-          </md-menu-content>
-        </md-menu>
-      </div>
-    </div>
-  </md-toolbar>
-  <div layout="row" ng-controller="HelpCtrl" class='ng-cloak'>
-    <md-sidenav class="md-sidenav-right md-whiteframe-z2 md-closed"
-      md-component-id="help-sidenav">
-      <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">
-          Help
-          <span flex></span>
-          <md-button class="md-icon-button" ng-click="hide()">
-            <md-icon md-svg-icon="images/close_white.svg"></md-icon>
-          </md-button>
-        </h1>
-      </md-toolbar>
-      <md-content layout-padding class='help-question-block'>
-        <form>
-          <md-input-container md-no-float>
-            <label for="question">Stel hier je vraag</label>
-            <textarea id='question' md-sidenav-focus></textarea>
-          </md-input-container>
-          <md-button>Verstuur</md-button>
-        </form>
-      </md-content>
-      <md-content layout-padding>
-        <md-subheader>Suggesties</md-subheader>
-        <md-list>
-        <md-list-item ng-repeat="resource in resources"
-          ng-click="loadResource(resource)">
-          <md-icon class="md-avatar-icon" md-svg-src="{{ getResourceIcon(resource) }}"></md-icon>
-          <span flex></span>
-          <div class="md-list-item-text" layout="column">
-            {{ resource.title }}
-          </div>
-        <md-divider ng-if="!$last"></md-divider>
-        </md-list-item>
-        </md-list>
-      </md-content>
-    </md-sidenav>
+  </nav>
+  <main>
+  <div flex id="browser-container" ng-controller="BrowserCtrl" class='hide'>
+    <iframe width="100%" height="100%" frameborder="0" id="browser-frame"></iframe>
   </div>
-
-  <md-content flex id="browser-container" ng-controller="BrowserCtrl" class='hide'>
-  <iframe width="100%" height="100%" frameborder="0" id="browser-frame"></iframe>
-  </md-content>
-  <md-content ng-view="" flex class="main-content" id="main-container">
-  </md-content>
+  <div ng-view="" flex class="container main-content" id="main-container"></div>
+  </main>
   <!-- build:js(.) scripts/vendor.js -->
   <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/angular-aria/angular-aria.js"></script>
@@ -179,6 +172,7 @@
   <script src="bower_components/angular-environment/dist/angular-environment.js"></script>
   <script src="bower_components/angular-http-auth/src/http-auth-interceptor.js"></script>
   <script src="bower_components/urijs/src/URI.js"></script>
+  <script src="bower_components/Materialize/bin/materialize.js"></script>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -206,6 +200,9 @@
   <script src="scripts/services/inbox.js"></script>
   <script src="scripts/controllers/release_list.js"></script>
   <script src="scripts/services/releases.js"></script>
+  <script>
+      $(".button-collapse").sideNav({edge:'right', closeOnClick: false});
+  </script>
   <!-- endbuild -->
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
