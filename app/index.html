@@ -18,6 +18,7 @@
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/navbar.css">
+  <link rel="stylesheet" href="styles/browser.css">
   <link rel="stylesheet" href="styles/inbox.css">
 <!--  <link rel="stylesheet" href="styles/bootstrap.css">
   <link rel="stylesheet" href="styles/apps.css">
@@ -91,9 +92,9 @@
           </a>
           <ul id='menu-account-dropdown' class='dropdown-content blue'
             style='margin-top: 3px'>
-            <li><a href="#!">Wachtwoord veranderen</a></li>
+            <li><a ng-click='changePassword()'>Wachtwoord veranderen</a></li>
             <li class="divider"></li>
-            <li><a href="#!">Log uit</a></li>
+            <li><a ng-click="logout()">Log uit</a></li>
           </ul>
         </li>
       </ul>
@@ -108,9 +109,9 @@
           </a>
           <ul id='mobile-menu-account-dropdown' class='dropdown-content blue'
             style='margin-top: 5px'>
-            <li><a href="#!">Wachtwoord veranderen</a></li>
+            <li><a ng-click='changePassword()'>Wachtwoord veranderen</a></li>
             <li class="divider"></li>
-            <li><a href="#!">Log uit</a></li>
+            <li><a ng-click="logout()">Log uit</a></li>
           </ul>
         </li>
         <li>
