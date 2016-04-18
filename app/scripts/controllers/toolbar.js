@@ -55,7 +55,9 @@ angular.module('eduraamApp')
       $scope.launchMail = function(){
         $location.path('/inbox/');
       };
-      $scope.launchHelp = function(ev){
+      $scope.launchHelp = function(closeNavBar, ev){
+          // Close the mobile navbar from here, since there is no location change.
+          if(closeNavBar){ $("#activate-mobile-menu-btn").sideNav('hide'); }
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           $http({
             method: 'GET',
