@@ -14,23 +14,31 @@ angular.module('eduraamApp')
     var cache = $cacheFactory('edrm-inbox');
     var res = $resource(envService.read('apiUrl')+'/inbox/', null,
         {'all': { method:'GET', withCredentials: true, cache: cache }});
-    var _messages = {};
+    var _messages = null;
+
+    var callbacks = {'all': [], 'get': [], 'getUnreadCount': []};
 
     this.all = function(callback){
+      callbacks.all.push(callback);
       if( _messages ){
         setTimeout(function(){
-          callback(_messages, null);
+          while((callback = callbacks.all.shift())){
+            callback(_messages, null);
+          }
         }, 0);
       }
       res.all(function(value, headers){
         if ( ! _messages ||
             JSON.stringify(value.messages) !== JSON.stringify(_messages) ){
           _messages = value.messages;
-          callback.call(this, value.messages, headers);
+          while((callback = callbacks.all.shift())){
+            callback.call(this, value.messages, headers);
+          }
         }
       });
     };
     this.get = function(messageId, callback){
+      callbacks.get.push(callback);
       _this.all(function(messages, headers){
         var message = null;
         for(var i = 0; i < messages.length ; i++){
@@ -40,13 +48,18 @@ angular.module('eduraamApp')
           }
         }
         if(message === null){ throw 'No message could be matched.'; }
-        callback(message, headers);
+        while((callback = callbacks.get.shift())){
+          callback(message, headers);
+        }
       });
     };
 
     this.getUnreadCount = function(callback){
+      callbacks.getUnreadCount.push(callback);
       _this.all(function(messages, headers){
-        callback(messages.length, headers);
+        while((callback = callbacks.getUnreadCount.shift())){
+          callback(messages.length, headers);
+        }
       });
     };
   }]);

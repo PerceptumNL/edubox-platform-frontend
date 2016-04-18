@@ -17,11 +17,16 @@ angular.module('eduraamApp')
     var _releases = null;
     var _filters = {};
 
+    var callbacks = {'all': [], 'mostRecent': []};
+
     this.all = function(callback, deliveredOnly){
+      callbacks.all.push(callback);
       var filters = (deliveredOnly ? {'delivered': '1'} : {});
       if( _releases ){
         setTimeout(function(){
-          callback(_releases, null);
+          while((callback = callbacks.all.shift())){
+            callback(_releases, null);
+          }
         }, 0);
       }
       var equal = function(a, b){
@@ -33,14 +38,19 @@ angular.module('eduraamApp')
              ! equal(filters, _filters) ){
           _releases = value.releases;
           _filters = filters;
-          callback.call(this, value.releases, headers);
+          while((callback = callbacks.all.shift())){
+            callback.call(this, value.releases, headers);
+          }
         }
       });
     };
 
     this.mostRecent = function(callback, deliveredOnly){
+      callbacks.mostRecent.push(callback);
       _this.all(function(releases, headers){
-        callback(releases[0], headers);
+        while((callback = callbacks.mostRecent.shift())){
+          callback(releases[0], headers);
+        }
       }, deliveredOnly);
     };
   }]);
