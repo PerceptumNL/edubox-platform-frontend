@@ -25,7 +25,7 @@ angular.module('eduraamApp')
         $scope.launchActivity = function(activity){
           AppAdaptor.setToken(activity.token);
           window.EDRMBrowser.open(activity.launch);
-        }
+        };
 
         $scope.unit = null;
         Units.get(
