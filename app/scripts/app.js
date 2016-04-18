@@ -121,8 +121,8 @@ angular
       var currentUrl = encodeURIComponent(window.location.href);
       window.location.href = envService.read('accountsUrl')+'/login/?next='+currentUrl;
     });
-    window.$("#activate-mobile-menu-btn").sideNav({edge:'right', closeOnClick: false});
+    window.$('#activate-mobile-menu-btn').sideNav({edge:'', closeOnClick: false});
     $rootScope.$on('$locationChangeSuccess', function(){
-      window.$("#activate-mobile-menu-btn").sideNav('hide');
+      window.$('#activate-mobile-menu-btn').sideNav('hide');
     });
   }]);

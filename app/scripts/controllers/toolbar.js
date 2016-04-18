@@ -57,7 +57,7 @@ angular.module('eduraamApp')
       };
       $scope.launchHelp = function(closeNavBar, ev){
           // Close the mobile navbar from here, since there is no location change.
-          if(closeNavBar){ window.$("#activate-mobile-menu-btn").sideNav('hide'); }
+          if(closeNavBar){ window.$('#activate-mobile-menu-btn').sideNav('hide'); }
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           $http({
             method: 'GET',
