@@ -116,7 +116,7 @@
           </ul>
         </li>
         <li>
-          <a href="#"><i class="material-icons left">view_module</i>
+          <a href="#/"><i class="material-icons left">view_module</i>
           <span class='menu-icon-label'>Home</span>
         </a>
         </li>
@@ -137,12 +137,13 @@
           </ul>
         </li>
         <li>
-          <a href="#"><i class="material-icons left">help_outline</i>
-          <span class='menu-icon-label'>Help</span>
-        </a>
+          <a ng-click='launchHelp()'>
+            <i class="material-icons left">help_outline</i>
+            <span class='menu-icon-label'>Help</span>
+          </a>
         </li>
         <li>
-          <a href="#"><i class="material-icons left">email</i>
+          <a href="#/inbox/"><i class="material-icons left">email</i>
           <span class='menu-icon-label'>
             Berichten
             <span ng-bind='"&nbsp;("+unreadCount+")"' ng-show='unreadCount'></span>
