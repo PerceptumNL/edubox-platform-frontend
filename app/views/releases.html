@@ -11,7 +11,7 @@
     ng-show='releases.length > 0'>
     <li ng-repeat="release in releases">
     <div class='collapsible-header'
-      ng-class="{'green lighten-3':release.delivered}">
+      ng-class="{'release-delivered green lighten-1':release.delivered}">
         Versie&nbsp;
         <span ng-bind="[release.major, release.minor, release.patch].join('.')">
         </span>
