@@ -14,7 +14,8 @@
     ng-show='messages.length > 0'>
     <li ng-repeat="message in messages">
       <div class='collapsible-header'>
-        <span ng-bind='message.title'></span>
+        <i class="material-icons">mail_outline</i>
+        <div class='collapsible-header-title' ng-bind='message.title'></div>
       </div>
       <div class='collapsible-body'>
         <div class='date-small right' ng-bind='message.date'></div>

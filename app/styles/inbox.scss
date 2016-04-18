@@ -10,6 +10,11 @@
 
 .inbox .collapsible-header {
   font-size: 1em;
+  line-height: 1.5rem;
+}
+
+.inbox .collapsible-header-title {
+  padding: 10px 0;
 }
 
 .inbox .collapsible-header.active {
