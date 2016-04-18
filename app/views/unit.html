@@ -1,0 +1,29 @@
+<div class='unit' layout-fill>
+  <div class="card">
+    <div class='card-image color-block blue'>
+      <span class='card-title' ng-bind='unit.label'></span>
+      <a class="ng-cloak waves-effect waves-light btn-large right blue lighten-2"
+        ng-click='launchUnit(unit)' ng-hide='unit.completed'>
+        <i class="material-icons right">play_arrow</i>Ga verder
+      </a>
+      <a class="ng-cloak waves-effect waves-light btn-large right green"
+        ng-show='unit.completed'>
+        <i class="material-icons right">done</i>Klaar
+      </a>
+    </div>
+    <div class="card-content">
+      <div ng-bind-html='unit.description'></div>
+      <div class="collection">
+        <div class='collection-header flow-text teal lighten-1'>Inhoud</div>
+        <a class="collection-item" ng-repeat='activity in unit.activities'
+          ng-click='launchActivity(activity)' ng-switch="activity.state">
+          {{ activity.label }}
+          <i class="ng-cloak material-icons right green-text"
+            ng-switch-when="completed">check_circle</i>
+          <i class="ng-cloak material-icons right orange-text"
+            ng-switch-when="pending">check_circle</i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

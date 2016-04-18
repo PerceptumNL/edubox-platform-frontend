@@ -107,8 +107,12 @@ angular
       })
       .when('/:group/units/:unit/', {
         controller: 'UnitCtrl',
-        templateUrl: 'views/loader.html'
+        templateUrl: 'views/unit.html'
       })
+//      .when('/run/:group/units/:unit/', {
+//        controller: 'UnitCtrl',
+//        templateUrl: 'views/loader.html'
+//      })
       .otherwise({
         redirectTo: '/'
       });

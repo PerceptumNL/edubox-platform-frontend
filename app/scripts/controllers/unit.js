@@ -17,14 +17,30 @@ angular.module('eduraamApp')
           AppAdaptor = AppAdaptor.init(appWindow);
         };
 
+        $scope.launchUnit = function(unit){
+          AppAdaptor.setToken(unit.token);
+          window.EDRMBrowser.open(unit.launch);
+        };
+
+        $scope.launchActivity = function(activity){
+          AppAdaptor.setToken(activity.token);
+          window.EDRMBrowser.open(activity.launch);
+        }
+
+        $scope.unit = null;
         Units.get(
           parseInt($routeParams.group),
           parseInt($routeParams.unit),
-          function(unit){
-            AppAdaptor.setToken(unit.token);
+          function(unit, headers){
+            if( !headers ){
+              $scope.$apply(function(){
+                $scope.unit = unit;
+              });
+            } else {
+              $scope.unit = unit;
+            }
           }
         );
-        window.EDRMBrowser.open(Units.getLaunchUrl(
-          $routeParams.group, $routeParams.unit));
       }
   ]);
+
