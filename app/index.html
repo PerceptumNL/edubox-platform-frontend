@@ -63,8 +63,10 @@
           <ul id='menu-dashboard-dropdown' class='dropdown-content blue'
             style='margin-top: 3px'>
             <li ng-repeat='group in teachingGroups'>
-              <a ng-click='loadDashboard(group.id)'
-                ng-bind='group.title'></a>
+              <a ng-click='loadDashboard(group.id)'>
+                <i class="material-icons left valign large-icon">group</i>&nbsp;
+                <span ng-bind='group.title'></span>
+              </a>
             </li>
           </ul>
         </li>
@@ -127,11 +129,13 @@
             <i class="material-icons left">trending_up</i>
             <span class='menu-icon-label'>Overzicht</span>
           </a>
-          <ul id='mobile-menu-dashboard-dropdown' class='dropdown-content blue'
+          <ul id='mobile-menu-dashboard-dropdown' class='dropdown-content blue lighten-2'
             style='margin-top: 5px'>
             <li ng-repeat='group in teachingGroups'>
-              <a ng-click='loadDashboard(group.id)'
-                ng-bind='group.title'></a>
+              <a ng-click='loadDashboard(group.id)'>
+                <i class="material-icons left valign large-icon">group</i>&nbsp;
+                <span ng-bind='group.title'></span>
+              </a>
             </li>
           </ul>
         </li>
