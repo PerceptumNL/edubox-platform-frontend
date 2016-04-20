@@ -18,11 +18,17 @@
         <a class="collection-item" ng-repeat='activity in unit.activities'
           ng-click='launchActivity(activity)' ng-switch="activity.state">
           {{ activity.label }}
-          <i class="ng-cloak material-icons right green-text"
-            ng-switch-when="completed">check_circle</i>
-          <i class="ng-cloak material-icons right green-text text-lighten-3"
+          <i class="ng-cloak material-icons right green-text tooltipped"
+            data-tooltip='Je hebt deze perfect gemaakt!'
+            ng-switch-when="perfect">check_circle</i>
+          <i class="ng-cloak material-icons right green-text text-lighten-3 tooltipped"
+            data-tooltip='Deze is gelukt, maar kan zelfs nog net iets beter.'
+             ng-switch-when="completed">check_circle</i>
+          <i class="ng-cloak material-icons right orange-text text-lighten-3 tooltipped"
+            data-tooltip='Hier ben je al aan begonnen. Klik om er mee verder te gaan.'
              ng-switch-when="pending">check_circle</i>
-          <i class="ng-cloak material-icons right blue-text text-lighten-2"
+          <i class="ng-cloak material-icons right blue-text text-lighten-2 tooltipped"
+            data-tooltip='Klik om hier aan te beginnen'
             ng-switch-default>chevron_right</i>
         </a>
       </div>

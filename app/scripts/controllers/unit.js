@@ -35,9 +35,15 @@ angular.module('eduraamApp')
             if( !headers ){
               $scope.$apply(function(){
                 $scope.unit = unit;
+                setTimeout(function(){
+                  window.$('.tooltipped').tooltip({delay: 500, position: 'bottom'});
+                }, 0);
               });
             } else {
               $scope.unit = unit;
+              setTimeout(function(){
+                window.$('.tooltipped').tooltip({delay: 500, position: 'bottom'});
+              }, 0);
             }
           }
         );
