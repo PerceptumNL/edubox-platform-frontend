@@ -180,6 +180,8 @@ window.CodeOrgAdaptor = function(envService, parentObj){
       if('jQuery' in appWindow){
         var triggers = {
           'studio.code.org/milestone/': _this.onAjaxMilestone,
+          'studio.code.org/puzzle_ratings': _this.onRating,
+          '/puzzle_ratings': _this.onRating,
           'studio.code.org/v3/sources/': _this.onSourceSubmit,
           '/v3/sources/': _this.onSourceSubmit
         };
@@ -210,6 +212,27 @@ window.CodeOrgAdaptor = function(envService, parentObj){
           'http://adlnet.gov/expapi/verbs/completed',
           activity,
           settings.data
+        );
+      }
+    };
+
+    this.onRating = function(event, jqxhr, settings){
+      var token = _this.getToken();
+      if(token){
+        var activity = _this.appUrls.unroutedUrlObj
+          .clone()
+          .removeQuery('token')
+          .toString();
+        var rating = settings.data.split('&')[2].split('=')[1];
+        _this.storeEvent(
+          token,
+          'http://id.tincanapi.com/verb/rated',
+          activity,
+          {
+            'min_rating': 0,
+            'max_rating': 1,
+            'rating': rating
+          }
         );
       }
     };
