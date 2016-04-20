@@ -14,7 +14,6 @@
     <div class="card-content">
       <div ng-bind-html='unit.description'></div>
       <div class="collection">
-        <div class='collection-header flow-text teal lighten-1'>Inhoud</div>
         <a class="collection-item" ng-repeat='activity in unit.activities'
           ng-click='launchActivity(activity)' ng-switch="activity.state">
           {{ activity.label }}
