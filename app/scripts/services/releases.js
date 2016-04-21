@@ -10,18 +10,16 @@
 angular.module('eduraamApp')
   .service('Releases', ['$resource', '$cacheFactory', 'envService',
   function ($resource, $cacheFactory, envService) {
-    var _this = this;
     var cache = $cacheFactory('edrm-releases');
     var res = $resource(envService.read('apiUrl')+'/releases/', null,
         {'all': { method:'GET', withCredentials: true, cache: cache }});
     var _releases = null;
-    var _filters = {};
+    var _current = null;
 
-    var callbacks = {'all': [], 'mostRecent': []};
+    var callbacks = {'all': [], 'current': []};
 
-    this.all = function(callback, deliveredOnly){
+    this.all = function(callback){
       callbacks.all.push(callback);
-      var filters = (deliveredOnly ? {'delivered': '1'} : {});
       if( _releases ){
         setTimeout(function(){
           while((callback = callbacks.all.shift())){
@@ -32,12 +30,10 @@ angular.module('eduraamApp')
       var equal = function(a, b){
         return JSON.stringify(a) === JSON.stringify(b);
       };
-      res.all(filters, function(value, headers){
+      res.all(function(value, headers){
         if ( ! _releases ||
-             ! equal(value.releases, _releases) ||
-             ! equal(filters, _filters) ){
+             ! equal(value.releases, _releases)){
           _releases = value.releases;
-          _filters = filters;
           while((callback = callbacks.all.shift())){
             callback.call(this, value.releases, headers);
           }
@@ -45,12 +41,27 @@ angular.module('eduraamApp')
       });
     };
 
-    this.mostRecent = function(callback, deliveredOnly){
-      callbacks.mostRecent.push(callback);
-      _this.all(function(releases, headers){
-        while((callback = callbacks.mostRecent.shift())){
-          callback(releases[0], headers);
+    this.current = function(callback){
+      callbacks.current.push(callback);
+      if( _current ){
+        setTimeout(function(){
+          while((callback = callbacks.current.shift())){
+            callback(_current, null);
+          }
+        }, 0);
+      }
+      var equal = function(a, b){
+        return JSON.stringify(a) === JSON.stringify(b);
+      };
+      var filters = {'delivered': '1'};
+      res.all(filters, function(value, headers){
+        if ( ! _current ||
+             ! equal(value.releases[0], _current)){
+          _current = value.releases[0];
+          while((callback = callbacks.current.shift())){
+            callback.call(this, value.releases[0], headers);
+          }
         }
-      }, deliveredOnly);
+      });
     };
   }]);

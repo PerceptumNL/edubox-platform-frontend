@@ -22,7 +22,7 @@ angular.module('eduraamApp')
       }else{
         $scope.version = envService.get();
       }
-      Releases.mostRecent(function(release, headers){
+      Releases.current(function(release, headers){
         if( !headers ){
           $scope.$apply(function(){
             $scope.version += ' '+release.major+'.'+release.minor+'.'+release.patch;
