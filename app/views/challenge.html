@@ -1,0 +1,18 @@
+<div class='challenge' layout-fill>
+  <div class="card">
+    <div class='card-image color-block blue'>
+      <span class='card-title' ng-bind='challenge.label'></span>
+      <a class="ng-cloak waves-effect waves-light btn-large right blue lighten-2"
+        ng-click='launchChallenge(challenge)' ng-hide='challenge.completed'>
+        <i class="material-icons right">play_arrow</i>Ga verder
+      </a>
+      <a class="ng-cloak waves-effect waves-light btn-large right green"
+        ng-show='challenge.completed'>
+        <i class="material-icons right">done</i>Klaar
+      </a>
+    </div>
+    <div class="card-content">
+      <div ng-bind-html='challenge.description'></div>
+    </div>
+  </div>
+</div>

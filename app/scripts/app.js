@@ -109,10 +109,10 @@ angular
         controller: 'UnitCtrl',
         templateUrl: 'views/unit.html'
       })
-//      .when('/run/:group/units/:unit/', {
-//        controller: 'UnitCtrl',
-//        templateUrl: 'views/loader.html'
-//      })
+      .when('/:group/challenges/:challenge/', {
+        controller: 'ChallengeCtrl',
+        templateUrl: 'views/challenge.html'
+      })
       .otherwise({
         redirectTo: '/'
       });
