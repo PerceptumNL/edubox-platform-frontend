@@ -1,5 +1,5 @@
 <div ng-controller="HomescreenCtrl" layout-fill class='homescreen'>
-  <div class="card">
+  <div class="card" ng-show='items'>
     <div class="card-content">
       <div class="row">
         <div class="col l4 m6 s12" ng-repeat='item in items'>
@@ -8,6 +8,22 @@
               <span class="card-title valign-wrapper">
                 <i class="material-icons left valign large-icon">list</i>
                 {{ item.title }}
+              </span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" ng-show='challenges'>
+    <div class="card-content">
+      <div class="row">
+        <div class="col l4 m6 s12" ng-repeat='challenge in challenges'>
+          <a class='card teal white-text hoverable' ng-click='onItemClick(challenge)'>
+            <div class="card-content">
+              <span class="card-title valign-wrapper">
+                <i class="material-icons left valign large-icon">build</i>
+                {{ challenge.title }}
               </span>
             </div>
           </a>

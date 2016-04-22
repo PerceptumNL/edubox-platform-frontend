@@ -10,9 +10,10 @@
 
 angular.module('eduraamApp')
   .controller('HomescreenCtrl', [
-      '$scope', '$routeParams', '$mdDialog', '$mdMedia', 'Units', '$location',
-        function ($scope, $routeParams, $mdDialog, $mdMedia, Units, $location) {
+      '$scope', '$routeParams', '$mdDialog', '$mdMedia', 'Units', 'Challenges', '$location',
+        function ($scope, $routeParams, $mdDialog, $mdMedia, Units, Challenges, $location) {
             $scope.items = [];
+            $scope.challenges = [];
             var groupId = parseInt($routeParams.group);
             var loginUrls = {};
 
@@ -41,6 +42,26 @@ angular.module('eduraamApp')
               }
             });
 
+            Challenges.all(groupId, function(challenges, headers){
+              var updateChallengeScopeFn = function(){
+                $scope.challenges = [];
+                for(var i = 0; i < challenges.length; i++){
+                    $scope.challenges.push({
+                        'id': challenges[i].id,
+                        'group': groupId,
+                        'title': challenges[i].label,
+                        'description':'',
+                        'type': 'challenge'
+                    });
+                }
+              };
+              if( !headers ){
+                $scope.$apply(updateChallengeScopeFn);
+              } else {
+                updateChallengeScopeFn();
+              }
+            });
+
             $scope.getTypeLabel = function(item){
               return {
                 'lesson': 'Les',
@@ -54,8 +75,10 @@ angular.module('eduraamApp')
             $scope.getItemIcon = function(item){
               return 'images/'+item.type+'.svg';
             };
-            $scope.onItemClick = function(item, ev) {
+            $scope.onItemClick = function(item) {
               if(item.type === 'challenge'){
+                $location.path('/'+groupId+'/challenges/'+item.id+'/');
+                /*
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
                 $mdDialog.show({
                   controller: function ($scope, $mdDialog) {
@@ -86,6 +109,7 @@ angular.module('eduraamApp')
                 }, function(wantsFullScreen) {
                   $scope.customFullscreen = (wantsFullScreen === true);
                 });
+                */
               }else if(item.type === 'lesson'){
                 $location.path('/'+groupId+'/units/'+item.id+'/');
               }
