@@ -1,5 +1,5 @@
 <div ng-controller="HomescreenCtrl" layout-fill class='homescreen'>
-  <div class="card" ng-show='items'>
+  <div class="card" ng-show='items.length > 0'>
     <div class="card-content">
       <div class="row">
         <div class="col l4 m6 s12" ng-repeat='item in items'>
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div class="card" ng-show='challenges'>
+  <div class="card" ng-show='challenges.length > 0'>
     <div class="card-content">
       <div class="row">
         <div class="col l4 m6 s12" ng-repeat='challenge in challenges'>
