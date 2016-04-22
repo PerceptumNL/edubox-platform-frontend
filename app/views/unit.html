@@ -12,8 +12,11 @@
       </a>
     </div>
     <div class="card-content">
+      <div class="progress" ng-hide='unit !== null'>
+        <div class="indeterminate"></div>
+      </div>
       <div ng-bind-html='unit.description'></div>
-      <div class="collection">
+      <div class="collection" ng-show='unit'>
         <a class="collection-item" ng-repeat='activity in unit.activities'
           ng-click='launchActivity(activity)' ng-switch="activity.state">
           {{ activity.label }}

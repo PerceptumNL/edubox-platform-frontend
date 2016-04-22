@@ -1,5 +1,5 @@
 <div ng-controller="GroupSelectorCtrl" layout-fill class='group_selector'>
-  <div class="card">
+  <div class="card" ng-show='groups.length > 0'>
     <div class='card-image color-block cyan'>
       <span class='card-title'>Selecteer uw groep</span>
     </div>
@@ -16,6 +16,16 @@
             </div>
           </a>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="card" ng-hide='groups.length > 0'>
+    <div class='card-image color-block blue'>
+      <span class='card-title'>Verbinding maken met de server</span>
+    </div>
+    <div class="card-content">
+      <div class="progress">
+        <div class="indeterminate"></div>
       </div>
     </div>
   </div>
