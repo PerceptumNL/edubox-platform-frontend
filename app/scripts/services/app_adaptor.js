@@ -213,6 +213,24 @@ window.CodeOrgAdaptor = function(envService, parentObj){
           activity,
           settings.data
         );
+        
+        var code = '';
+        var formSplit = settings.data.split('&');
+        for (var i = 0; i < formSplit.length; i++) {
+          if (formSplit[i].indexOf('program=') > -1) {
+            code = formSplit[i].split('=')[1];
+            break;
+          }
+        }
+        _this.storeEvent(
+          token,
+          'http://activitystrea.ms/schema/1.0/build',
+          activity,
+          {
+            'type': 'codeorg-blockly',
+            'code': code
+          }
+        );
       }
     };
 
