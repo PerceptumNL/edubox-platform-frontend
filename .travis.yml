@@ -4,8 +4,8 @@ node_js:
 - stable
 addons:
   hosts:
-    - platform.codecult.local
-    - codecult.local
+  - platform.codecult.local
+  - codecult.local
 before_script:
 - npm install -g bower grunt-cli
 - bower install
@@ -17,7 +17,7 @@ deploy:
   buildpack: ruby
   skip_cleanup: true
   api_key:
-    secure: h+G88h7Bblrqwvnm71X4GJMFMpUiThtkvyXg5Zn9ieBaP1yEORdOu8PJ5vm3Gpmef4ipuZG1hiShd+gI7zCsvmjJn++4xzfP8sUg5RIRqBJ8HEW8kuR4OX1dvjk6pg/r2jEZ4W+W30oWnN21bBiRrM609E0jOuiIqxH0/PqazbP5TDv/9oNphhh9uMsh4D/6qfvYz0SjyiSxu8R2/0YPr02I4o5EXcnTkfK5nTd4hRDJf+/uloplySDXTk6QanqY8d+knqNHCwsvgE5o6jIUhEpK7odzPqbNJfa3UEijon3o4Ses2fqaQlRlyQTMUoXaVJDPVZg+9bD+ut2JscJDLj2g6BKbfYP2HFZXYmG9EteDYjhRDBmKEr3IV7xh+caJkvKNMGVTSG/XWl7xsPNv7CW/Z1+I62QZ191hBHhK8Ca/IWuqrBgD/G2vn4NGzH9qnHbjIHXYmeFbuXAnTgKzScM75vz5JwVJBdVvV2ZMFNuyevEjQkrlbABcw2xmlBDm6WrXYqbOwjahjz7cROoHrszFaGjjEkVjiO61W8yHmWyfsQitV2Sztq9681vcQCBAVJzL4M5qYzl1I2aeifq8e+b2g6V0zMQgcxIe9I279jimZD+PkGql7UCsG5FTOpGhqn2HOzPn0iRaApuVR7jLsWMuOHfmHcCH54hXdFK3BFA=
+    secure: XiF+9kuIWpA8ryjNcRspLgbVYj9AMmrpB/mgzJWSW+khNon5icP2XJ0ip7sNJAcKsstV6frw4Sm6fQLuDYAPm8uMtDb+lx09do5gQG6ZvChukx4VYn5BCHFjWV8dLU0Z8FzQ4CTtSG2tvWT7aSapzPXrTWcsrcMaDV9wrUB7LxI0OmSURZEk1zzorZxeDSJfzxI9UoDE1oJGUdlcYNbpWKqc6aJOiyVkF8SdTtA0Y4kzsrlqtUS2osAoD0Bx85sVMRiM2vOZb9J2ETouYPc0jCZNKsPgbanH3ZywucZ6SKT7o85uRi9jOzEuag/V8ivGj5KvIE9L3YMnFmdFpCxheEnxk7ORfPqtIrOQRsn/SNwnkW+kkIke/D6fFGJojHupT3u4MWdtFigTZ7B1HRb3KdMPNDDSDrjcN3DUlUcEiWFnFWhyWyxqkMK1SVeXD6cgHBHH/H8Eip3+Igk03maItbg3iFqhK5fp1bfvmuNLxxwiYaqfINrtGPxeN3N+hiKc6cYf4CSlop0/02H9Lls35747w+hdtl5dyiUNSWNh4eE1tWk7CEw/stgUdec6HhTj090J533y6XbaCApKEwHZ+QiKfjXoUd0GUFIVjbXvlcVSUbWbvhN7LcBAAnCKsmj2lpDwQGruIsPMK0j3wqpHq+A2l3GB/V+Vu3fgaWKOpak=
   app: eduraam-frontend-staging
   on:
     branch: master
