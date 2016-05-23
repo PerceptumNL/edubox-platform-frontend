@@ -19,7 +19,7 @@ angular.module('eduraamApp')
 
         $scope.launchChallenge = function(challenge){
           AppAdaptor.setToken(challenge.token);
-          window.EDRMBrowser.open(challenge.launch);
+          window.EDRMBrowser.open(challenge.url);
         };
 
         $scope.challenge = null;
